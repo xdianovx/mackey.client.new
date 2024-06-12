@@ -1,0 +1,167 @@
+<script setup>
+import gsap from "gsap";
+import { onMounted, onUnmounted, ref } from "vue";
+const props = defineProps(["data"]);
+const isActive = ref(false);
+const isHover = ref(false);
+const header = ref();
+
+const { isHome } = storeToRefs(useIsHomePageStore());
+
+console.log(props.data?.collections);
+
+let ctx;
+let tl;
+
+const showMenu = () => {
+  isHover.value = true;
+  isActive.value = true;
+  tl.play();
+};
+const hideMenu = () => {
+  isHover.value = false;
+  isActive.value = false;
+  tl.reverse();
+};
+
+onMounted(() => {
+  ctx = gsap.context((self) => {
+    const menu = self.selector(".sub-links");
+    const link = self.selector(".link-anim");
+
+    // const link = document.querySelectorAll(".lini-anim");
+
+    // const linkCollection = self.selector(".link-collection-anim");
+
+    tl = gsap.timeline({
+      paused: true,
+      defaults: {
+        duration: 0.3,
+      },
+    });
+
+    tl.to(menu, {
+      y: 0,
+    });
+    // .from(link, {
+    //   y: -20,
+    //   opacity: 0,
+    //   stagger: 0.02,
+    // });
+    // .from(
+    //   linkCollection,
+    //   {
+    //     y: -20,
+    //     opacity: 0,
+    //     stagger: 0.02,
+    //   },
+    //   "<"
+    // );
+  }, header.value);
+});
+
+onUnmounted(() => {
+  ctx.revert();
+});
+</script>
+
+<template>
+  <div class="link" ref="header" @mouseleave="hideMenu">
+    <NuxtLink :to="`/${data.slug}`" class="parent-link" @mouseenter="showMenu">
+      {{ data.title }}
+    </NuxtLink>
+
+    <div class="sub-links" :class="{ white: !isHome }">
+      <div class="container">
+        <div class="sub-links-wrap">
+          <div class="categories">
+            <NuxtLink
+              class="link-anim"
+              :to="`/${data.slug}/${item.slug}`"
+              :key="item.id"
+              v-for="item in data.categories"
+            >
+              {{ item.title }}
+            </NuxtLink>
+          </div>
+
+          <div class="collections" v-if="data?.collections.length > 0">
+            <NuxtLink to="/kolliektsiia" class="collections-title"
+              >Коллекции</NuxtLink
+            >
+
+            <div class="collections-wrap">
+              <NuxtLink
+                :to="`/kolliektsiia/${item.slug}`"
+                class="collections-link"
+                v-for="item in data?.collections"
+              >
+                {{ item.title }}
+                {{ item.products_count }}
+              </NuxtLink>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style lang="scss" scoped>
+.link {
+  &.active {
+    background: pink;
+    color: $textWhite;
+  }
+}
+
+.collections-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.collections-link {
+}
+
+.parent-link {
+  position: relative;
+  z-index: 3;
+  // color: $textBlack;
+}
+.sub-links {
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  z-index: 1;
+  transform: translateY(-100%);
+  background: $bgBlack;
+  color: $textWhite;
+
+  &.white {
+    background: $bgWhite;
+    color: $textBlack;
+  }
+}
+
+.sub-links-wrap {
+  padding: 86px 0 120px;
+  display: flex;
+  gap: 80px;
+  padding-left: calc(10% + 84px);
+}
+
+.categories {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.collections-title {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+}
+</style>

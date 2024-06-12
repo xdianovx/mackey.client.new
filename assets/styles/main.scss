@@ -1,0 +1,38 @@
+@import "normalize.css";
+
+@import "swiper/css";
+@import "swiper/css/navigation";
+
+@import "reset";
+@import "vars";
+@import "grid";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  line-height: 140%;
+  font-size: 16px;
+  font-weight: 400;
+
+  &.active {
+    overflow-y: hidden;
+  }
+}
+
+.fancybox__backdrop {
+  background: #000 !important;
+  opacity: 0.3 !important;
+}
+
+.section {
+  &.first {
+    margin-top: 100px;
+  }
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
