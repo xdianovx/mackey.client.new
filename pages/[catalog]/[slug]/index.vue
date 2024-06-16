@@ -19,13 +19,11 @@ const params = ref({
 
 const activeCategory = categories.value.find((x) => x.slug === categorySlug);
 
-onMounted(async () => {
-  if (catalog === "men") params.value.is_man = 1;
-  if (catalog === "women") params.value.is_woman = 1;
-  if (activeCategory) params.value.categories = activeCategory.id;
+if (catalog === "men") params.value.is_man = 1;
+if (catalog === "women") params.value.is_woman = 1;
+if (activeCategory) params.value.categories = activeCategory.id;
 
-  await getAll(params.value);
-});
+getAll(params.value);
 </script>
 
 <template>
@@ -36,7 +34,7 @@ onMounted(async () => {
       <div class="container">
         <div class="wrap">
           <WidgetsProductCard
-            v-for="product in products"
+            v-for="product in products.data"
             :key="product.id"
             :data="product"
           />
@@ -73,6 +71,10 @@ onMounted(async () => {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 32px 8px;
+  }
+
+  .products-section {
+    margin-top: 60px;
   }
 }
 </style>

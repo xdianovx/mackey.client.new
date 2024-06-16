@@ -8,16 +8,23 @@ const { isHome } = storeToRefs(useIsHomePageStore());
 
 const linksStore = useMyNavigationLinksStore();
 const { links } = storeToRefs(linksStore);
+
 const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
   useMyProductPageDrawerStore()
 );
 
 const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
 
+const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
+
 useHead({
   bodyAttrs: {
     class: () => {
-      if (isProductPadeDrawerOpen.value || isFilterOpen.value) {
+      if (
+        isProductPadeDrawerOpen.value ||
+        isFilterOpen.value ||
+        isSearchOpen.value
+      ) {
         return "active";
       } else {
         return "";
@@ -32,6 +39,7 @@ useHead({
   <div class="wrap">
     <Header />
 
+    <WidgetsSearchBar />
     <slot />
 
     <Footer />

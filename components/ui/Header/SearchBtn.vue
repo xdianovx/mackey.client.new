@@ -1,10 +1,16 @@
 <script setup>
 const { isHome } = storeToRefs(useIsHomePageStore());
 const { isNavOpen } = storeToRefs(useNavOpen());
+const { isOpen: isSearchBarOpen } = storeToRefs(useIsSearchBar());
+const { open, toggle } = useIsSearchBar();
 </script>
 
 <template>
-  <button class="item" :class="{ white: !isHome, active: isNavOpen }">
+  <button
+    class="item"
+    :class="{ white: !isHome, active: isNavOpen }"
+    @click="toggle"
+  >
     <svg
       width="24"
       height="24"

@@ -38,7 +38,6 @@ await getAll();
 
         <div class="div mobile"></div>
         <div class="filters-btns">
-          <UiCatalogSort />
           <UiCatalogSortBtn @click="open" />
           <div class="div"></div>
           <UiCatalogFilterBtn @click="open" class="filters-btn-cat" />

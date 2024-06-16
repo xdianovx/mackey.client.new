@@ -5,26 +5,21 @@ import { SwiperSlide, Swiper } from "swiper/vue";
 const prev = ref(null);
 const next = ref(null);
 
-const products = ref([]);
-
 const props = defineProps(["data", "category"]);
 const route = useRoute();
 const path = route.path;
 
-const getAll = async (params) => {
-  await $fetch("http://45.135.234.37:80/api/v1/products", {
-    params: {
-      ...params,
-      "categories[]": props.category.id,
-    },
-  }).then((res) => (products.value = res));
-};
-
-await getAll();
+const gender = ref([]);
+onMounted(async () => {
+  if (path === "/men") gender.value.is_man = 1;
+  if (path === "/women") gender.value.is_woman = 1;
+  // await getAll(gender.value);
+});
 </script>
 
 <template>
-  <section class="product-slider" v-if="products.length > 0">
+  <!-- {{ category.products }} -->
+  <section class="product-slider" v-if="category.products.length > 0">
     <div class="container">
       <!-- <div class="product-slider-banners"></div> -->
 
@@ -58,7 +53,7 @@ await getAll();
             nextEl: next,
           }"
         >
-          <SwiperSlide v-for="product in products">
+          <SwiperSlide v-for="product in category.products">
             <WidgetsProductCard :key="product.id" :data="product" />
           </SwiperSlide>
         </Swiper>
@@ -138,7 +133,7 @@ await getAll();
 
 .slider-arrow-next {
   position: absolute;
-  z-index: 3;
+  z-index: 1;
   top: 0;
   right: 0;
   padding: 16px;

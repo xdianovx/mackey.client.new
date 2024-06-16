@@ -1,9 +1,12 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   // devtools: { enabled: true },
-  css: ["~/assets/styles/main.scss"],
+  css: [
+    "~/assets/styles/main.scss",
+    "primevue/resources/themes/viva-light/theme.css",
+  ],
 
-  modules: ["@pinia/nuxt"],
+  modules: ["@pinia/nuxt", "nuxt-primevue"],
 
   vite: {
     css: {
@@ -14,7 +17,11 @@ export default defineNuxtConfig({
       },
     },
   },
-
+  primevue: {
+    components: {
+      include: ["Slider"],
+    },
+  },
   build: {
     transpile: ["gsap"],
   },

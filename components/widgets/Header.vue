@@ -1,15 +1,17 @@
 <script setup>
 const { links } = storeToRefs(useMyNavigationLinksStore());
-
+const { getCategories, getCollections } = useMyNavigationLinksStore();
 const { isHome } = storeToRefs(useIsHomePageStore());
 
-import gsap from "gsap";
 import HeaderCart from "../ui/Header/HeaderCart.vue";
 import FavoriteBtn from "../ui/Header/FavoriteBtn.vue";
 import SearchBtn from "../ui/Header/SearchBtn.vue";
 import Burger from "../ui/Header/Burger.vue";
 import MobileNav from "../ui/Header/MobileNav.vue";
 import UserLogin from "../ui/Header/UserLogin.vue";
+
+getCategories();
+getCollections();
 </script>
 
 <template>
@@ -47,7 +49,7 @@ import UserLogin from "../ui/Header/UserLogin.vue";
   left: 0;
   top: 0;
   color: $textWhite;
-  z-index: 5;
+  z-index: 20;
 
   &.black {
     color: $textBlack;

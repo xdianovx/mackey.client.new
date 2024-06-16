@@ -9,29 +9,28 @@ const { getAll: getAllCategories } = useMyCategoriesStore();
 const { categories } = storeToRefs(useMyCategoriesStore());
 
 const gender = ref({
-  is_man: null,
-  is_woman: null,
+  is_man: 0,
+  is_woman: 0,
 });
 
 await getAllCategories();
 
-onMounted(async () => {
-  if (slug === "men") gender.value.is_man = 1;
-  if (slug === "women") gender.value.is_woman = 1;
-  await getAll(gender.value);
-});
+if (slug == "men") gender.value.is_man = 1;
+if (slug == "women") gender.value.is_woman = 1;
+await getAll(gender.value);
 </script>
 <template>
   <main>
     <WidgetsFilterSection :title="slug" />
 
+    <div v-for="item in categories"></div>
     <section class="product-slider-section">
       <WidgetsProductSlider
         :data="item"
         v-for="item in categories"
         :key="item.id"
         :category="item"
-        :products="products"
+        :products="item.products"
       />
     </section>
 

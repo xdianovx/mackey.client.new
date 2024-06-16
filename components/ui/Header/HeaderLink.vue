@@ -29,9 +29,7 @@ onMounted(() => {
     const menu = self.selector(".sub-links");
     const link = self.selector(".link-anim");
 
-    // const link = document.querySelectorAll(".lini-anim");
-
-    // const linkCollection = self.selector(".link-collection-anim");
+    const linkCollection = self.selector(".link-collection-anim");
 
     tl = gsap.timeline({
       paused: true,
@@ -42,21 +40,21 @@ onMounted(() => {
 
     tl.to(menu, {
       y: 0,
-    });
-    // .from(link, {
-    //   y: -20,
-    //   opacity: 0,
-    //   stagger: 0.02,
-    // });
-    // .from(
-    //   linkCollection,
-    //   {
-    //     y: -20,
-    //     opacity: 0,
-    //     stagger: 0.02,
-    //   },
-    //   "<"
-    // );
+    })
+      .from(link, {
+        y: -20,
+        opacity: 0,
+        stagger: 0.02,
+      })
+      .from(
+        linkCollection,
+        {
+          y: -20,
+          opacity: 0,
+          stagger: 0.02,
+        },
+        "<"
+      );
   }, header.value);
 });
 
@@ -86,18 +84,19 @@ onUnmounted(() => {
           </div>
 
           <div class="collections" v-if="data?.collections.length > 0">
-            <NuxtLink to="/kolliektsiia" class="collections-title"
+            <NuxtLink
+              to="/kolliektsiia"
+              class="collections-title link-collection-anim"
               >Коллекции</NuxtLink
             >
 
             <div class="collections-wrap">
               <NuxtLink
                 :to="`/kolliektsiia/${item.slug}`"
-                class="collections-link"
+                class="collections-link link-collection-anim"
                 v-for="item in data?.collections"
               >
                 {{ item.title }}
-                {{ item.products_count }}
               </NuxtLink>
             </div>
           </div>
@@ -163,5 +162,13 @@ onUnmounted(() => {
   font-size: 16px;
   font-style: normal;
   font-weight: 600;
+}
+
+.link-collection-anim {
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: $textGray;
+  }
 }
 </style>
