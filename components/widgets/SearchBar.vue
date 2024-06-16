@@ -159,10 +159,13 @@ const clearSearch = () => {
 
 .search-results {
   margin-top: 24px;
+  max-height: calc(100vh - 180px);
+  overflow-y: auto;
 }
 
 .search-results-products {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   gap: 16px;
 }
