@@ -2,38 +2,41 @@
 const route = useRoute();
 const slug = route.params.catalog;
 
-const { getAll } = useMyProductsStore();
-const { products } = storeToRefs(useMyProductsStore());
-
-const { getAll: getAllCategories } = useMyCategoriesStore();
-const { categories } = storeToRefs(useMyCategoriesStore());
-
-const gender = ref({
+const products = ref([]);
+const pageCategory = ref({
   is_man: 0,
   is_woman: 0,
 });
 
-await getAllCategories();
+if (slug == "men") pageCategory.value = "man";
+if (slug == "women") pageCategory.value = "woman";
 
-if (slug == "men") gender.value.is_man = 1;
-if (slug == "women") gender.value.is_woman = 1;
-await getAll(gender.value);
+const getProducts = () => {
+  $fetch(
+    `http://45.135.234.37:80/api/v1/categories/${pageCategory.value}`
+  ).then((res) => (products.value = res));
+};
+
+getProducts();
 </script>
 <template>
   <main>
     <WidgetsFilterSection :title="slug" />
 
-    <div v-for="item in categories"></div>
     <section class="product-slider-section">
       <WidgetsProductSlider
         :data="item"
-        v-for="item in categories"
+        v-for="item in products"
         :key="item.id"
         :category="item"
         :products="item.products"
       />
     </section>
+    <pre>
 
+      {{ products }}
+      </pre
+    >
     <WidgetsSeoText />
 
     <WidgetsFilter />

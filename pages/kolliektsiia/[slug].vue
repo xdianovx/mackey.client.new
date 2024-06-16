@@ -11,8 +11,6 @@ const getColletion = async (params) => {
 };
 
 getColletion();
-
-console.log(collection.value);
 </script>
 
 <template>

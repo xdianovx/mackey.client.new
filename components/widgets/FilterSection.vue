@@ -8,10 +8,7 @@ const catalogSlug = route.params.catalog;
 
 const { categories } = storeToRefs(useMyCategoriesStore());
 
-const { open, close } = useMyIsFilterOpenStore();
-const { isOpen } = storeToRefs(useMyIsFilterOpenStore());
-
-console.log(catalogSlug);
+const { open } = useMyIsFilterOpenStore();
 </script>
 
 <template>
