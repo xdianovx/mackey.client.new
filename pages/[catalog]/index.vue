@@ -32,11 +32,7 @@ getProducts();
         :products="item.products"
       />
     </section>
-    <pre>
 
-      {{ products }}
-      </pre
-    >
     <WidgetsSeoText />
 
     <WidgetsFilter />
