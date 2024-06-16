@@ -5,32 +5,33 @@ const slug = route.params.slug;
 const collection = ref();
 
 const getColletion = async (params) => {
-  await $fetch(
-    `http://45.135.234.37:80/api/v1/collections/${slug}/show`,
-    {}
-  ).then((res) => (collection.value = res));
+  $fetch(`http://45.135.234.37:80/api/v1/collections/${slug}/show`, {}).then(
+    (res) => (collection.value = res.data)
+  );
 };
 
-await getColletion();
+getColletion();
+
+console.log(collection.value);
 </script>
 
 <template>
   <main>
     <WidgetsFilter />
-    <WidgetsFilterSection :title="collection.title" />
+    <WidgetsFilterSection :title="collection?.title" />
     <section>
       <div class="container"></div>
     </section>
 
     <section class="coll-banner">
       <div class="image">
-        <img :src="collection.collection_banners[0].image" alt="" />
+        <img :src="collection?.collection_banners[0]?.image" alt="" />
         <div class="overflow"></div>
       </div>
       <div class="banner">
         <div class="container">
           <div class="banner-info">
-            <h2 class="banner-title">{{ collection.title }}</h2>
+            <h2 class="banner-title">{{ collection?.title }}</h2>
             <p class="banner-description">{{ collection?.description }}</p>
           </div>
         </div>

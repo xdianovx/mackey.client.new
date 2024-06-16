@@ -10,6 +10,8 @@ const { categories } = storeToRefs(useMyCategoriesStore());
 
 const { open, close } = useMyIsFilterOpenStore();
 const { isOpen } = storeToRefs(useMyIsFilterOpenStore());
+
+console.log(catalogSlug);
 </script>
 
 <template>

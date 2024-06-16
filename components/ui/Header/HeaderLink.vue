@@ -8,8 +8,6 @@ const header = ref();
 
 const { isHome } = storeToRefs(useIsHomePageStore());
 
-console.log(props.data?.collections);
-
 let ctx;
 let tl;
 

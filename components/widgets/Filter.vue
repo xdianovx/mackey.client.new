@@ -150,7 +150,7 @@ const clearFilter = () => {
   display: flex;
   flex-direction: column;
   top: 0;
-  z-index: 20;
+  z-index: 21;
   background: $bgWhite;
   transition: right 0.4s ease-in-out;
   animation-delay: 0.3s;
@@ -184,7 +184,7 @@ const clearFilter = () => {
   position: fixed;
   top: 0;
   right: -100vw;
-  z-index: 19;
+  z-index: 20;
   width: 100vw;
   height: 100vh;
   background: rgba($bgBlack, 0.2);

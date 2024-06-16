@@ -13,7 +13,6 @@ const gender = ref([]);
 onMounted(async () => {
   if (path === "/men") gender.value.is_man = 1;
   if (path === "/women") gender.value.is_woman = 1;
-  // await getAll(gender.value);
 });
 </script>
 
