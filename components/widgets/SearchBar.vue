@@ -4,6 +4,8 @@ import CloseBtn from "../ui/Filter/CloseBtn.vue";
 const { close } = useIsSearchBar();
 const { isOpen } = storeToRefs(useIsSearchBar());
 
+const { isHome } = storeToRefs(useIsHomePageStore());
+
 const searchStr = ref("");
 const searchResults = ref({
   notFound: false,
@@ -39,7 +41,7 @@ const clearSearch = () => {
 </script>
 
 <template>
-  <div class="search-item" :class="{ active: isOpen }">
+  <div class="search-item" :class="{ active: isOpen, black: isHome }">
     <div class="container">
       <div class="search-top">
         <div class="search-input">
@@ -50,7 +52,7 @@ const clearSearch = () => {
             placeholder="Поиск по makey.by"
           />
         </div>
-        <div class="search-btns">
+        <div class="search-btns" :class="{ black: isHome }">
           <CloseBtn @click="clearSearch" />
           <button
             class="search-submit"
@@ -100,7 +102,7 @@ const clearSearch = () => {
 }
 .search-item {
   background: $bgWhite;
-  padding: 32px 0 80px;
+  padding: 88px 0 80px;
   position: fixed;
   transform: translateY(-100%);
   left: 0;
@@ -108,8 +110,20 @@ const clearSearch = () => {
   z-index: 4;
   transition: transform 0.3s ease-in-out;
 
+  &.black {
+    background: $bgBlack;
+    color: $textWhite;
+
+    input {
+      color: $textWhite;
+    }
+    svg {
+      fill: white;
+      fill-opacity: 1;
+    }
+  }
   &.active {
-    transform: translateY(56px);
+    transform: translateY(0);
   }
 }
 
@@ -140,6 +154,21 @@ const clearSearch = () => {
   gap: 16px;
   svg {
     display: block;
+  }
+  &.black {
+    background: $bgBlack;
+    color: $textWhite;
+
+    svg {
+      fill: white;
+      fill-opacity: 1;
+    }
+
+    .search-submit {
+      &::before {
+        background: $textWhite;
+      }
+    }
   }
 }
 

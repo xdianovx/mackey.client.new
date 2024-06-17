@@ -6,7 +6,7 @@ export default defineNuxtConfig({
     "primevue/resources/themes/viva-light/theme.css",
   ],
 
-  modules: ["@pinia/nuxt", "nuxt-primevue"],
+  modules: ["@pinia/nuxt", "nuxt-primevue", "@nuxtjs/i18n"],
 
   vite: {
     css: {
@@ -25,4 +25,9 @@ export default defineNuxtConfig({
   build: {
     transpile: ["gsap"],
   },
+  // auth: {
+  //   provider: {
+  //     type: "local",
+  //   },
+  // },
 });

@@ -115,7 +115,7 @@ const clearFilter = () => {
               @change="addTypesToFilter(type.id)"
             />
             <label :for="type.id">{{ type.title }}</label>
-            {{ type.products_count }}
+            <!-- {{ type.products_count }} -->
           </div>
         </div>
       </div>

@@ -1,4 +1,6 @@
 <script setup>
+import MCLogo from "../icons/MCLogo.vue";
+
 const { isHome } = storeToRefs(useIsHomePageStore());
 
 const links = [
@@ -6,9 +8,12 @@ const links = [
     id: 1,
     title: "Интернет-магазин",
     links: [
-      { id: 1, title: "+375 (29) 577-22-77", link: "tel:+375 (29) 577-22-77" },
       { id: 2, title: "+375 (33) 301-70-17", link: "tel:+375 (33) 301-70-17" },
-      { id: 3, title: "shop@makey.by", link: "mailto:shop@makey.by" },
+      {
+        id: 3,
+        title: "makeyecom@yandex.by",
+        link: "mailto:makeyecom@yandex.by",
+      },
     ],
   },
   {
@@ -102,17 +107,70 @@ const links = [
       <div class="footer__bottom">
         <p class="footer__copy">Makey <span>2024</span></p>
         <p class="footer__policy">
-          Частное предприятие «МакейТорг» | 2014-2024 | 230015, Гродно,
-          ул.Горького, 87Б | пн-пт 9:30 - 18:00 УНП 591017193 | Зарегистрировано
-          Гродненским Горисполкомом 22.09.2014 №591017193 | В торг. реестре с
-          15.03.2017 №371680
+          Частное предприятие «МакейТорг» | 2014-2024 | 230015, Республика
+          Беларусь, город Гродно, ул.Горького, 87Б | пн-пт 9:30 - 18:00 УНП
+          591017193 | Зарегистрировано Гродненским Горисполкомом 22.09.2014
+          №591017193 | В торг. реестре с 15.03.2017 №371680
         </p>
+      </div>
+
+      <div class="footer-copy">
+        <div class="footer-pay-logos">
+          <IconsVisaLogo />
+          <IconsWebpayLogo />
+          <IconsVisaSecureLogo />
+          <MCLogo />
+          <IconsMCSecureLogo />
+          <IconsBelcartLogo />
+          <IconsBalcartSecureLogo />
+          <IconsEripLogo />
+        </div>
+        <a href="" download=""></a>
+        <div class="footer-copy-links" :class="{ black: !isHome }">
+          <NuxtLink to="/loupe.svg" class="footer-copy-link" external download
+            >Политика конфиденциальности</NuxtLink
+          >
+          <NuxtLink class="footer-copy-link" external download
+            >Договор публичной оферты</NuxtLink
+          >
+        </div>
       </div>
     </div>
   </footer>
 </template>
 
 <style lang="scss" scoped>
+.footer-copy {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.footer-copy-links {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  font-size: 14px;
+  gap: 16px;
+  text-decoration: underline;
+  color: rgba($bgWhite, 0.5);
+  &.black {
+    color: $textBlack;
+  }
+}
+.footer-pay-logos {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  svg {
+    display: block;
+    height: 24px;
+  }
+  img {
+    height: 24px;
+    display: block;
+  }
+}
 .footer {
   padding: 40px 0 16px;
   color: $textWhite;
@@ -199,6 +257,16 @@ const links = [
 }
 
 @media screen and (max-width: 1280px) {
+  .footer-copy {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .footer-copy-links {
+    margin-left: 0;
+    margin-top: 32px;
+  }
   .footer {
     padding: 40px 0 64px;
   }
@@ -244,6 +312,25 @@ const links = [
 }
 
 @media screen and (max-width: 768px) {
+  .footer-copy-links {
+    flex-direction: column;
+  }
+  .footer-pay-logos {
+    margin-top: 24px;
+    flex-wrap: wrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    svg {
+      display: block;
+      height: 24px;
+    }
+    img {
+      height: 24px;
+      display: block;
+    }
+  }
   .footer__nav {
     flex-direction: column;
     gap: 24px;
