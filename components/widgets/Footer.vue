@@ -127,10 +127,14 @@ const links = [
         </div>
         <a href="" download=""></a>
         <div class="footer-copy-links" :class="{ black: !isHome }">
-          <NuxtLink to="/loupe.svg" class="footer-copy-link" external download
+          <NuxtLink to="/polconf.pdf" class="footer-copy-link" external download
             >Политика конфиденциальности</NuxtLink
           >
-          <NuxtLink class="footer-copy-link" external download
+          <NuxtLink
+            to="/Publichnaya_oferta_(predlozhenie).pdf"
+            class="footer-copy-link"
+            external
+            download
             >Договор публичной оферты</NuxtLink
           >
         </div>
