@@ -21,7 +21,7 @@ getProducts();
 </script>
 <template>
   <main>
-    <WidgetsFilterSection :title="slug" />
+    <WidgetsFilterSection :title="slug" :filter="false" />
 
     <section class="product-slider-section">
       <WidgetsProductSlider

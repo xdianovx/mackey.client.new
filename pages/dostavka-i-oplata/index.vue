@@ -54,7 +54,6 @@ const payData = [
         <div class="accordition-wrap">
           <Accordition v-for="item in payData" :data="item" />
         </div>
-
         <div class="div"></div>
 
         <h2 class="title">Способы доставки</h2>

@@ -1,6 +1,9 @@
 <script setup>
 const data = defineProps({
   title: String,
+  filter: {
+    default: true,
+  },
 });
 
 const route = useRoute();
@@ -16,7 +19,7 @@ const { open } = useMyIsFilterOpenStore();
     <div class="container">
       <UiTitle tag="h1">{{ title }}</UiTitle>
 
-      <div class="filters">
+      <div v-if="filter" class="filters">
         <nav class="nav">
           <NuxtLink
             :to="`/${catalogSlug}`"
@@ -45,7 +48,7 @@ const { open } = useMyIsFilterOpenStore();
     </div>
   </section>
 
-  <UiMobileCatalogFilterBtn @click="open" />
+  <UiMobileCatalogFilterBtn @click="open" v-if="filter" />
 </template>
 
 <style lang="scss" scoped>
