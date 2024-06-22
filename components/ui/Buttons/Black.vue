@@ -1,14 +1,17 @@
 <script setup>
-const props = defineProps(["text"]);
+const props = defineProps(["text", "link"]);
 </script>
 
 <template>
-  <button class="button">
+  <NuxtLink v-if="link" :to="link" class="button" v-bind="$attrs">{{
+    text
+  }}</NuxtLink>
+  <button v-else class="button">
     {{ text }}
   </button>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss" scoped v-bind="$attrs">
 .button {
   color: $textWhite;
   background: $bgBlack;
@@ -16,5 +19,6 @@ const props = defineProps(["text"]);
   padding: 15px 30px;
   font-weight: 600;
   display: inline-block;
+  text-align: center;
 }
 </style>

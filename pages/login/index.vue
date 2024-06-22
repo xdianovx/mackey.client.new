@@ -1,5 +1,5 @@
 <template>
-  <main></main>
+  <main>asd</main>
 </template>
 
 <script setup></script>

@@ -17,6 +17,8 @@ const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
 
 const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
 
+const { isGray } = storeToRefs(useIsPageGrayStore());
+
 useHead({
   bodyAttrs: {
     class: () => {
@@ -41,7 +43,7 @@ useHead({
 
     <WidgetsSearchBar />
     <slot />
-
+    {{ isGray }}
     <Footer />
   </div>
 </template>

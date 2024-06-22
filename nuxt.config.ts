@@ -6,7 +6,12 @@ export default defineNuxtConfig({
     "primevue/resources/themes/viva-light/theme.css",
   ],
 
-  modules: ["@pinia/nuxt", "nuxt-primevue", "@nuxtjs/i18n"],
+  modules: [
+    "@pinia/nuxt",
+    "nuxt-primevue",
+    "@nuxtjs/i18n",
+    "@vee-validate/nuxt",
+  ],
 
   vite: {
     css: {
