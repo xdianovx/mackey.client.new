@@ -1,13 +1,7 @@
 <script setup>
 import Footer from "~/components/widgets/Footer.vue";
 import Header from "../components/widgets/Header";
-
-const route = useRoute();
-const isHomePageStore = useIsHomePageStore();
-const { isHome } = storeToRefs(useIsHomePageStore());
-
-const linksStore = useMyNavigationLinksStore();
-const { links } = storeToRefs(linksStore);
+const { getMe } = authStore();
 
 const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
   useMyProductPageDrawerStore()
@@ -17,7 +11,9 @@ const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
 
 const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
 
-const { isGray } = storeToRefs(useIsPageGrayStore());
+onMounted(() => {});
+
+getMe();
 
 useHead({
   bodyAttrs: {
@@ -43,7 +39,6 @@ useHead({
 
     <WidgetsSearchBar />
     <slot />
-    {{ isGray }}
     <Footer />
   </div>
 </template>

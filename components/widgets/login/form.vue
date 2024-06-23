@@ -1,28 +1,28 @@
-<script setup></script>
+<script setup>
+const { login } = authStore();
+import { Form } from "vee-validate";
+import * as Yup from "yup";
+
+const schema = Yup.object().shape({
+  phone: Yup.string().required("Обязательное поле"),
+  password: Yup.string().required("Обязательное поле"),
+});
+</script>
 
 <template>
   <div>
-    <!-- <pre>
-      {{ form }}
-    </pre> -->
-    <form
-      @submit="onSubmit"
-      :validation-schema="schema"
-      @invalid-submit="onInvalidSubmit"
-      class="login-form"
-    >
-      <div class="form">
-        <UiFormsInput v-model="form.phone" type="number" label="Телефон" />
-        <UiFormsInput v-model="form.password" type="password" label="Пароль" />
-        <UiFormsRememberMe />
-        <UiButtonsWhite text="Войти" />
-      </div>
-    </form>
+    <UiTitle tag="h2">Войти</UiTitle>
+    <Form @submit="login" :validation-schema="schema" class="login-form">
+      <UiFormsInput type="text" name="phone" label="Телефон" />
+      <UiFormsInput type="password" name="password" label="Пароль" />
+      <UiFormsRememberMe />
+      <UiButtonsWhite text="Войти" />
+    </Form>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.form {
+.login-form {
   display: flex;
   flex-direction: column;
   gap: 16px;

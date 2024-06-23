@@ -19,6 +19,7 @@ const props = defineProps(["text", "link"]);
   padding: 15px 30px;
   font-weight: 600;
   display: inline-block;
+  line-height: 100%;
   text-align: center;
 }
 </style>

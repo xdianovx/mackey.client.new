@@ -2,32 +2,8 @@
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 
-const registerData = ref({
-  first_name: "",
-  last_name: "",
-  // gender: "1",
-  phone: "",
-});
-
-// const registerPasswords = ref({
-//   password: "",
-//   password_confirmation: "",
-//   // email: "",
-//   // birthed_at: "",
-// });
-
-const responce = ref({
-  profile: {
-    id: null,
-  },
-});
-
-function onSubmit(values) {
-  $fetch("http://45.135.234.37:80/api/v1/register_step_one", {
-    method: "POST",
-    body: values,
-  }).then((res) => (responce.value = res));
-}
+const { registerStepOne, registerStepTwo } = authStore();
+const { userData } = storeToRefs(authStore());
 
 function onSubmitPasswords(values) {
   $fetch(
@@ -61,6 +37,10 @@ const schemaPasswords = Yup.object().shape({
   <main>
     <section class="step">
       <div class="container">
+        <pre
+          >{{ userData }}
+</pre
+        >
         <div class="stepper">
           <div class="title">
             <UiTitle tag="h2" class="step-title"
@@ -68,23 +48,15 @@ const schemaPasswords = Yup.object().shape({
             >
           </div>
 
-          <div class="step-1" v-if="responce.profile?.id === null">
-            <Form @submit="onSubmit" :validation-schema="schema" class="form">
-              <UiFormsInput
-                name="first_name"
-                label="Имя"
-                v-model="registerData.first_name"
-              />
-              <UiFormsInput
-                label="Фамилия"
-                name="last_name"
-                v-model="registerData.last_name"
-              />
-              <UiFormsInput
-                label="Номер телефона"
-                name="phone"
-                v-model="registerData.phone"
-              />
+          <div class="step-1" v-if="!userData.profile?.id">
+            <Form
+              @submit="registerStepOne"
+              :validation-schema="schema"
+              class="form"
+            >
+              <UiFormsInput name="first_name" label="Имя" />
+              <UiFormsInput label="Фамилия" name="last_name" />
+              <UiFormsInput label="Номер телефона" name="phone" />
               <UiButtonsBlack
                 type="submit"
                 class="form-btn"
@@ -95,7 +67,7 @@ const schemaPasswords = Yup.object().shape({
 
           <div class="step-2" v-else>
             <Form
-              @submit="onSubmitPasswords"
+              @submit="registerStepTwo"
               :validation-schema="schemaPasswords"
               class="form"
             >

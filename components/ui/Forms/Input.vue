@@ -69,10 +69,11 @@ const {
   gap: 8px;
   input {
     appearance: none;
+    background: $bgWhite;
     width: 100%;
     padding: 14px;
     border-radius: 12px;
-    border: 1px solid rgba($bgBlack, 0.3);
+    border: 1px solid rgba($bgBlack, 0.2);
   }
 
   &.has-error {
