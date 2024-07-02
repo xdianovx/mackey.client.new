@@ -16,6 +16,7 @@
     "@sidebase/nuxt-auth": "^0.7.2",
     "@vee-validate/nuxt": "^4.13.1",
     "gsap": "^3.12.5",
+    "maska": "^3.0.0-beta4",
     "normalize.css": "^8.0.1",
     "nuxt": "^3.11.2",
     "nuxt-primevue": "^3.0.0",

@@ -229,7 +229,7 @@ const next = ref(null);
   );
   background-blend-mode: luminosity, normal;
   color: $textWhite;
-  display: block;
+  display: inline-block;
   margin-top: 32px;
 }
 

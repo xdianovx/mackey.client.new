@@ -2,21 +2,12 @@
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 
-const { registerStepOne, registerStepTwo } = authStore();
-const { userData } = storeToRefs(authStore());
+definePageMeta({
+  middleware: ["is-logged-in"],
+});
 
-function onSubmitPasswords(values) {
-  $fetch(
-    `http://45.135.234.37:80/api/v1/register_step_two/users/${responce.value.profile?.id}`,
-    {
-      method: "POST",
-      body: values,
-    }
-  ).then((res) => {
-    responce.value = res;
-    // const token = useCookie("auth-token", registerData.access_token);
-  });
-}
+const { registerStepOne, registerStepTwo } = authStore();
+const { userData, emailError, isLoading, smsError } = storeToRefs(authStore());
 
 const schema = Yup.object().shape({
   first_name: Yup.string().required("Обязательное поле"),
@@ -37,18 +28,14 @@ const schemaPasswords = Yup.object().shape({
   <main>
     <section class="step">
       <div class="container">
-        <pre
-          >{{ userData }}
-</pre
-        >
-        <div class="stepper">
+        <div class="stepper" :class="{ muted: isLoading }">
           <div class="title">
             <UiTitle tag="h2" class="step-title"
-              >Создание нового профиля</UiTitle
-            >
+              >Создание нового профиля
+            </UiTitle>
           </div>
 
-          <div class="step-1" v-if="!userData.profile?.id">
+          <div class="step-1" v-if="!userData?.phone_confirmed">
             <Form
               @submit="registerStepOne"
               :validation-schema="schema"
@@ -56,16 +43,32 @@ const schemaPasswords = Yup.object().shape({
             >
               <UiFormsInput name="first_name" label="Имя" />
               <UiFormsInput label="Фамилия" name="last_name" />
-              <UiFormsInput label="Номер телефона" name="phone" />
+              <UiFormsInput
+                label="Номер телефона"
+                name="phone"
+                placeholder="+375 (__) ___ __ __"
+              />
               <UiButtonsBlack
                 type="submit"
                 class="form-btn"
                 text="Продолжить"
               />
             </Form>
+
+            <div class="errors">
+              <UiFormsErrorItem v-if="smsError?.error?.phone">
+                Этот номер уже зарегестирован в системе
+              </UiFormsErrorItem>
+
+              <UiFormsErrorItem v-if="smsError?.message">
+                Мы не можем подтвердить этот номер
+              </UiFormsErrorItem>
+            </div>
+
+            <UiRegisterPhoneConfirmation v-if="userData?.profile" />
           </div>
 
-          <div class="step-2" v-else>
+          <div class="step-2" v-if="userData?.phone_confirmed">
             <Form
               @submit="registerStepTwo"
               :validation-schema="schemaPasswords"
@@ -91,6 +94,15 @@ const schemaPasswords = Yup.object().shape({
                 text="Продолжить"
               />
             </Form>
+
+            <div class="errors">
+              <UiFormsErrorItem v-if="smsError?.error?.phone">
+                Этот номер уже зарегестирован в системе
+              </UiFormsErrorItem>
+              <UiFormsErrorItem v-if="emailError?.error?.email">
+                Такой e-mail уже зарегестирован
+              </UiFormsErrorItem>
+            </div>
           </div>
         </div>
       </div>
@@ -101,6 +113,7 @@ const schemaPasswords = Yup.object().shape({
 <style lang="scss" scoped>
 .step {
   margin-top: 150px;
+
   .container {
     height: 100%;
   }
@@ -117,6 +130,12 @@ const schemaPasswords = Yup.object().shape({
   max-width: 440px;
   width: 100%;
   margin: 0 auto;
+  transition: opacity 0.2s ease-in-out;
+
+  &.muted {
+    opacity: 0.3;
+    pointer-events: none;
+  }
 }
 
 .form-btn {
@@ -127,6 +146,16 @@ const schemaPasswords = Yup.object().shape({
   display: flex;
   flex-direction: column;
   gap: 16px;
+}
+
+.error {
+  margin-top: 8px;
+  padding: 12px 16px 11px;
+  border-radius: 8px;
+  background: rgba($bgRed, 0.1);
+  line-height: 100%;
+  border: 1px solid $bgRed;
+  color: $bgRed;
 }
 
 @media screen and (max-width: 1200px) {

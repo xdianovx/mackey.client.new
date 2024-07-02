@@ -88,9 +88,9 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
           <div class="div"></div>
 
           <div class="links">
-            <UiProductPageInfoLink text="Наличие в магазинах" />
+            <!-- <UiProductPageInfoLink text="Наличие в магазинах" /> -->
             <UiProductPageInfoLink text="Описание и детали" @click="open" />
-            <UiProductPageInfoLink text="Отзывы" :count="3" />
+            <!-- <UiProductPageInfoLink text="Отзывы" :count="3" /> -->
           </div>
         </div>
       </div>

@@ -24,6 +24,10 @@ const props = defineProps({
     type: String,
     default: "",
   },
+  mask: {
+    type: String,
+    default: "",
+  },
 });
 const name = toRef(props, "name");
 const model = defineModel();
@@ -67,6 +71,7 @@ const {
   flex-direction: column;
   position: relative;
   gap: 8px;
+
   input {
     appearance: none;
     background: $bgWhite;

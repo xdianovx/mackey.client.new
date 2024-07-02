@@ -67,46 +67,27 @@ const clearFilter = () => {
         <UiFilterCloseBtn @click="close" />
       </div>
 
+      <!-- {{ params }} -->
       <div class="inner">
-        <!-- <pre>
-        {{ params }}
-      </pre 
-        >
-        -->
-        <!-- 
-        <div class="price">
-          <div>{{ products.meta?.min_price }}</div>
-          <Slider
-            range
-            :max="products.meta?.min_price"
-            :min="products.meta?.max_price"
-            v-model="priceRange"
-            class="w-56"
-            @change="priceTrigger"
-          />
-          <div>{{ products.meta?.max_price }}</div>
-        </div> -->
-
-        <div class="price">
-          <input type="number" v-model="params.price_min" />
-          <input type="number" v-model="params.price_max" />
-        </div>
-        <br />
-        <br />
-        <br />
-        <br />
         <div class="checkbox">
           <input
             type="checkbox"
             id="newcheck"
             v-model="params.is_new"
             :true-value="1"
-            :false-value="null"
+            :false-value="0"
           />
           <label for="newcheck">Новинка</label>
         </div>
-
-        <div class="types-filter">
+        <UiFilterDropdown title="Цена">
+          <div class="price">
+            <input type="number" v-model="params.price_min" />
+            <input type="number" v-model="params.price_max" />
+          </div>
+        </UiFilterDropdown>
+        <UiFilterDropdown title="Категория">isok </UiFilterDropdown>
+        <UiFilterDropdown title="Коллекция">isok </UiFilterDropdown>
+        <UiFilterDropdown title="Тип">
           <div class="checkbox" v-for="type in types">
             <input
               type="checkbox"
@@ -115,9 +96,8 @@ const clearFilter = () => {
               @change="addTypesToFilter(type.id)"
             />
             <label :for="type.id">{{ type.title }}</label>
-            <!-- {{ type.products_count }} -->
           </div>
-        </div>
+        </UiFilterDropdown>
       </div>
     </div>
     <div class="filter__bottom">
@@ -141,6 +121,7 @@ const clearFilter = () => {
 .types-filter {
   margin-top: 40px;
 }
+
 .filter {
   position: fixed;
   height: 100vh;
@@ -202,12 +183,15 @@ const clearFilter = () => {
 
 .inner {
   margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .checkbox {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
 }
 
 .types-filter {

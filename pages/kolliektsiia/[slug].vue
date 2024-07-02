@@ -16,7 +16,13 @@ getColletion();
 <template>
   <main>
     <WidgetsFilter />
-    <WidgetsFilterSection :title="collection?.title" />
+    <section class="section">
+      <div class="container">
+        <UiTitle tag="h1">{{ collection.title }}</UiTitle>
+      </div>
+    </section>
+
+    <!-- <WidgetsFilterSection :title="collection?.title" /> -->
     <section>
       <div class="container"></div>
     </section>
@@ -53,6 +59,9 @@ getColletion();
 </template>
 
 <style lang="scss" scoped>
+.section {
+  margin-top: 100px;
+}
 .coll-banner {
   margin-top: 32px;
   position: relative;
