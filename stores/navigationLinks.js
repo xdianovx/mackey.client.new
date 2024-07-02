@@ -41,23 +41,31 @@ export const useMyNavigationLinksStore = defineStore(
       },
     ]);
 
-    const getCategories = () => {
-      $fetch("http://45.135.234.37:80/api/v1/categories").then((res) => {
+    const loading = ref(false);
+
+    const getCategories = async () => {
+      loading.value = true;
+      await $fetch("http://45.135.234.37:80/api/v1/categories").then((res) => {
         links.value[0].categories = res;
         links.value[1].categories = res;
+        loading.value = false;
       });
     };
 
-    const getCollections = () => {
-      $fetch("http://45.135.234.37:80/api/v1/collections").then((res) => {
+    const getCollections = async () => {
+      loading.value = true;
+      await $fetch("http://45.135.234.37:80/api/v1/collections").then((res) => {
         links.value[0].collections = res;
         links.value[1].collections = res;
+        loading.value = false;
       });
     };
 
-    // getCategories();
-    // getCollections();
+    const getAll = async () => {
+      await getCategories();
+      await getCollections();
+    };
 
-    return { links, getCategories, getCollections };
+    return { links, getCategories, getCollections, getAll, loading };
   }
 );

@@ -1,6 +1,6 @@
 <script setup>
-const { links } = storeToRefs(useMyNavigationLinksStore());
-const { getCategories, getCollections } = useMyNavigationLinksStore();
+const { links, loading } = storeToRefs(useMyNavigationLinksStore());
+const { getCategories, getCollections, getAll } = useMyNavigationLinksStore();
 const { isHome } = storeToRefs(useIsHomePageStore());
 
 import HeaderCart from "../ui/Header/HeaderCart.vue";
@@ -10,8 +10,10 @@ import Burger from "../ui/Header/Burger.vue";
 import MobileNav from "../ui/Header/MobileNav.vue";
 import UserLogin from "../ui/Header/UserLogin.vue";
 
-getCategories();
-getCollections();
+// getCategories();
+// getCollections();
+
+await getAll();
 </script>
 
 <template>
@@ -21,7 +23,12 @@ getCollections();
       <div class="header__wrap">
         <UiHeaderLogo />
         <nav class="header__nav">
-          <UiHeaderLink v-for="item in links" :key="item.id" :data="item" />
+          <UiHeaderLink
+            v-if="!loading"
+            v-for="item in links"
+            :key="item.id"
+            :data="item"
+          />
         </nav>
 
         <div class="header__btns">

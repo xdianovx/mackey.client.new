@@ -1,12 +1,11 @@
 <script setup>
-import gsap from "gsap";
 import { onMounted, onUnmounted, ref } from "vue";
+import gsap from "gsap";
 const props = defineProps(["data"]);
 const isActive = ref(false);
 const isHover = ref(false);
-const header = ref();
-
 const { isHome } = storeToRefs(useIsHomePageStore());
+const header = ref();
 
 let ctx;
 let tl;
@@ -72,6 +71,7 @@ onUnmounted(() => {
         <div class="sub-links-wrap">
           <div class="categories">
             <NuxtLink
+              @click="hideMenu"
               class="link-anim"
               :to="`/${data.slug}/${item.slug}`"
               :key="item.id"
@@ -81,8 +81,9 @@ onUnmounted(() => {
             </NuxtLink>
           </div>
 
-          <div class="collections" v-if="data?.collections.length > 0">
+          <div class="collections" v-if="data?.collections">
             <NuxtLink
+              @click="hideMenu"
               to="/kolliektsiia"
               class="collections-title link-collection-anim"
               >Коллекции</NuxtLink
@@ -90,6 +91,7 @@ onUnmounted(() => {
 
             <div class="collections-wrap">
               <NuxtLink
+                @click="hideMenu"
                 :to="`/kolliektsiia/${item.slug}`"
                 class="collections-link link-collection-anim"
                 v-for="item in data?.collections"

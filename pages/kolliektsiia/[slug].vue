@@ -18,7 +18,7 @@ getColletion();
     <WidgetsFilter />
     <section class="section">
       <div class="container">
-        <UiTitle tag="h1">{{ collection.title }}</UiTitle>
+        <UiTitle tag="h1">{{ collection?.title }}</UiTitle>
       </div>
     </section>
 
