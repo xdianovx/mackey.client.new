@@ -5,52 +5,60 @@ const { isOpen } = storeToRefs(useMyIsFilterOpenStore());
 const { getSort } = useMyProductsStore();
 const { products } = storeToRefs(useMyProductsStore());
 
-const { categories } = storeToRefs(useMyCategoriesStore());
-const { getAll: getCategories } = useMyCategoriesStore();
-
 const { types } = storeToRefs(useMyTypesStore());
 const { getAll: getTypes } = useMyTypesStore();
 
+const { getAll: getCollections } = useMyCollectionsStore();
+const { collections } = storeToRefs(useMyCollectionsStore());
+
 const route = useRoute();
 const catalog = route.params.catalog;
-const categorySlug = route.params.slug;
 
 const params = ref({
-  // "categories[]=": [categories.value.find((x) => x.slug == categorySlug).id],
   "types[]=": [],
+  "collections[]=": [],
   price_min: products.value.meta?.min_price,
   price_max: products.value.meta?.max_price,
   is_new: null,
 });
 
 const addTypesToFilter = (id) => {
-  if (params.value["types[]="].includes(id)) {
-    params.value["types[]="].pop(id);
+  if (params.value["types[]="]?.includes(id)) {
+    params.value["types[]="].splice(params.value["types[]="].indexOf(id), 1);
   } else {
-    params.value["types[]="].push(id);
+    params.value["types[]="]?.push(id);
   }
 };
 
-await getCategories();
+const addCollectionsToFilter = (id) => {
+  if (params.value["collections[]="]?.includes(id)) {
+    params.value["collections[]="].splice(
+      params.value["collections[]="].indexOf(id),
+      1
+    );
+  } else {
+    params.value["collections[]="]?.push(id);
+  }
+};
+
 await getTypes();
+await getCollections();
+// await getColors();
 
 params.value.price_min = products.value.meta?.min_price;
 params.value.price_max = products.value.meta?.max_price;
-
-// await getColors();
 
 if (catalog == "men") params.value.is_man = 1;
 if (catalog == "women") params.value.is_woman = 1;
 
 const filterHandler = async () => {
   getSort(params.value);
+  close();
 };
 
 const clearFilter = () => {
   params.value.is_new = null;
-  params.value["categories[]="] = [
-    categories.value.find((x) => x.slug == categorySlug).id,
-  ];
+
   params.value["types[]="] = [];
   params.value.price_min = 0;
   params.value.price_max = products.value.meta.max_price;
@@ -67,7 +75,6 @@ const clearFilter = () => {
         <UiFilterCloseBtn @click="close" />
       </div>
 
-      <!-- {{ params }} -->
       <div class="inner">
         <div class="checkbox">
           <input
@@ -81,12 +88,33 @@ const clearFilter = () => {
         </div>
         <UiFilterDropdown title="Цена">
           <div class="price">
-            <input type="number" v-model="params.price_min" />
-            <input type="number" v-model="params.price_max" />
+            <div class="price-input">
+              <label for="">От</label>
+              <input type="number" v-model="params.price_min" />
+            </div>
+            <div class="price-input">
+              <label for="">До</label>
+              <input type="number" v-model="params.price_max" />
+            </div>
           </div>
         </UiFilterDropdown>
-        <UiFilterDropdown title="Категория">isok </UiFilterDropdown>
-        <UiFilterDropdown title="Коллекция">isok </UiFilterDropdown>
+
+        <!-- Collection -->
+        <UiFilterDropdown title="Коллекция">
+          <div class="collection-wrap">
+            <div class="checkbox" v-for="type in collections">
+              <input
+                type="checkbox"
+                :id="type.id"
+                :checked="params['collections[]='].includes(type.id)"
+                @change="addCollectionsToFilter(type.id)"
+              />
+              <label :for="type.id">{{ type.title }}</label>
+            </div>
+          </div>
+        </UiFilterDropdown>
+
+        <!-- Type -->
         <UiFilterDropdown title="Тип">
           <div class="checkbox" v-for="type in types">
             <input
@@ -140,6 +168,16 @@ const clearFilter = () => {
   }
 }
 
+.price-input {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  label {
+    font-size: 14px;
+    font-weight: 600;
+  }
+}
+
 .filter__wrap {
   padding: 40px 80px;
 }
@@ -185,7 +223,7 @@ const clearFilter = () => {
   margin-top: 40px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 32px;
 }
 
 .checkbox {
@@ -215,6 +253,12 @@ const clearFilter = () => {
   .p-slider {
     flex-grow: 1;
   }
+}
+
+.collection-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
 }
 
 @media screen and (max-width: 1440px) {

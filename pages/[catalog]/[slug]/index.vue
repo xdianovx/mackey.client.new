@@ -32,7 +32,7 @@ getAll(params.value);
 
     <section class="products-section">
       <div class="container">
-        <div class="wrap">
+        <div class="wrap" v-if="products.data?.length > 0">
           <WidgetsProductCard
             v-for="product in products.data"
             :key="product.id"
@@ -63,6 +63,9 @@ getAll(params.value);
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 40px 16px;
+  }
+
+  .not-found {
   }
 }
 

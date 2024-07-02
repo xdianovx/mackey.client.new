@@ -2,7 +2,7 @@
 import gsap from "gsap";
 
 const props = defineProps(["title"]);
-const isOpen = ref(false);
+const isOpen = ref(true);
 
 const item = ref();
 let ctx;
@@ -24,7 +24,7 @@ onMounted(() => {
     const content = self.selector(".content");
 
     gsap.set(content, {
-      height: 0,
+      height: "auto",
     });
 
     tl = gsap.timeline({
@@ -36,7 +36,7 @@ onMounted(() => {
     });
 
     tl.to(content, {
-      height: "auto",
+      height: 0,
     });
   }, item.value);
 });
