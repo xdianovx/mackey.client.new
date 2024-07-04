@@ -30,4 +30,10 @@
     display: block;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .button {
+    display: none;
+  }
+}
 </style>

@@ -136,6 +136,7 @@ const { open } = useMyIsFilterOpenStore();
     margin-left: 0;
     .div {
       display: none;
+      display: none;
     }
   }
   .filters-btn-cat {
