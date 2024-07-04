@@ -6,16 +6,13 @@ export default defineNuxtConfig({
     },
   },
   // devtools: { enabled: true },
-  css: [
-    "~/assets/styles/main.scss",
-    "primevue/resources/themes/viva-light/theme.css",
-  ],
-
+  css: ["~/assets/styles/main.scss"],
+  extends: ["nuxt-modal"],
   modules: [
     "@pinia/nuxt",
-    "nuxt-primevue",
     "@nuxtjs/i18n",
     "@vee-validate/nuxt",
+    "@vueuse/nuxt",
   ],
 
   vite: {
@@ -27,11 +24,7 @@ export default defineNuxtConfig({
       },
     },
   },
-  primevue: {
-    components: {
-      include: ["Slider"],
-    },
-  },
+
   build: {
     transpile: ["gsap"],
   },

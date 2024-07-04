@@ -4,6 +4,13 @@ export const useIsPageGrayStore = defineStore("myIsPageGrayStore", () => {
   const route = useRoute();
   const isGray = ref(false);
 
+  const pagesList =
+    route.path === "/profile" ||
+    route.path === "/profile/edit" ||
+    route.path === "/profile/adreses" ||
+    route.path === "/register" ||
+    route.path === "/checkout";
+
   function setIsGray() {
     isGray.value = true;
   }
@@ -12,27 +19,16 @@ export const useIsPageGrayStore = defineStore("myIsPageGrayStore", () => {
     isGray.value = false;
   }
 
-  if (
-    route.path === "/profile" ||
-    route.path === "/profile/edit" ||
-    route.path === "/register"
-  ) {
+  if (pagesList) {
     setIsGray();
   } else {
     setIsNotGray();
   }
-  console.log(route.path);
 
   watch(
     () => route.path,
     () => {
-      if (
-        route.path === "/profile" ||
-        route.path === "/profile/edit" ||
-        route.path === "/register"
-      ) {
-        console.log(route.path);
-
+      if (pagesList) {
         setIsGray();
       } else {
         setIsNotGray();

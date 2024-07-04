@@ -27,5 +27,10 @@
     "vue": "^3.4.27",
     "vue-router": "^4.3.2",
     "yup": "^1.4.0"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^10.11.0",
+    "@vueuse/nuxt": "^10.11.0",
+    "nuxt-modal": "^1.0.2"
   }
 }

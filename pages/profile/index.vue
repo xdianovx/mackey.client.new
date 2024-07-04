@@ -1,10 +1,15 @@
 <script setup>
-const { isGray } = storeToRefs(useIsPageGrayStore());
-const { userData } = storeToRefs(authStore());
-
 definePageMeta({
   middleware: ["auth"],
 });
+
+const { isGray } = storeToRefs(useIsPageGrayStore());
+const { userData } = storeToRefs(authStore());
+
+const { getAll: getOrders } = ordersStore();
+const { orders } = storeToRefs(ordersStore());
+
+await getOrders();
 </script>
 
 <template>
@@ -16,9 +21,24 @@ definePageMeta({
       <div class="container">
         <div class="widgets__wrap">
           <WidgetsProfileWidget text="Постоянная скидка" />
-          <WidgetsProfileWidget link="/profie/" text="Мои промокоды" />
-          <WidgetsProfileWidget link="/profie/" text="Мои адреса доставки" />
-          <WidgetsProfileWidget link="/profie/" text="История заказов" />
+          <WidgetsProfileWidget link="/profile/" text="Мои промокоды" />
+          <WidgetsProfileWidget
+            link="/profile/adreses"
+            text="Мои адреса доставки"
+          />
+          <WidgetsProfileWidget link="/profile/" text="История заказов" />
+        </div>
+      </div>
+    </section>
+
+    <section class="orders-section">
+      <div class="container">
+        <div class="orders-wrap">
+          <WidgetsProfileOrder
+            :data="item"
+            v-for="item in orders"
+            :key="item.id"
+          />
         </div>
       </div>
     </section>
@@ -42,6 +62,16 @@ definePageMeta({
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 16px;
+}
+
+.orders-section {
+  margin-top: 64px;
+}
+
+.orders-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
 }
 
 @media screen and (max-width: 1200px) {

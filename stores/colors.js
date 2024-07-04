@@ -1,13 +1,16 @@
-// import { defineStore } from "pinia";
+import { defineStore } from "pinia";
+import { API_ROUTE } from "~/lib/constants";
 
-// export const useColorsStore = defineStore("myColorsStore", () => {
-//   const colors = ref([]);
+export const colorsStore = defineStore("myColorsStore", () => {
+  const colors = ref([]);
 
-//   const getAll = async () => {
-//     await $fetch("http://45.135.234.37:80/api/v1/colors", {}).then(
-//       (res) => (colors.value = res)
-//     );
-//   };
+  const getAll = async () => {
+    await $fetch(API_ROUTE + "/colors", {}).then((res) => {
+      colors.value = res;
+    });
+  };
 
-//   return { colors, getAll };
-// });
+  getAll();
+
+  return { colors, getAll };
+});

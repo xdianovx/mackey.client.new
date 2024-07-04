@@ -20,13 +20,13 @@ onMounted(async () => {
   <!-- {{ category.products }} -->
   <section class="product-slider" v-if="category.products.length > 0">
     <div class="container">
-      <!-- <div class="product-slider-banners"></div> -->
 
       <div class="product-slider__top">
         <h2 class="product-slider__title">{{ category.title }}</h2>
         <NuxtLink :to="`${path}/${category.slug}`" class="product-slider__link"
           >Смотреть все</NuxtLink
         >
+
       </div>
       <div class="product-slider__wrap">
         <Swiper

@@ -1,11 +1,11 @@
+<script setup></script>
+
 <template>
   <main>
     <SectionsIndexHero />
     <WidgetsSeoText />
   </main>
 </template>
-
-<script setup></script>
 
 <style lang="scss" scoped>
 .section {

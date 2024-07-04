@@ -8,6 +8,7 @@ export const authStore = defineStore("authStore", () => {
   const smsError = ref();
   const phoneConfirmationError = ref("");
   const loginError = ref();
+
   const token = ref("");
   const cookie = useCookie("auth-token", {
     maxAge: 365 * 24 * 60 * 60,
@@ -29,23 +30,6 @@ export const authStore = defineStore("authStore", () => {
       })
       .catch((e) => {});
   };
-
-  // const registerStepOne = (values) => {
-  //   isLoading.value = true;
-  //   useFetch("http://45.135.234.37:80/api/v1/register_step_one", {
-  //     method: "POST",
-  //     body: values,
-  //     onResponse({ request, response, options }) {
-  //       if (response.ok) {
-  //         userData.value = response._data;
-  //         isLoading.value = false;
-  //       } else {
-  //         isLoading.value = false;
-  //         error.value = response._data.error.phone[0];
-  //       }
-  //     },
-  //   });
-  // };
 
   const registerStepTwo = async (values) => {
     isLoading.value = true;

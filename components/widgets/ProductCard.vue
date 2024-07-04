@@ -1,5 +1,9 @@
 <script setup>
+import { cartStore } from "~/stores/cart.js";
+
 const props = defineProps(["data"]);
+
+const { addToCart } = cartStore();
 
 import { Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/vue";
@@ -10,7 +14,7 @@ const next = ref(null);
 
 <template>
   <div class="card">
-    <UiProductCardLikeBtn />
+    <UiProductCardLikeBtn @click="addToCart(data.id)" />
     <UiProductCardNewLabel v-if="data.is_new" />
     <NuxtLink :to="`/product/${data.slug}`" class="image">
       <ClientOnly>
@@ -98,6 +102,7 @@ const next = ref(null);
     .btn-prev {
       left: 0;
     }
+
     .btn-next {
       right: 0;
     }
@@ -156,6 +161,7 @@ const next = ref(null);
   z-index: 1;
   transition: all 0.2s ease-in-out;
 }
+
 .btn-next {
   position: absolute;
   width: 32px;

@@ -2,6 +2,8 @@
 const route = useRoute();
 const slug = route.params.catalog;
 
+const { getAll } = cartStore();
+
 const products = ref([]);
 const pageCategory = ref({
   is_man: 0,
@@ -19,10 +21,10 @@ const getProducts = () => {
 
 getProducts();
 </script>
+
 <template>
   <main>
     <WidgetsFilterSection :title="slug" :filter="false" />
-
     <section class="product-slider-section">
       <WidgetsProductSlider
         :data="item"
