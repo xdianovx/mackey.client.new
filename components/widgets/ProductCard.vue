@@ -174,4 +174,14 @@ const next = ref(null);
   right: -32px;
   transition: all 0.2s ease-in-out;
 }
+
+@media screen and (max-width: 1200px) {
+  .btn-prev {
+    display: none;
+  }
+
+  .btn-next {
+    display: none;
+  }
+}
 </style>

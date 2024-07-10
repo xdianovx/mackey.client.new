@@ -20,14 +20,23 @@ onMounted(async () => {
   <!-- {{ category.products }} -->
   <section class="product-slider" v-if="category.products.length > 0">
     <div class="container">
-
       <div class="product-slider__top">
         <h2 class="product-slider__title">{{ category.title }}</h2>
         <NuxtLink :to="`${path}/${category.slug}`" class="product-slider__link"
           >Смотреть все</NuxtLink
         >
-
       </div>
+
+      <div class="banner" v-if="category?.category_banners.length > 0">
+        <div class="banner-desk">
+          <img :src="category?.category_banners[0].image" alt="" />
+        </div>
+
+        <div class="banner-mob">
+          <img :src="category?.category_banners[0].image_mob" alt="" />
+        </div>
+      </div>
+
       <div class="product-slider__wrap">
         <Swiper
           class="swiper"
@@ -103,6 +112,24 @@ onMounted(async () => {
   position: relative;
 }
 
+.banner {
+  margin-bottom: 20px;
+  margin-top: 16px;
+  border-radius: 8px;
+  aspect-ratio: 16/9;
+  overflow: hidden;
+
+  img {
+    object-fit: cover;
+    width: 100%;
+    display: block;
+    height: 100%;
+  }
+}
+
+.banner-mob {
+  display: none;
+}
 .swiper {
   width: 100%;
 }
@@ -193,6 +220,24 @@ onMounted(async () => {
 @media screen and (max-width: 768px) {
   .product-slider__top {
     justify-content: space-between;
+    margin-top: 0;
+  }
+
+  .product-slider__wrap {
+    // margin-top: 0;
+    margin-top: 16px;
+  }
+
+  .banner {
+    margin-bottom: 8px;
+    // border-radius: 4px;
+  }
+
+  .banner-desk {
+    display: none;
+  }
+  .banner-mob {
+    display: block;
   }
 }
 </style>
