@@ -52,7 +52,7 @@ const toggle = () => {
   max-height: 0;
 
   &.active {
-    max-height: 500px;
+    max-height: max-content;
   }
 }
 
