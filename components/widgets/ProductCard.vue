@@ -34,7 +34,7 @@ const next = ref(null);
             v-for="img in data.product_files"
             :key="img.id"
           >
-            <img
+            <NuxtImg
               :src="img.file"
               :alt="`фотография ${data.title}`"
               v-if="useGetFileExtention(img.file) == 'webp'"

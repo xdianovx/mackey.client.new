@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
+    "@nuxt/image"
   ],
 
   vite: {

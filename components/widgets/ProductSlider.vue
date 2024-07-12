@@ -29,7 +29,7 @@ onMounted(async () => {
 
       <div class="banner" v-if="category?.category_banners.length > 0">
         <div class="banner-desk">
-          <img :src="category?.category_banners[0].image" alt="" />
+          <NuxtImg :src="category?.category_banners[0].image" alt="" />
         </div>
 
         <div class="banner-mob">

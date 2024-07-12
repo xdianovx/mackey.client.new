@@ -68,7 +68,7 @@ const props = defineProps(["data"]);
 }
 
 .aside-inner {
-  padding: 48px 80px;
+  padding: 64px 80px;
 }
 
 .top {
