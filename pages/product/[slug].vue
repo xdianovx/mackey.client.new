@@ -10,14 +10,21 @@ const { open } = useMyProductPageDrawerStore();
 
 const { isOpen } = storeToRefs(useMyProductPageDrawerStore());
 
+const { addToCart } = cartStore();
+
+const productRef = ref();
+
 await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
-  (res) => (product.value = res)
+  (res) => {
+    product.value = res;
+  },
 );
 </script>
 
 <template>
   <main>
     <UiProductPageInfoDrawer :data="product" />
+
     <section class="product-page">
       <ul class="breadcrumbs">
         <li></li>
@@ -81,7 +88,10 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
           </div>
 
           <div class="buttons">
-            <UiButtonsBlack text="Добавить в корзину" />
+            <UiButtonsBlack
+              text="Добавить в корзину"
+              @click="addToCart(product.id)"
+            />
             <UiButtonsApple />
           </div>
 
