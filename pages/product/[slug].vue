@@ -17,7 +17,7 @@ const productRef = ref();
 await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
   (res) => {
     product.value = res;
-  },
+  }
 );
 </script>
 
@@ -80,11 +80,13 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
 
           <div class="color">
             <div class="color-title">Цвета:</div>
-            <UiProductPageColorItem
-              v-for="item in product?.colors"
-              :key="item.id"
-              :data="item"
-            />
+            <div class="colors-wrap">
+              <UiProductPageColorItem
+                v-for="item in product?.products_from_group"
+                :key="item.id"
+                :data="item"
+              />
+            </div>
           </div>
 
           <div class="buttons">
@@ -119,6 +121,12 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
   // gap: 16px;
   padding-right: 48px;
   position: relative;
+}
+
+.colors-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .images {

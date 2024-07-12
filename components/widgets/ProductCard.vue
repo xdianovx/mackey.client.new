@@ -14,7 +14,7 @@ const next = ref(null);
 
 <template>
   <div class="card">
-    <UiProductCardLikeBtn @click="addToCart(data.id)" />
+    <UiProductCardLikeBtn />
     <UiProductCardNewLabel v-if="data.is_new" />
     <NuxtLink :to="`/product/${data.slug}`" class="image">
       <ClientOnly>
@@ -79,6 +79,15 @@ const next = ref(null);
       <h3 class="title">{{ data?.title }}</h3>
       <div class="price">{{ data.price }} BYN</div>
     </div>
+
+    <div class="footer-buttons">
+      <UiButtonsBlack
+        text="Добавить в корзину"
+        class="add-to-cart-btn"
+        @click="addToCart(data.id)"
+      />
+      <UiButtonsApple class="apple-btn" />
+    </div>
   </div>
 </template>
 
@@ -109,6 +118,15 @@ const next = ref(null);
   }
 }
 
+.footer-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.add-to-cart-btn {
+}
+.apple-btn {
+}
 .swiper {
   width: 100%;
   height: 100%;

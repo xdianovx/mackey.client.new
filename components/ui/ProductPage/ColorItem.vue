@@ -1,15 +1,25 @@
 <script setup>
 const props = defineProps(["data"]);
+const route = useRoute();
 </script>
 
 <template>
-  <div class="item" :style="{ background: data.code }"></div>
+  <NuxtLink
+    class="item"
+    :to="`/product/${data.slug}`"
+    :class="{ active: route.path.includes(data.slug) }"
+    :style="{ background: data.color[0].code }"
+  ></NuxtLink>
 </template>
 
 <style lang="scss" scoped>
 .item {
-  width: 24px;
-  height: 24px;
+  width: 18px;
+  height: 18px;
   border-radius: 100%;
+}
+
+.active {
+  border: 1px solid #000;
 }
 </style>
