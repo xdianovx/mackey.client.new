@@ -5,6 +5,7 @@ export const authStore = defineStore("authStore", () => {
   const isLoading = ref(false);
   const error = ref();
   const emailError = ref();
+  const phoneExistError = ref();
   const smsError = ref();
   const phoneConfirmationError = ref("");
   const loginError = ref();
@@ -23,12 +24,10 @@ export const authStore = defineStore("authStore", () => {
         smsError.value = response._data;
         isLoading.value = false;
       },
-    })
-      .then((res) => {
-        userData.value = res;
-        isLoading.value = false;
-      })
-      .catch((e) => {});
+    }).then((res) => {
+      userData.value = res;
+      isLoading.value = false;
+    });
   };
 
   const registerStepTwo = async (values) => {
@@ -119,6 +118,7 @@ export const authStore = defineStore("authStore", () => {
     confirmPhone,
     isLoading,
     emailError,
+    phoneExistError,
     phoneConfirmationError,
     loginError,
     smsError,

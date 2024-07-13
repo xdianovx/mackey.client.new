@@ -116,14 +116,16 @@ const clearFilter = () => {
 
         <!-- Type -->
         <UiFilterDropdown title="Тип">
-          <div class="checkbox" v-for="type in types">
-            <input
-              type="checkbox"
-              :id="type.id"
-              :checked="params['types[]='].includes(type.id)"
-              @change="addTypesToFilter(type.id)"
-            />
-            <label :for="type.id">{{ type.title }}</label>
+          <div class="collection-wrap">
+            <div class="checkbox" v-for="type in types">
+              <input
+                type="checkbox"
+                :id="`type${type.id}`"
+                :checked="params['types[]='].includes(type.id)"
+                @change="addTypesToFilter(type.id)"
+              />
+              <label :for="`type${type.id}`">{{ type.title }}</label>
+            </div>
           </div>
         </UiFilterDropdown>
       </div>

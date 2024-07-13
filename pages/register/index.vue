@@ -7,7 +7,8 @@ definePageMeta({
 });
 
 const { registerStepOne, registerStepTwo } = authStore();
-const { userData, emailError, isLoading, smsError } = storeToRefs(authStore());
+const { userData, emailError, isLoading, smsError, phoneExistError } =
+  storeToRefs(authStore());
 
 const schema = Yup.object().shape({
   first_name: Yup.string().required("Обязательное поле"),
@@ -55,15 +56,13 @@ const schemaPasswords = Yup.object().shape({
               />
             </Form>
 
-            <div class="errors">
-              <UiFormsErrorItem v-if="smsError?.error?.phone">
-                Этот номер уже зарегестирован в системе
-              </UiFormsErrorItem>
+            <UiFormsErrorItem v-if="smsError?.messagе">
+              Этот номер уже зарегестирован в системе
+            </UiFormsErrorItem>
 
-              <UiFormsErrorItem v-if="smsError?.message">
-                Мы не можем подтвердить этот номер
-              </UiFormsErrorItem>
-            </div>
+            <UiFormsErrorItem v-if="smsError?.error">
+              {{ smsError?.error }}
+            </UiFormsErrorItem>
 
             <UiRegisterPhoneConfirmation v-if="userData?.profile" />
           </div>
