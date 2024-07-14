@@ -14,9 +14,12 @@ const { collections } = storeToRefs(useMyCollectionsStore());
 const route = useRoute();
 const catalog = route.params.catalog;
 
+const props = defineProps(["catId"]);
+
 const params = ref({
   "types[]=": [],
   "collections[]=": [],
+  "categories[]=": props.catId,
   price_min: products.value.meta?.min_price,
   price_max: products.value.meta?.max_price,
   is_new: null,
@@ -58,8 +61,8 @@ const filterHandler = async () => {
 
 const clearFilter = () => {
   params.value.is_new = null;
-
   params.value["types[]="] = [];
+  params.value["collections[]="] = [];
   params.value.price_min = 0;
   params.value.price_max = products.value.meta.max_price;
 

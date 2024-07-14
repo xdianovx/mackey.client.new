@@ -40,7 +40,7 @@ const { open } = useMyIsFilterOpenStore();
 
         <div class="div mobile"></div>
         <div class="filters-btns">
-          <UiCatalogSortBtn @click="open" />
+          <UiCatalogSortBtn />
           <div class="div"></div>
           <UiCatalogFilterBtn @click="open" class="filters-btn-cat" />
         </div>

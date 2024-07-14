@@ -23,7 +23,7 @@ if (catalog === "men") params.value.is_man = 1;
 if (catalog === "women") params.value.is_woman = 1;
 if (activeCategory) params.value.categories = activeCategory.id;
 
-getAll(params.value);
+await getAll(params.value);
 </script>
 
 <template>
@@ -39,23 +39,36 @@ getAll(params.value);
             :data="product"
           />
         </div>
+        <div class="not-found" v-else>
+          <UiTitle tag="h2">Товаров по выбранным фильтрам нет</UiTitle>
+        </div>
       </div>
     </section>
 
     <WidgetsSeoText />
-    <WidgetsFilter />
+    <WidgetsFilter :catId="params?.categories" />
   </main>
 </template>
 
 <style lang="scss" scoped>
 .products-section {
   margin-top: 120px;
+  flex-grow: 1;
+  height: 100%;
 }
 
 .wrap {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 40px 16px;
+}
+
+.not-found {
+  margin-bottom: 120px;
+  gap: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 @media screen and (max-width: 1200px) {
