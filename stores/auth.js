@@ -25,6 +25,7 @@ export const authStore = defineStore("authStore", () => {
         isLoading.value = false;
       },
     }).then((res) => {
+      smsError.value = "";
       userData.value = res;
       isLoading.value = false;
     });

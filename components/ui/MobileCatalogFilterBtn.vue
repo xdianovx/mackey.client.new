@@ -20,7 +20,7 @@
 <style lang="scss" scoped>
 .button {
   border-radius: 1000px;
-  z-index: 2;
+  z-index: 3;
   color: $textWhite;
   position: fixed;
   left: 50%;

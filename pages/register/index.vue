@@ -112,6 +112,7 @@ const schemaPasswords = Yup.object().shape({
 <style lang="scss" scoped>
 .step {
   margin-top: 150px;
+  margin-bottom: 80px;
 
   .container {
     height: 100%;

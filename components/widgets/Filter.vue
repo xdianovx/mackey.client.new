@@ -185,6 +185,7 @@ const clearFilter = () => {
 
 .filter__wrap {
   padding: 40px 80px;
+  overflow-y: scroll;
 }
 
 .filter__bottom {

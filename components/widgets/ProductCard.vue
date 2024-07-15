@@ -79,15 +79,6 @@ const next = ref(null);
       <h3 class="title">{{ data?.title }}</h3>
       <div class="price">{{ data.price }} BYN</div>
     </div>
-
-    <div class="footer-buttons">
-      <UiButtonsBlack
-        text="Добавить в корзину"
-        class="add-to-cart-btn"
-        @click="addToCart(data.id)"
-      />
-      <UiButtonsApple class="apple-btn" />
-    </div>
   </div>
 </template>
 
