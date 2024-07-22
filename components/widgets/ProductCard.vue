@@ -1,6 +1,4 @@
 <script setup>
-import { cartStore } from "~/stores/cart.js";
-
 const props = defineProps(["data"]);
 </script>
 
@@ -59,10 +57,7 @@ const props = defineProps(["data"]);
   flex-direction: column;
   gap: 8px;
 }
-.add-to-cart-btn {
-}
-.apple-btn {
-}
+
 .swiper {
   width: 100%;
   height: 100%;
