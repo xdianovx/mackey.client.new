@@ -259,6 +259,9 @@ onMounted(async () => {
 }
 
 @media screen and (max-width: 768px) {
+  .product-slider-section {
+    margin-top: 16px;
+  }
   .product-slider__top {
     justify-content: space-between;
     margin-top: 24px;
