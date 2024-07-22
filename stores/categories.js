@@ -9,7 +9,5 @@ export const useMyCategoriesStore = defineStore("myCategoriesStore", () => {
     );
   };
 
-  // getAll();
-
   return { categories, getAll };
 });

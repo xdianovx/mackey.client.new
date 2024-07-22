@@ -2,8 +2,6 @@
 const route = useRoute();
 const slug = route.params.catalog;
 
-const { getAll } = cartStore();
-
 const products = ref([]);
 const pageCategory = ref({
   is_man: 0,
@@ -13,13 +11,13 @@ const pageCategory = ref({
 if (slug == "men") pageCategory.value = "man";
 if (slug == "women") pageCategory.value = "woman";
 
-const getProducts = () => {
-  $fetch(
+const getProducts = async () => {
+  await $fetch(
     `http://45.135.234.37:80/api/v1/categories/${pageCategory.value}`
   ).then((res) => (products.value = res));
 };
 
-getProducts();
+await getProducts();
 </script>
 
 <template>

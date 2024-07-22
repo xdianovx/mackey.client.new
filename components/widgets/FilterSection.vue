@@ -8,9 +8,7 @@ const data = defineProps({
 
 const route = useRoute();
 const catalogSlug = route.params.catalog;
-
 const { categories } = storeToRefs(useMyCategoriesStore());
-
 const { open } = useMyIsFilterOpenStore();
 </script>
 

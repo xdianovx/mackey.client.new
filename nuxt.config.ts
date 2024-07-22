@@ -5,6 +5,9 @@ export default defineNuxtConfig({
       apiUrl: "http://45.135.234.37:80/api/v1",
     },
   },
+
+  optimization: {},
+  // spaLoadingTemplate:
   // devtools: { enabled: true },
   css: ["~/assets/styles/main.scss"],
   extends: ["nuxt-modal"],
@@ -13,7 +16,7 @@ export default defineNuxtConfig({
     "@nuxtjs/i18n",
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
-    "@nuxt/image"
+    "@nuxt/image",
   ],
 
   vite: {
