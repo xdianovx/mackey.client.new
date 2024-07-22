@@ -1,4 +1,5 @@
 @import "normalize.css";
+@import "swiper/css/pagination";
 
 @import "swiper/css";
 @import "swiper/css/navigation";
@@ -43,4 +44,77 @@ body {
 
 .check-example {
   width: 200px;
+}
+
+// Swiper Pagination
+.swiper-pagination {
+  bottom: 32px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: inline-flex;
+  width: auto !important;
+  align-items: center;
+}
+.swiper-pagination-bullet {
+  background: rgba($bgWhite, 1);
+  width: 6px;
+  height: 6px;
+  border-radius: 6px;
+  display: block;
+}
+
+.swiper-pagination-bullet-active {
+  width: 20px;
+}
+
+// Banner Slider Arrows
+.banner-arrow-prev {
+  &.swiper-button-disabled {
+    opacity: 0.3;
+  }
+}
+
+.banner-arrow-next {
+  &.swiper-button-disabled {
+    opacity: 0.3;
+  }
+}
+
+.banner-arrow-next,
+.banner-arrow-prev {
+  position: absolute;
+  z-index: 10;
+  bottom: 20px;
+  cursor: pointer;
+}
+
+.banner-arrow-next {
+  right: 48px;
+}
+
+.banner-arrow-prev {
+  left: 48px;
+}
+
+@media screen and (max-width: 1200px) {
+  .banner-arrow-next {
+    right: 16px;
+  }
+
+  .banner-arrow-prev {
+    left: 16px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .swiper-pagination {
+    bottom: 16px !important;
+  }
+  .banner-arrow-next {
+    display: none;
+  }
+
+  .banner-arrow-prev {
+    display: none;
+  }
 }
