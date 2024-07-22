@@ -1,17 +1,13 @@
 <script setup>
 import Footer from "~/components/widgets/Footer.vue";
 import Header from "../components/widgets/Header";
-const { getMe } = authStore();
 
+const { getMe } = authStore();
 const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
   useMyProductPageDrawerStore()
 );
-
 const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
-
 const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
-
-onMounted(() => {});
 
 getMe();
 
@@ -33,7 +29,6 @@ useHead({
 </script>
 
 <template>
-  <NuxtLoadingIndicator color="#000" />
   <div class="wrap">
     <Header />
 

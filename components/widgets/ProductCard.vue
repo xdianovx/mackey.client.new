@@ -10,11 +10,11 @@ const props = defineProps(["data"]);
       <NuxtImg
         :src="data.product_files[0].file"
         :alt="`фотография ${data.title}`"
-        v-if="useGetFileExtention(data.product_files[0].file) == 'webp'"
+        v-if="useGetFileExtention(data.product_files[0]?.file) == 'webp'"
       />
 
       <video v-else playsinline autoplay loop muted>
-        <source :src="data.product_files[0].file" type="video/mp4" />
+        <source :src="data.product_files[0]?.file" type="video/mp4" />
       </video>
     </NuxtLink>
 
