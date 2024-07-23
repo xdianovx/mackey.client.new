@@ -1,7 +1,6 @@
 <script setup>
 const { login } = authStore();
 const { loginError } = storeToRefs(authStore());
-import { vMaska } from "maska/vue";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 

@@ -17,4 +17,18 @@ const props = defineProps(["tag"]);
   line-height: 120%;
   text-transform: capitalize;
 }
+
+.h2 {
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 150%;
+}
+
+@media screen and (max-width: 1200px) {
+  .h2 {
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 130%;
+  }
+}
 </style>

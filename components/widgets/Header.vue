@@ -1,6 +1,6 @@
 <script setup>
 const { links, loading } = storeToRefs(useMyNavigationLinksStore());
-const { getCategories, getCollections, getAll } = useMyNavigationLinksStore();
+const { getAll } = useMyNavigationLinksStore();
 const { isHome } = storeToRefs(useIsHomePageStore());
 
 import HeaderCart from "../ui/Header/HeaderCart.vue";
@@ -9,9 +9,6 @@ import SearchBtn from "../ui/Header/SearchBtn.vue";
 import Burger from "../ui/Header/Burger.vue";
 import MobileNav from "../ui/Header/MobileNav.vue";
 import UserLogin from "../ui/Header/UserLogin.vue";
-
-// getCategories();
-// getCollections();
 
 await getAll();
 </script>
