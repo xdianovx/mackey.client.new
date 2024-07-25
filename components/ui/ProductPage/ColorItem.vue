@@ -12,6 +12,12 @@ const route = useRoute();
       iswhite: data.color[0].code === '#ffffff',
     }"
     :style="{ background: data.color[0].code }"
+  >
+    <div
+      class="split"
+      :style="{ background: item.code }"
+      v-for="item in data.color"
+    ></div
   ></NuxtLink>
 </template>
 
@@ -20,6 +26,14 @@ const route = useRoute();
   width: 18px;
   height: 18px;
   border-radius: 100%;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.split {
+  height: 100%;
+  width: 100%;
 }
 
 .active {
