@@ -14,11 +14,13 @@ const showMenu = () => {
   isHover.value = true;
   isActive.value = true;
   tl.play();
+  console.log("show");
 };
 const hideMenu = () => {
   isHover.value = false;
   isActive.value = false;
   tl.reverse();
+  console.log("hide");
 };
 
 onMounted(() => {
@@ -61,8 +63,8 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <div class="link" ref="header" @mouseleave="hideMenu">
-    <NuxtLink :to="`/${data.slug}`" class="parent-link" @mouseenter="showMenu">
+  <div class="link" ref="header" @mouseleave="hideMenu" @mouseenter="showMenu">
+    <NuxtLink :to="`/${data.slug}`" class="parent-link">
       {{ data.title }}
     </NuxtLink>
 
@@ -81,7 +83,7 @@ onUnmounted(() => {
             </NuxtLink>
           </div>
 
-          <div class="collections" v-if="data?.collections">
+          <div class="collections" v-if="data.collections">
             <NuxtLink
               @click="hideMenu"
               to="/kolliektsiia"

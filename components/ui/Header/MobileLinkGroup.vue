@@ -91,7 +91,7 @@ const toggleContent = () => {
         <div class="collection-wrap">
           <NuxtLink
             class="collection-link"
-            :to="`${data.slug}/${item.slug}`"
+            :to="`/kolliektsiia/${item.slug}`"
             v-for="item in data.collections"
             >{{ item.title }}</NuxtLink
           >
