@@ -19,7 +19,6 @@ const container = ref();
 
 onMounted(() => {
   ctx = gsap.context((self) => {
-    // const item = self.selector(".link");
     const chevron = self.selector(".chevron");
     const content = self.selector(".sub-links");
 
@@ -90,8 +89,12 @@ const toggleContent = () => {
         <p class="collection-title">Коллекции</p>
 
         <div class="collection-wrap">
-          <NuxtLink class="collection-link" to="/kolliektsiia">1</NuxtLink>
-          <NuxtLink class="collection-link" to="/kolliektsiia">2</NuxtLink>
+          <NuxtLink
+            class="collection-link"
+            :to="`${data.slug}/${item.slug}`"
+            v-for="item in data.collections"
+            >{{ item.title }}</NuxtLink
+          >
         </div>
       </div>
     </div>
