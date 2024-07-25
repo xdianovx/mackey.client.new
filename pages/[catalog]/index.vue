@@ -12,9 +12,9 @@ if (slug == "man") pageCategory.value = "man";
 if (slug == "woman") pageCategory.value = "woman";
 
 const getProducts = async () => {
-  await $fetch(
-    `http://45.135.234.37:80/api/v1/categories/${pageCategory.value}`
-  ).then((res) => (products.value = res));
+  await $fetch(`http://45.135.234.37:80/api/v1/categories/${slug}`).then(
+    (res) => (products.value = res)
+  );
 };
 
 await getProducts();
@@ -22,8 +22,8 @@ await getProducts();
 
 <template>
   <main>
-    <!-- <UiTitle>{{ slug }}</UiTitle> -->
     <WidgetsFilterSection :title="slug" :filter="false" />
+
     <section class="product-slider-section">
       <WidgetsProductSlider
         :data="item"

@@ -36,7 +36,7 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
           :modules="[Pagination]"
           :pagination="true"
         >
-          <SwiperSlide v-for="item in product.product_files">
+          <SwiperSlide v-for="item in product?.product_files">
             <img
               :src="item.file"
               alt=""
@@ -55,7 +55,7 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
           :href="item.file"
           :key="item.id"
           data-fancybox="a"
-          v-for="item in product.product_files"
+          v-for="item in product?.product_files"
         >
           <img
             :src="item.file"
@@ -108,11 +108,16 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
       </div>
     </section>
 
-    <WidgetsSimilarProducts />
+    <div class="spacer"></div>
+
+    <!-- <WidgetsSimilarProducts /> -->
   </main>
 </template>
 
 <style lang="scss" scoped>
+.spacer {
+  margin-bottom: 80px;
+}
 .product-page {
   margin-top: 60px;
   display: flex;
