@@ -14,13 +14,11 @@ const showMenu = () => {
   isHover.value = true;
   isActive.value = true;
   tl.play();
-  console.log("show");
 };
 const hideMenu = () => {
   isHover.value = false;
   isActive.value = false;
   tl.reverse();
-  console.log("hide");
 };
 
 onMounted(() => {
