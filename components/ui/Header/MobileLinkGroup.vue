@@ -78,18 +78,46 @@ const toggleContent = () => {
 
     <div class="sub-links">
       <div class="sub-links__inner">
+        <NuxtLink :to="`/${data.slug}`">Смотреть все</NuxtLink>
         <NuxtLink
           :to="`${data.slug}/${item.slug}`"
           v-for="item in data.categories"
           >{{ item.title }}</NuxtLink
         >
       </div>
+
+      <div class="collections">
+        <p class="collection-title">Коллекции</p>
+
+        <div class="collection-wrap">
+          <NuxtLink class="collection-link" to="/kolliektsiia">1</NuxtLink>
+          <NuxtLink class="collection-link" to="/kolliektsiia">2</NuxtLink>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.link {
+.collections {
+  margin-top: 32px;
+  margin-bottom: 32px;
+}
+
+.collection-wrap {
+  margin-top: 24px;
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.collection-title {
+  font-size: 16px;
+}
+
+.collection-link {
+  color: #808080;
+  font-size: 14px;
 }
 
 .top {

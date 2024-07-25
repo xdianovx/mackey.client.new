@@ -3,45 +3,18 @@ import { defineStore } from "pinia";
 export const useMyNavigationLinksStore = defineStore(
   "myNavigationLinksStore",
   () => {
-    const links = ref([
-      {
-        id: 1,
-        slug: "women",
-        title: "Women",
-        categories: [],
-        collections: [],
-      },
-      {
-        id: 2,
-        slug: "men",
-        title: "Men",
-        categories: [],
-        collections: [],
-      },
-      {
-        id: 3,
-        slug: "new",
-        title: "New",
-        categories: [],
-        collections: [],
-      },
-      {
-        id: 4,
-        slug: "gifts",
-        title: "Gifts",
-        categories: [],
-        collections: [],
-      },
-      {
-        id: 5,
-        slug: "sale",
-        title: "Sale",
-        categories: [],
-        collections: [],
-      },
-    ]);
-
+    const links = ref([]);
     const loading = ref(false);
+
+    const getMenu = async () => {
+      loading.value = true;
+      await $fetch(
+        "http://45.135.234.37:80/api/v1/categories/get_menu/all"
+      ).then((res) => {
+        links.value = res;
+        loading.value = false;
+      });
+    };
 
     const getCategories = async () => {
       loading.value = true;
@@ -66,6 +39,13 @@ export const useMyNavigationLinksStore = defineStore(
       await getCollections();
     };
 
-    return { links, getCategories, getCollections, getAll, loading };
+    return {
+      links,
+      getCategories,
+      getCollections,
+      getMenu,
+      getAll,
+      loading,
+    };
   }
 );

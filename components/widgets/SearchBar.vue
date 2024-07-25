@@ -201,7 +201,7 @@ const clearSearch = () => {
 
 @media screen and (max-width: 1024px) {
   .search-item {
-    padding: 32px 0 40px;
+    padding: 64px 0 40px;
   }
 }
 </style>

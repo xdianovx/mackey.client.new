@@ -8,8 +8,8 @@ const pageCategory = ref({
   is_woman: 0,
 });
 
-if (slug == "men") pageCategory.value = "man";
-if (slug == "women") pageCategory.value = "woman";
+if (slug == "man") pageCategory.value = "man";
+if (slug == "woman") pageCategory.value = "woman";
 
 const getProducts = async () => {
   await $fetch(
@@ -22,6 +22,7 @@ await getProducts();
 
 <template>
   <main>
+    <!-- <UiTitle>{{ slug }}</UiTitle> -->
     <WidgetsFilterSection :title="slug" :filter="false" />
     <section class="product-slider-section">
       <WidgetsProductSlider
@@ -35,7 +36,7 @@ await getProducts();
 
     <WidgetsSeoText />
 
-    <WidgetsFilter />
+    <!-- <WidgetsFilter /> -->
   </main>
 </template>
 

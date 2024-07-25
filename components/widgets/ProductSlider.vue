@@ -80,8 +80,9 @@ onMounted(async () => {
           <NuxtLink
             :to="`${path}/${category.slug}`"
             class="product-slider__link"
-            >Смотреть все</NuxtLink
           >
+            Смотреть все
+          </NuxtLink>
         </div>
 
         <div class="product-slider__wrap">
@@ -140,6 +141,14 @@ onMounted(async () => {
               />
             </svg>
           </div>
+        </div>
+
+        <div class="product-wrap-mobile">
+          <WidgetsProductCard
+            :key="product.id"
+            v-for="product in category.products"
+            :data="product"
+          />
         </div>
       </div>
     </section>
@@ -265,7 +274,29 @@ onMounted(async () => {
   background: $textGray;
 }
 
+.product-wrap-mobile {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .product-slider__wrap {
+    display: none;
+  }
+
+  .product-wrap-mobile {
+    display: grid;
+    margin-top: 24px;
+    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 @media screen and (max-width: 768px) {
+  .product-wrap-mobile {
+    display: grid;
+    margin-top: 24px;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
+  }
   .product-slider-section {
     margin-top: 16px;
   }

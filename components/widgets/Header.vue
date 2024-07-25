@@ -1,6 +1,6 @@
 <script setup>
 const { links, loading } = storeToRefs(useMyNavigationLinksStore());
-const { getAll } = useMyNavigationLinksStore();
+const { getAll, getMenu } = useMyNavigationLinksStore();
 const { isHome } = storeToRefs(useIsHomePageStore());
 
 import HeaderCart from "../ui/Header/HeaderCart.vue";
@@ -10,7 +10,7 @@ import Burger from "../ui/Header/Burger.vue";
 import MobileNav from "../ui/Header/MobileNav.vue";
 import UserLogin from "../ui/Header/UserLogin.vue";
 
-await getAll();
+await getMenu();
 </script>
 
 <template>

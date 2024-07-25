@@ -40,7 +40,6 @@ onUnmounted(() => {
             v-for="item in links"
             :data="item"
           />
-          <!-- <MobileDropLink :key="item.id" v-for="item in links" :data="item" /> -->
         </nav>
 
         <div class="menu-bottom">
