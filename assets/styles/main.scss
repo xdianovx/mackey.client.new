@@ -3,6 +3,7 @@
 
 @import "swiper/css";
 @import "swiper/css/navigation";
+@import "swiper/css/scrollbar";
 
 @import "reset";
 @import "vars";
@@ -96,7 +97,20 @@ body {
   left: 48px;
 }
 
+.swiper-scrollbar.swiper-scrollbar-horizontal {
+  display: none;
+  bottom: 0 !important;
+  width: 100% !important;
+}
+
+.swiper-scrollbar-drag {
+  background: $bgBlack !important;
+}
+
 @media screen and (max-width: 1200px) {
+  .swiper-scrollbar.swiper-scrollbar-horizontal {
+    display: block;
+  }
   .banner-arrow-next {
     right: 16px;
   }
