@@ -10,12 +10,25 @@ const route = useRoute();
 const catalogSlug = route.params.catalog;
 const { categories } = storeToRefs(useMyCategoriesStore());
 const { open } = useMyIsFilterOpenStore();
+const currentTitle = ref(data.title);
+
+if (data.title == "woman") {
+  currentTitle.value = "women";
+}
+
+if (data.title == "man") {
+  currentTitle.value = "men";
+}
+
+if (data.title == "gift") {
+  currentTitle.value = "gifts";
+}
 </script>
 
 <template>
   <section class="section">
     <div class="container">
-      <UiTitle tag="h1">{{ title }}</UiTitle>
+      <UiTitle tag="h1">{{ currentTitle }}</UiTitle>
 
       <div v-if="filter" class="filters">
         <nav class="nav">

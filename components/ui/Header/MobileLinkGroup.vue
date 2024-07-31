@@ -79,7 +79,7 @@ const toggleContent = () => {
       <div class="sub-links__inner">
         <NuxtLink :to="`/${data.slug}`">Смотреть все</NuxtLink>
         <NuxtLink
-          :to="`${data.slug}/${item.slug}`"
+          :to="`/${data.slug}/${item.slug}`"
           v-for="item in data.categories"
           >{{ item.title }}</NuxtLink
         >
