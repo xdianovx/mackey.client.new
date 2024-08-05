@@ -1,15 +1,13 @@
 <script setup>
-import { Navigation, Scrollbar } from "swiper/modules";
-import { SwiperSlide, Swiper } from "swiper/vue";
 import { useFavoritesStore } from "@/stores/favorites";
-import { ref } from "vue";
+import { Navigation, Scrollbar } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
 
 const props = defineProps(["data"]);
 const prev = ref(null);
 const next = ref(null);
 
 const { addItem, isFavorite, removeItem } = useFavoritesStore();
-const { items } = storeToRefs(useFavoritesStore());
 
 const toggleFavorite = () => {
   if (isFavorite(props.data)) {
@@ -28,28 +26,30 @@ const toggleFavorite = () => {
     />
     <UiProductCardNewLabel v-if="data.is_new" />
     <NuxtLink :to="`/product/${data.slug}`" class="image">
-      <Swiper
-        :scrollbar="{
-          hide: false,
-        }"
-        :modules="[Navigation, Scrollbar]"
-        :navigation="{
-          prevEl: prev,
-          nextEl: next,
-        }"
-      >
-        <SwiperSlide v-for="image in data?.product_files">
-          <NuxtImg
-            :src="image.file"
-            :alt="`фотография ${data.title}`"
-            v-if="useGetFileExtention(image?.file) == 'webp'"
-          />
+      <ClientOnly>
+        <Swiper
+          :scrollbar="{
+            hide: false,
+          }"
+          :modules="[Navigation, Scrollbar]"
+          :navigation="{
+            prevEl: prev,
+            nextEl: next,
+          }"
+        >
+          <SwiperSlide v-for="image in data?.product_files">
+            <NuxtImg
+              :src="image.file"
+              :alt="`фотография ${data.title}`"
+              v-if="useGetFileExtention(image?.file) == 'webp'"
+            />
 
-          <video v-else playsinline autoplay loop muted>
-            <source :src="image?.file" type="video/mp4" />
-          </video>
-        </SwiperSlide>
-      </Swiper>
+            <video v-else playsinline autoplay loop muted>
+              <source :src="image?.file" type="video/mp4" />
+            </video>
+          </SwiperSlide>
+        </Swiper>
+      </ClientOnly>
     </NuxtLink>
 
     <div ref="prev" class="btn-prev">

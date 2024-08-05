@@ -35,8 +35,6 @@ await getProducts();
     </section>
 
     <WidgetsSeoText />
-
-    <!-- <WidgetsFilter /> -->
   </main>
 </template>
 

@@ -1,6 +1,4 @@
 <script setup>
-import { Navigation, Pagination } from "swiper/modules";
-import { SwiperSlide, Swiper } from "swiper/vue";
 const prev = ref(null);
 const next = ref(null);
 const bannerPrev = ref(null);

@@ -1,6 +1,6 @@
 @import "normalize.css";
-@import "swiper/css/pagination";
 
+@import "swiper/css/pagination";
 @import "swiper/css";
 @import "swiper/css/navigation";
 @import "swiper/css/scrollbar";
@@ -103,7 +103,7 @@ body {
 }
 
 .swiper-scrollbar.swiper-scrollbar-horizontal {
-  display: none;
+  opacity: 0 !important;
   bottom: 0 !important;
   width: 100% !important;
   height: 1px !important;
@@ -115,7 +115,7 @@ body {
 
 @media screen and (max-width: 1200px) {
   .swiper-scrollbar.swiper-scrollbar-horizontal {
-    display: block;
+    opacity: 1 !important;
   }
   .banner-arrow-next {
     right: 16px;

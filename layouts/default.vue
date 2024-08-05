@@ -40,7 +40,7 @@ useHead({
 <template>
   <WidgetsLoader v-if="isPageLoading" />
   <NuxtLoadingIndicator color="#000" />
-  <div class="wrap">
+  <div class="wrap-main">
     <Header />
 
     <WidgetsSearchBar />
@@ -54,7 +54,7 @@ body {
   overflow-x: hidden;
 }
 
-.wrap {
+.wrap-main {
   min-height: 100vh;
   display: flex;
   flex-direction: column;

@@ -9,7 +9,7 @@ const { getAll: getAllCategories } = useMyCategoriesStore();
 const { products } = storeToRefs(useMyProductsStore());
 const { categories } = storeToRefs(useMyCategoriesStore());
 
-await getAllCategories();
+await getAllCategories(catalog);
 
 const params = ref({
   is_man: null,
@@ -21,7 +21,7 @@ const activeCategory = categories.value.find((x) => x.slug === categorySlug);
 
 if (catalog === "men") params.value.is_man = 1;
 if (catalog === "women") params.value.is_woman = 1;
-if (activeCategory) params.value.categories = activeCategory.id;
+if (activeCategory) params.value.categories = activeCategory.slug;
 
 await getAll(params.value);
 </script>
