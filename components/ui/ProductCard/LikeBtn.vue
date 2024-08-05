@@ -1,5 +1,5 @@
 <template>
-  <button class="like-btn">
+  <button class="like-btn" :class="{ active: isActive }">
     <svg
       width="24"
       height="24"
@@ -14,7 +14,9 @@
   </button>
 </template>
 
-<script setup></script>
+<script setup>
+const props = defineProps(["isActive"]);
+</script>
 
 <style lang="scss" scoped>
 .like-btn {
@@ -37,6 +39,14 @@
   }
 
   &:hover {
+    background: #e6e6e6;
+
+    svg {
+      fill: #ff2d55;
+    }
+  }
+
+  &.active {
     background: #e6e6e6;
 
     svg {

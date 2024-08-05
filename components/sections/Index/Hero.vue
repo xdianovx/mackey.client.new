@@ -1,23 +1,4 @@
 <script setup>
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ScrollToPlugin } from "gsap/ScrollToPlugin";
-
-gsap.registerPlugin([ScrollTrigger, ScrollToPlugin]);
-const section = ref(null);
-let ctx;
-let tl;
-
-onMounted(() => {
-  ctx = gsap.context((self) => {
-    const sections = self.selector(".section");
-  }, section.value);
-});
-
-onUnmounted(() => {
-  ctx.revert();
-});
-
 const data = [
   {
     id: 1,
@@ -31,16 +12,28 @@ const data = [
     image: "/video/2.mp4",
   },
 ];
+
+const options = {
+  menu: "#menu",
+  // anchors: ["slide-1", "slide-2", "slide-3"],
+};
 </script>
 
 <template>
-  <div ref="section">
-    <ClientOnly>
+  <ClientOnly>
+    <div>
       <section class="section" v-for="item in data" :key="item.id">
         <div class="container">
           <div class="screen">
             <div class="overlay"></div>
-            <video playsinline autoplay loop muted class="section__video">
+            <video
+              data-autoplay
+              playsinline
+              autoplay
+              loop
+              muted
+              class="section__video"
+            >
               <source :src="item.image" type="video/mp4" />
             </video>
             <div class="section__wrap">
@@ -58,8 +51,8 @@ const data = [
           </div>
         </div>
       </section>
-    </ClientOnly>
-  </div>
+    </div>
+  </ClientOnly>
 </template>
 
 <style lang="scss" scoped>

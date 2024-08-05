@@ -1,15 +1,31 @@
 <script setup>
 import { Navigation, Scrollbar } from "swiper/modules";
 import { SwiperSlide, Swiper } from "swiper/vue";
+import { useFavoritesStore } from "@/stores/favorites";
+import { ref } from "vue";
 
 const props = defineProps(["data"]);
 const prev = ref(null);
 const next = ref(null);
+
+const { addItem, isFavorite, removeItem } = useFavoritesStore();
+const { items } = storeToRefs(useFavoritesStore());
+
+const toggleFavorite = () => {
+  if (isFavorite(props.data)) {
+    removeItem(props.data);
+  } else {
+    addItem(props.data);
+  }
+};
 </script>
 
 <template>
   <div class="card">
-    <UiProductCardLikeBtn />
+    <UiProductCardLikeBtn
+      @click="toggleFavorite()"
+      :isActive="isFavorite(props.data)"
+    />
     <UiProductCardNewLabel v-if="data.is_new" />
     <NuxtLink :to="`/product/${data.slug}`" class="image">
       <Swiper

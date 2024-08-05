@@ -6,6 +6,7 @@
 @import "swiper/css/scrollbar";
 
 @import "reset";
+@import "fonts";
 @import "vars";
 @import "grid";
 @import "forms";
@@ -26,6 +27,10 @@ body {
 }
 ::-webkit-scrollbar {
   width: 0;
+}
+
+.fp-watermark {
+  display: none !important;
 }
 
 .fancybox__backdrop {

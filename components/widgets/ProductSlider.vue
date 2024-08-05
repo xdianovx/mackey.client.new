@@ -167,6 +167,8 @@ onMounted(async () => {
 }
 
 .product-slider__title {
+  font-size: 20px;
+  font-weight: 600;
   display: flex;
   justify-content: center;
   align-items: center;

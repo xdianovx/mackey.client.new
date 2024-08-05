@@ -17,8 +17,8 @@ const route = useRoute();
       class="split"
       :style="{ background: item.code }"
       v-for="item in data.color"
-    ></div
-  ></NuxtLink>
+    ></div>
+  </NuxtLink>
 </template>
 
 <style lang="scss" scoped>

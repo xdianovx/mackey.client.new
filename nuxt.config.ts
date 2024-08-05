@@ -17,6 +17,8 @@ export default defineNuxtConfig({
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
     "@nuxt/image",
+    "@fullpage/nuxt-fullpage",
+    "@nuxtjs/tailwindcss"
   ],
 
   vite: {
