@@ -12,9 +12,10 @@ const { items } = storeToRefs(useFavoritesStore());
         >
       </div>
     </section>
-    <section class="mt-8 mb-10 max-[1200px]:mt-[20px]">
-      <div class="container">
+    <section class="mt-8 mb-10 h-full max-[1200px]:mt-[20px]">
+      <div class="container h-full">
         <div
+          v-if="items.length > 0"
           class="grid grid-cols-4 gap-y-10 gap-x-4 max-[1200px]:grid-cols-3 max-[768px]:grid-cols-2 max-[768px]:gap-x-2"
         >
           <WidgetsProductCard
@@ -22,6 +23,12 @@ const { items } = storeToRefs(useFavoritesStore());
             :key="item.id"
             :data="item"
           />
+        </div>
+
+        <div class="h-full flex items-center justify-center" v-else>
+          <UiTitle tag="h2" class="mt-10 text-center"
+            >В избранном пока ничего нет</UiTitle
+          >
         </div>
       </div>
     </section>
