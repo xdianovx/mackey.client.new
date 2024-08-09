@@ -3,7 +3,7 @@ useGetFileExtention;
 const data = [
   {
     id: 1,
-    title: "EVOLUTION",
+    title: "Makey X Conte",
     image: "/img/hero/1.jpg",
     image_mob: "/img/hero/1m.jpg",
   },
@@ -16,8 +16,8 @@ const data = [
   },
   {
     id: 3,
-    title: "Le Lin ",
-    suptitle: "NEW SEASON",
+    title: "EVOLUTION",
+    suptitle: "",
     image: "/img/hero/3.mp4",
     image_mob: "/img/hero/3.mp4",
   },
@@ -147,6 +147,7 @@ const options = {
 
 .section__title {
   font-size: 77px;
+  text-transform: uppercase;
   line-height: 120%;
   font-weight: 400;
 }

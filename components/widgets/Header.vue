@@ -2,6 +2,7 @@
 const { links, loading } = storeToRefs(useMyNavigationLinksStore());
 const { getAll, getMenu } = useMyNavigationLinksStore();
 const { isHome } = storeToRefs(useIsHomePageStore());
+const { isNavOpen } = storeToRefs(useNavOpen());
 
 import HeaderCart from "../ui/Header/HeaderCart.vue";
 import FavoriteBtn from "../ui/Header/FavoriteBtn.vue";
@@ -17,9 +18,10 @@ await getMenu();
   <header class="header" :class="{ black: !isHome }">
     <MobileNav />
     <div class="container">
-      <div class="header__wrap">
+      <div class="header__wrap" :class="{ black: !isHome, active: isNavOpen }">
         <UiHeaderLogo />
-        <nav class="header__nav">
+
+        <nav class="header__nav" ">
           <UiHeaderLink
             v-if="!loading"
             v-for="item in links"
@@ -69,6 +71,10 @@ await getMenu();
 .header__wrap {
   display: flex;
   align-items: center;
+
+  &.active {
+    background: $textBlack;
+  }
 }
 
 .header__nav {
