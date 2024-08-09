@@ -1,11 +1,16 @@
 <script setup>
-const { login } = authStore();
-const { loginError } = storeToRefs(authStore());
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 
+import { useAuth } from "~/composables/useAuth";
+const { login } = authStore();
+
+// const { login, fetchUser } = useAuth();
+const { user } = storeToRefs(useAuth());
 const schema = Yup.object().shape({
-  phone: Yup.string().required("Обязательное поле"),
+  phone: Yup.string()
+    .transform((value) => value.replace(/[^\d+]/g, ""))
+    .required("Обязательное поле"),
   password: Yup.string().required("Обязательное поле"),
 });
 </script>
@@ -13,22 +18,24 @@ const schema = Yup.object().shape({
 <template>
   <div>
     <UiTitle tag="h2">Войти</UiTitle>
+
     <Form @submit="login" :validation-schema="schema" class="login-form">
       <UiFormsInput
-        type="text"
+        type="tel"
+        v-mask="'+375 (##) ###-##-##'"
         name="phone"
-        ref="input"
         label="Телефон"
-        v-mask="'+7 (___) ___ __ __'"
       />
       <UiFormsInput type="password" name="password" label="Пароль" />
-      <UiFormsRememberMe />
+      <!-- <UiFormsRememberMe /> -->
       <UiButtonsWhite text="Войти" />
     </Form>
-
+    <!-- 
     <UiFormsErrorItem v-if="loginError"
-      >Неверный логин или пароль</UiFormsErrorItem
     >
+      >Неверный логин или пароль</UiFormsErrorItem  -->
+
+    {{ user }}
   </div>
 </template>
 

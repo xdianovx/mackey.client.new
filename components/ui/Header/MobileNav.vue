@@ -126,6 +126,7 @@ onUnmounted(() => {
 
   &.active {
     top: 0;
+    background: #000;
   }
 }
 

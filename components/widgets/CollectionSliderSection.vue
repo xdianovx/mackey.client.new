@@ -1,4 +1,7 @@
 <script setup>
+import { Navigation } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/vue";
+
 const props = defineProps(["data"]);
 
 const prev = ref(null);

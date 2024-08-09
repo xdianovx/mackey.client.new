@@ -9,9 +9,20 @@ import { Pagination } from "swiper/modules";
 const { open } = useMyProductPageDrawerStore();
 
 const { isOpen } = storeToRefs(useMyProductPageDrawerStore());
+const { addItem, isFavorite, removeItem } = useFavoritesStore();
+
+const toggleFavorite = () => {
+  if (isFavorite(product.value)) {
+    removeItem(product.value);
+  } else {
+    addItem(product.value);
+  }
+};
 
 const { addToCart } = cartStore();
-
+const saveToCart = async (product) => {
+  addToCart(product);
+};
 const productRef = ref();
 
 await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
@@ -23,94 +34,100 @@ await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
 
 <template>
   <main>
-    <UiProductPageInfoDrawer :data="product" />
+    <ClientOnly>
+      <UiProductPageInfoDrawer :data="product" />
 
-    <section class="product-page">
-      <ul class="breadcrumbs">
-        <li></li>
-      </ul>
-      <div class="images-mobile">
-        <Swiper
-          :slides-per-view="1"
-          class="mobile-slider"
-          :modules="[Pagination]"
-          :pagination="true"
-        >
-          <SwiperSlide v-for="item in product?.product_files">
+      <section class="product-page">
+        <ul class="breadcrumbs">
+          <li></li>
+        </ul>
+        <div class="images-mobile">
+          <Swiper
+            :slides-per-view="1"
+            class="mobile-slider"
+            :modules="[Pagination]"
+            :pagination="true"
+          >
+            <SwiperSlide v-for="item in product?.product_files">
+              <img
+                :src="item.file"
+                alt=""
+                v-if="useGetFileExtention(item.file) == 'webp'"
+              />
+
+              <video v-else playsinline autoplay loop muted>
+                <source :src="item.file" type="video/mp4" />
+              </video>
+            </SwiperSlide>
+          </Swiper>
+        </div>
+
+        <div class="images">
+          <a
+            :href="item.file"
+            :key="item.id"
+            data-fancybox="a"
+            v-for="item in product?.product_files"
+          >
             <img
               :src="item.file"
-              alt=""
+              :alt="`Фото ${product.title}`"
               v-if="useGetFileExtention(item.file) == 'webp'"
             />
 
             <video v-else playsinline autoplay loop muted>
               <source :src="item.file" type="video/mp4" />
             </video>
-          </SwiperSlide>
-        </Swiper>
-      </div>
+          </a>
+        </div>
 
-      <div class="images">
-        <a
-          :href="item.file"
-          :key="item.id"
-          data-fancybox="a"
-          v-for="item in product?.product_files"
-        >
-          <img
-            :src="item.file"
-            :alt="`Фото ${product.title}`"
-            v-if="useGetFileExtention(item.file) == 'webp'"
-          />
-
-          <video v-else playsinline autoplay loop muted>
-            <source :src="item.file" type="video/mp4" />
-          </video>
-        </a>
-      </div>
-
-      <div class="info">
-        <div class="info-wrap">
-          <div class="title-wrap">
-            <h1 class="title">{{ product.title }}</h1>
-            <UiProductCardLikeBtn class="product-page-like" />
-          </div>
-
-          <div class="price">{{ product.price }} BYN</div>
-
-          <div class="color">
-            <div class="color-title">Цвета:</div>
-            <div class="colors-wrap">
-              <UiProductPageColorItem
-                v-for="item in product?.products_from_group"
-                :key="item.id"
-                :data="item"
+        <div class="info">
+          <div class="info-wrap">
+            <div class="title-wrap">
+              <h1 class="title">{{ product.title }}</h1>
+              <UiProductCardLikeBtn
+                class="product-page-like"
+                @click="toggleFavorite()"
+                :isActive="isFavorite(product)"
               />
             </div>
-          </div>
 
-          <div class="buttons">
-            <UiButtonsBlack
-              text="Добавить в корзину"
-              @click="addToCart(product.id)"
-            />
-            <UiButtonsApple />
-          </div>
+            <div class="price">{{ product.price }} BYN</div>
 
-          <div class="div"></div>
+            <div class="color">
+              <div class="color-title">Цвета:</div>
+              <div class="colors-wrap">
+                <UiProductPageColorItem
+                  v-for="item in product?.products_from_group"
+                  :key="item.id"
+                  :data="item"
+                />
+              </div>
+            </div>
 
-          <div class="links">
-            <!-- <UiProductPageInfoLink text="Наличие в магазинах" /> -->
-            <UiProductPageInfoLink text="Описание и детали" @click="open" />
-            <!-- <UiProductPageInfoLink text="Отзывы" :count="3" /> -->
+            <div class="buttons">
+              <UiButtonsBlack
+                text="Добавить в корзину"
+                @click="saveToCart(product)"
+              />
+              <UiButtonsApple />
+            </div>
+
+            <div class="div"></div>
+
+            <div class="links">
+              <!-- <UiProductPageInfoLink text="Наличие в магазинах" /> -->
+              <UiProductPageInfoLink text="Описание и детали" @click="open" />
+              <!-- <UiProductPageInfoLink text="Отзывы" :count="3" /> -->
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <div class="spacer"></div>
+      <div class="spacer"></div>
 
-    <!-- <WidgetsSimilarProducts /> -->
+      <!-- <WidgetsSimilarProducts /> -->
+    </ClientOnly>
   </main>
 </template>
 

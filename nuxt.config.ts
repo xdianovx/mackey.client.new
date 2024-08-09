@@ -3,6 +3,7 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       apiUrl: "http://45.135.234.37:80/api/v1",
+      baseURL: process.env.API_BASE_URL,
     },
   },
 
@@ -10,7 +11,6 @@ export default defineNuxtConfig({
   // spaLoadingTemplate:
   // devtools: { enabled: true },
   css: ["~/assets/styles/main.scss"],
-  extends: ["nuxt-modal"],
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/i18n",
@@ -20,7 +20,7 @@ export default defineNuxtConfig({
     "@fullpage/nuxt-fullpage",
     "@nuxtjs/tailwindcss",
   ],
-
+  plugins: ["~/plugins/vue-the-mask.js"],
   vite: {
     css: {
       preprocessorOptions: {

@@ -84,7 +84,7 @@ onUnmounted(() => {
           <div class="collections" v-if="data.collections">
             <NuxtLink
               @click="hideMenu"
-              to="/kolliektsiia"
+              :to="`/kolliektsiia/${data.slug}`"
               class="collections-title link-collection-anim"
               >Коллекции</NuxtLink
             >

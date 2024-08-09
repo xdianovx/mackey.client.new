@@ -1,50 +1,96 @@
 import { defineStore } from "pinia";
 import { API_ROUTE } from "~/lib/constants";
 import { authStore } from "~/stores/auth.js";
+import { useCookies } from "@vueuse/integrations/useCookies";
+const cookies = useCookies();
 
 export const cartStore = defineStore("myCartStore", () => {
   const token = useCookie("auth-token");
   const cart = ref([]);
+  const cartGuest = ref([]);
   const loading = ref(false);
   const { userData } = storeToRefs(authStore());
+  const CART_KEY = "cart";
 
-  const getAll = async () => {};
+  // Добавление в корзину
+  const addToCart = async (product, quantity = 1) => {
+    if (token.value) {
+      addToCartServer(product.id, quantity);
+    } else {
+      addToCartLocal(product, quantity);
+    }
+  };
+
+  const addToCartServer = async (id, quantity) => {
+    await $fetch(API_ROUTE + `/cart/store_product`, {
+      method: "POST",
+      body: { product_id: id, quantity: quantity },
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    }).then(() => {
+      showCart();
+    });
+  };
+
+  const addToCartLocal = (product, quantity) => {
+    const existingItemIndex = cart.value?.findIndex(
+      (item) => item.id === product.id
+    );
+
+    if (existingItemIndex !== -1) {
+      cart.value[existingItemIndex].quantity += quantity;
+    } else {
+      cart.value.push({
+        id: product.id,
+        quantity: quantity,
+        product_files: product.product_files,
+        title: product.title,
+        slug: product.slug,
+        vendor_code: product.vendor_code,
+        colors: product.colors,
+        price: product.price,
+        discounted_price: product.discounted_price,
+      });
+    }
+
+    saveCartCookie();
+  };
+
+  const saveCartCookie = async () => {
+    await cookies.set(CART_KEY, JSON.stringify(cart.value), {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 7,
+    });
+  };
+
+  // Получение корзины
 
   const showCart = async () => {
-    if (userData.value.id) {
-      await useFetch(API_ROUTE + `/cart/show`, {
-        onResponse({ request, response, options }) {
-          cart.value = response._data;
-        },
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-        },
-      });
+    if (token.value) {
+      await getCartFromServer();
     } else {
-      console.log("notlogin");
+      const cartData = (await cookies.get(CART_KEY)) || [];
+      cart.value = cartData;
     }
   };
 
-  const addToCart = async (id, quantity = 1) => {
-    if (userData.value.id) {
-      await $fetch(API_ROUTE + `/cart/store_product`, {
-        method: "POST",
-        body: { product_id: id, quantity: quantity },
-        headers: {
-          Authorization: `Bearer ${token.value}`,
-        },
-      }).then(() => {
-        showCart();
-      });
-    } else {
-      console.log("notlogin");
-      // localStorage.setItem('token', response._data.token)
-    }
+  const getCartFromServer = async () => {
+    await useFetch(API_ROUTE + `/cart/show`, {
+      onResponse({ request, response, options }) {
+        cart.value = response._data;
+      },
+      headers: {
+        Authorization: `Bearer ${token.value}`,
+      },
+    });
   };
 
+  // Очистка корзины
   const removeFormCart = async (productId) => {
-    loading.value = true;
-    if (userData.value.id) {
+    if (token.value) {
+      loading.value = true;
+
       await $fetch(API_ROUTE + `/cart/delete_product`, {
         method: "delete",
         body: { product_id: productId },
@@ -52,13 +98,17 @@ export const cartStore = defineStore("myCartStore", () => {
           Authorization: `Bearer ${token.value}`,
         },
       }).then(() => {
+        loading.value = false;
         showCart();
       });
     } else {
-      console.log("notlogin");
-      // localStorage.setItem('token', response._data.token)
+      cart.value = cart.value.filter((item) => item.id !== productId);
+
+      saveCartCookie();
     }
   };
+
+  // Изменение количества в корзине
 
   const editProductCount = async (id, quantity) => {
     loading.value = true;
@@ -75,7 +125,6 @@ export const cartStore = defineStore("myCartStore", () => {
       });
     } else {
       console.log("notlogin");
-      // localStorage.setItem('token', response._data.token)
     }
   };
 
@@ -98,10 +147,12 @@ export const cartStore = defineStore("myCartStore", () => {
 
   showCart();
 
+  // Сохранение корзины в localStorage
+
   return {
     cart,
-    getAll,
     showCart,
+    cartGuest,
     addToCart,
     loading,
     removeFormCart,

@@ -1,6 +1,7 @@
 <script setup>
 const { isHome } = storeToRefs(useIsHomePageStore());
 const { cart } = storeToRefs(cartStore());
+const { token } = storeToRefs(authStore());
 </script>
 
 <template>
@@ -17,8 +18,8 @@ const { cart } = storeToRefs(cartStore());
       />
     </svg>
 
-    <div class="count" v-if="cart?.products?.length">
-      {{ cart.products.length }}
+    <div class="count" v-if="cart?.products?.length || cart?.length">
+      {{ token ? cart.products.length : cart.length }}
     </div>
   </NuxtLink>
 </template>

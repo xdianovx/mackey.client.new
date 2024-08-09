@@ -26,7 +26,7 @@ function decrDebounce() {
 <template>
   <div class="item" :class="{ loading: loading }">
     <div class="image">
-      <img :src="data.product_files[0].file" :alt="data.title" />
+      <img :src="data?.product_files[0].file" :alt="data?.title" />
     </div>
 
     <div class="info">

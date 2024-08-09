@@ -1,15 +1,25 @@
 <script setup>
+useGetFileExtention;
 const data = [
   {
     id: 1,
     title: "EVOLUTION",
-    image: "/video/1.mp4",
+    image: "/img/hero/1.jpg",
+    image_mob: "/img/hero/1m.jpg",
   },
   {
     id: 2,
     title: "Le Lin ",
     suptitle: "NEW SEASON",
-    image: "/video/2.mp4",
+    image: "/img/hero/2.mp4",
+    image_mob: "/img/hero/2.mp4",
+  },
+  {
+    id: 3,
+    title: "Le Lin ",
+    suptitle: "NEW SEASON",
+    image: "/img/hero/3.mp4",
+    image_mob: "/img/hero/3.mp4",
   },
 ];
 
@@ -26,7 +36,9 @@ const options = {
         <div class="container">
           <div class="screen">
             <div class="overlay"></div>
+
             <video
+              v-if="useGetFileExtention(item.image) == 'mp4'"
               data-autoplay
               playsinline
               autoplay
@@ -36,9 +48,37 @@ const options = {
             >
               <source :src="item.image" type="video/mp4" />
             </video>
+
+            <video
+              v-if="useGetFileExtention(item.image) == 'mp4'"
+              data-autoplay
+              playsinline
+              autoplay
+              loop
+              muted
+              class="section__video section__video-mob"
+            >
+              <source :src="item.image" type="video/mp4" />
+            </video>
+
+            <img
+              :src="item.image"
+              class="section__video"
+              v-if="useGetFileExtention(item.image) == 'jpg'"
+              alt=""
+            />
+            <img
+              :src="item.image_mob"
+              class="section__video section__video-mob"
+              v-if="useGetFileExtention(item.image) == 'jpg'"
+              alt=""
+            />
+
             <div class="section__wrap">
               <div class="section__info">
-                <h2 class="section__title">{{ item.title }}</h2>
+                <h2 class="section__title">
+                  {{ item.title }}
+                </h2>
                 <p class="section__subtitle">{{ item.suptitle }}</p>
 
                 <NuxtLink to="/" class="section__link">Подробнее</NuxtLink>
@@ -91,7 +131,12 @@ const options = {
   position: absolute;
   left: 0;
   top: 0;
+  display: block;
   z-index: 0;
+}
+
+.section__video-mob {
+  display: none;
 }
 
 .section__info {
@@ -164,6 +209,16 @@ const options = {
     border-radius: 1000px;
     padding: 15px;
     border: 1px solid rgba($bgWhite, 0.3);
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section__video {
+    display: none;
+  }
+
+  .section__video-mob {
+    display: block;
   }
 }
 

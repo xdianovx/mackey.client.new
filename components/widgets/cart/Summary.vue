@@ -1,6 +1,7 @@
 <script setup>
 const {} = cartStore();
 const { cart } = storeToRefs(cartStore());
+const { token } = storeToRefs(authStore());
 </script>
 
 <template>
@@ -9,12 +10,19 @@ const { cart } = storeToRefs(cartStore());
       <div class="item-top">
         <div class="title">Ваш заказ</div>
         <p class="item-top-count">
-          Товаров: {{ cart?.total_products_quantity }}
+          Товаров: {{ token ? cart?.total_products_quantity : cart.length }}
         </p>
       </div>
 
-      <div class="list">
+      <div class="list" v-if="token">
         <div class="list-item" v-for="item in cart?.products">
+          <div class="product-title">{{ item.title }} {{ item.quantity }}</div>
+          <div class="product-price">{{ item.discounted_price }} BYN</div>
+        </div>
+      </div>
+
+      <div class="list" v-else>
+        <div class="list-item" v-for="item in cart">
           <div class="product-title">{{ item.title }} {{ item.quantity }}</div>
           <div class="product-price">{{ item.discounted_price }} BYN</div>
         </div>

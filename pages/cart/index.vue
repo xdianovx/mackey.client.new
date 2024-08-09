@@ -2,6 +2,7 @@
 const { showCart } = cartStore();
 const { cart } = storeToRefs(cartStore());
 
+const { token } = authStore();
 await showCart();
 </script>
 
@@ -11,13 +12,23 @@ await showCart();
       <div class="container">
         <UiTitle tag="h1"
           >Корзина<span class="span">{{
-            cart.total_products_quantity
+            token ? cart.total_products_quantity : cart.length || 0
           }}</span></UiTitle
         >
 
-        <div class="cart-wrap" v-if="cart?.products">
+        <div class="cart-wrap" v-if="!token">
           <div class="products">
-            <div :key="item.id" v-for="item in cart?.products">
+            <div v-for="item in cart">
+              <WidgetsCartProduct :data="item" />
+              <div class="div"></div>
+            </div>
+          </div>
+          <WidgetsCartSummary />
+        </div>
+
+        <div class="cart-wrap" v-if="cart?.products && token">
+          <div class="products">
+            <div :key="item?.id" v-for="item in cart?.products">
               <WidgetsCartProduct :data="item" />
               <div class="div"></div>
             </div>

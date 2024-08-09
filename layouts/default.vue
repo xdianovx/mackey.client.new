@@ -1,6 +1,7 @@
 <script setup>
 import Footer from "~/components/widgets/Footer.vue";
 import Header from "../components/widgets/Header";
+import { useAuth } from "~/composables/useAuth";
 const { getMe } = authStore();
 const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
   useMyProductPageDrawerStore()
@@ -16,7 +17,11 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  console.log("created");
+  const auth = useAuth();
+  auth.checkAuth();
+});
+
+onMounted(() => {
   isPageLoading.value = false;
 });
 

@@ -1,4 +1,6 @@
 import { defineStore } from "pinia";
+import { useCookies } from "@vueuse/integrations/useCookies";
+import { API_ROUTE } from "~/lib/constants";
 
 export const authStore = defineStore("authStore", () => {
   const userData = ref({});
@@ -10,6 +12,7 @@ export const authStore = defineStore("authStore", () => {
   const phoneConfirmationError = ref("");
   const loginError = ref();
 
+  const cookies = useCookies();
   const token = ref("");
   const cookie = useCookie("auth-token", {
     maxAge: 365 * 24 * 60 * 60,
@@ -55,17 +58,19 @@ export const authStore = defineStore("authStore", () => {
   const login = async (values) => {
     await $fetch(`http://45.135.234.37:80/api/v1/login`, {
       method: "POST",
-      body: values,
-      onResponseError({ request, response, options }) {
-        console.log(123123);
+      body: {
+        ...values,
+        phone: values.phone.replace(/[^\d+]/g, ""),
       },
+
       onResponse({ request, response, options }) {
         if (response._data.error) {
           loginError.value = response._data.error;
+        } else {
+          userData.value = response._data;
+          cookie.value = response._data.tokens.access_token;
+          token.value = response._data.tokens.access_token;
         }
-        userData.value = response._data;
-        cookie.value = response._data.tokens.access_token;
-        token.value = response._data.tokens.access_token;
       },
     }).then(() => {
       navigateTo("/profile");
@@ -116,6 +121,7 @@ export const authStore = defineStore("authStore", () => {
     getMe,
     error,
     userData,
+    token,
     confirmPhone,
     isLoading,
     emailError,
