@@ -9,11 +9,11 @@ const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
 const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
 const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
 
-getMe();
 const isPageLoading = ref(true);
 
 onBeforeMount(() => {
   isPageLoading.value = true;
+  getMe();
 });
 
 onMounted(() => {

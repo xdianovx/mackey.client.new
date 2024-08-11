@@ -1,40 +1,82 @@
 <script setup>
-const { isGray } = storeToRefs(useIsPageGrayStore());
-const { createOrder } = cartStore();
-const { cart } = storeToRefs(cartStore());
+import Input from "~/components/ui/Forms/Input.vue";
+import Textarea from "~/components/ui/Forms/Textarea.vue";
+import { API_ROUTE } from "~/lib/constants";
 
+const { isGray } = storeToRefs(useIsPageGrayStore());
+const { cart } = storeToRefs(cartStore());
+const { token } = storeToRefs(authStore());
 const { getAll: getAdresses } = adresesStore();
 const { adreses } = storeToRefs(adresesStore());
+
+const { data: deliveryMethods } = await useFetch(
+  API_ROUTE + `/order_delivery_methods`,
+  {}
+);
+
+const { data: payMethods } = await useFetch(
+  API_ROUTE + `/order_payment_methods`,
+  {}
+);
 
 const checkoutRef = ref({
   total_price: cart.value.total_products_price_with_discount,
   comment_order: "",
   comment_payment: "",
-  promocode_id: 2,
-  payment_method_id: 2,
-  profile_client_address_id: 1,
-  delivery_method_id: 2,
+  promocode_id: 0,
+  office_post_address: "",
+  payment_method_id: 1,
+  client_data: {
+    first_name: "",
+    last_name: "",
+    phone: "",
+    email: "",
+  },
+  profile_client_address: {
+    flat: "",
+    floor: "",
+    house: "",
+    index: "",
+    street: "",
+    entrance: "",
+    locality: "",
+  },
+  delivery_method_id: 1,
   products: cart.value.products,
 });
 
-onMounted(() => {
+onBeforeMount(() => {
   checkoutRef.value = {
     total_price: cart.value.total_products_price_with_discount,
     comment_order: "",
+    office_post_address: "",
     comment_payment: "",
-    promocode_id: 2,
-    payment_method_id: 2,
-    profile_client_address_id: adreses.value[0].id,
-    delivery_method_id: 2,
+    promocode_id: 0,
+    payment_method_id: 1,
+    delivery_method_id: 1,
+    profile_client_address_id: adreses?.value[0].id,
+    client_data: {
+      first_name: "",
+      last_name: "",
+      phone: "",
+      email: "",
+    },
+    profile_client_address: {
+      flat: "",
+      floor: "",
+      house: "",
+      index: "",
+      street: "",
+      entrance: "",
+      locality: "",
+    },
     products: cart.value.products,
   };
 });
 
-const createNewOrder = () => {
-  createOrder(checkoutRef.value);
-};
-
-await getAdresses();
+if (token) {
+  await getAdresses();
+}
 </script>
 
 <template>
@@ -45,17 +87,58 @@ await getAdresses();
           <div class="container">
             <div class="top-title">
               <UiTitle tag="h1">Оформление заказа</UiTitle>
+
               <NuxtLink to="/cart" class="cart-btn">Назад в корзину</NuxtLink>
             </div>
 
             <div class="methods">
               <WidgetsCheckoutPayMethod
-                :data="checkoutRef.delivery_method_id"
+                :data="payMethods"
+                v-model="checkoutRef.payment_method_id"
               />
-              <WidgetsCheckoutDeliveryMethod />
+              <WidgetsCheckoutDeliveryMethod
+                :data="deliveryMethods"
+                v-model="checkoutRef.delivery_method_id"
+              />
             </div>
 
-            <div class="adreses-section">
+            <!-- Контакты -->
+            <div class="contacts-section mt-14" v-if="!token">
+              <h3 class="font-medium leading-[100%]">Контактные данные</h3>
+
+              <p class="text-black/50 mt-2">
+                Оформив заказ, вы получите доступ к личному кабинету по номеру
+                телефона для управления заказом и использования персональных
+                скидок
+              </p>
+
+              <div class="flex flex-col gap-4 mt-4">
+                <div class="flex gap-4">
+                  <Input
+                    v-model="checkoutRef.client_data.first_name"
+                    label="Имя"
+                  />
+                  <Input
+                    v-model="checkoutRef.client_data.last_name"
+                    label="Фамилия"
+                  />
+                </div>
+
+                <div class="flex gap-4">
+                  <Input
+                    v-model="checkoutRef.client_data.email"
+                    label="e-mail (для электронного чека)"
+                  />
+                  <Input
+                    v-model="checkoutRef.client_data.phone"
+                    label="Номер телефона"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Адреса -->
+            <div class="adreses-section" v-if="token">
               <h4 class="title">Адрес доставки</h4>
 
               <div class="adress-wrap">
@@ -78,14 +161,60 @@ await getAdresses();
               </div>
             </div>
 
-            <UiButtonsBlack
-              text="Оплатить"
-              @click="createNewOrder"
-              class="pay-btn"
-            />
+            <div class="adreses-section" v-else>
+              <h3 class="font-medium leading-[100%]">Адрес доставки</h3>
+
+              <div class="flex flex-col gap-4 mt-4">
+                <div class="flex gap-4">
+                  <Input
+                    v-model="checkoutRef.profile_client_address.locality"
+                    label="Населенный пункт"
+                  />
+                  <Input
+                    v-model="checkoutRef.profile_client_address.index"
+                    label="Индекс"
+                  />
+                </div>
+
+                <div class="flex gap-4">
+                  <Input
+                    v-model="checkoutRef.profile_client_address.street"
+                    label="Улица"
+                  />
+                </div>
+                <div class="flex gap-4">
+                  <Input
+                    v-model="checkoutRef.profile_client_address.house"
+                    label="Дом"
+                  />
+                  <Input
+                    v-model="checkoutRef.profile_client_address.flat"
+                    label="Квартира"
+                  />
+                  <Input
+                    v-model="checkoutRef.profile_client_address.floor"
+                    label="Этаж"
+                  />
+                  <Input
+                    v-model="checkoutRef.profile_client_address.entrance"
+                    label="Подъезд"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div class="my-14 h-[1px] bg-black/10 w-full"></div>
+
+            <div class="">
+              <h3 class="font-medium leading-[100%]">Комментарий</h3>
+              <Textarea
+                class="mt-2"
+                v-model="checkoutRef.comment_order"
+              ></Textarea>
+            </div>
           </div>
         </div>
-        <WidgetsCheckoutDrawer />
+        <WidgetsCheckoutDrawer :checkoutData="checkoutRef" />
       </div>
     </section>
   </main>
@@ -104,6 +233,7 @@ await getAdresses();
 .left {
   margin-top: 40px;
   width: 100%;
+  padding-bottom: 60px;
 }
 
 .top-title {

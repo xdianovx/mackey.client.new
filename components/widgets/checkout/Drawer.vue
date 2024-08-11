@@ -1,5 +1,11 @@
 <script setup>
 const { cart } = storeToRefs(cartStore());
+const { createOrder } = cartStore();
+const props = defineProps(["checkoutData"]);
+
+const createNewOrder = () => {
+  createOrder(props.checkoutData);
+};
 </script>
 
 <template>
@@ -13,18 +19,51 @@ const { cart } = storeToRefs(cartStore());
       <WidgetsCheckoutProduct :data="item" v-for="item in cart?.products" />
     </div>
 
-    <div class="hr"></div>
+    <div class="mt-auto">
+      <div class="hr"></div>
+      <div class="py-4 px-10">
+        <div class="flex items-center justify-between">
+          <p>Итого:</p>
+          <div class="ml-auto flex items-center gap-4">
+            <!-- <p>{{ cart.total_products_price }} BYN</p> -->
+            <p class="font-medium">
+              {{ cart.total_products_price_with_discount }} BYN
+            </p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <UiButtonsBlack
+            class="w-full"
+            text="Оформить заказ"
+            @click="createNewOrder"
+          />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 .item {
-  padding: 40px 48px;
   background: $bgWhite;
+  padding: 40px 0;
   max-width: 472px;
   width: 100%;
+  height: calc(100vh - 57px);
+  top: 57px;
+  position: sticky;
+  display: flex;
+  flex-direction: column;
 }
 
+.item-top {
+  padding: 0 48px;
+}
+
+.products {
+  padding: 0 48px;
+}
 .hr {
   margin-top: 24px;
   width: 100%;

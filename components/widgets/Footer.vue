@@ -58,7 +58,10 @@ const links = [
         <div class="footer__socials">
           <h4 class="footer__socials__title">Makey в социальных сетях</h4>
           <div class="footer__socials_wrap">
-            <NuxtLink to="https://www.instagram.com/" target="_blank">
+            <NuxtLink
+              to="https://www.instagram.com/makeyby?igsh=MTNhN3Z4c3QweGFnNA=="
+              target="_blank"
+            >
               <svg
                 width="32"
                 height="32"
@@ -77,7 +80,10 @@ const links = [
                 />
               </svg>
             </NuxtLink>
-            <NuxtLink to="https://www.tiktok.com/" target="_blank">
+            <NuxtLink
+              to="https://www.tiktok.com/@makey.by?_t=8oUZozWjVN0&_r=1"
+              target="_blank"
+            >
               <svg
                 width="32"
                 height="32"
@@ -91,7 +97,7 @@ const links = [
               </svg>
             </NuxtLink>
 
-            <NuxtLink to="https://www.tiktok.com/" target="_blank">
+            <NuxtLink to="https://www.youtube.com/@Makey_World" target="_blank">
               <svg
                 width="45"
                 height="32"

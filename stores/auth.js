@@ -94,6 +94,10 @@ export const authStore = defineStore("authStore", () => {
       });
   };
 
+  const isAuthenticated = () => {
+    token.value = cookies.get("auth-token");
+  };
+
   const getMe = () => {
     if (cookie.value) {
       $fetch(`http://45.135.234.37:80/api/v1/profile/show`, {
@@ -103,6 +107,8 @@ export const authStore = defineStore("authStore", () => {
       }).then((res) => {
         userData.value = res;
       });
+
+      token.value = cookies.get("auth-token");
     }
   };
 
@@ -112,6 +118,8 @@ export const authStore = defineStore("authStore", () => {
     userData.value = {};
     navigateTo("/");
   };
+
+  getMe();
 
   return {
     logout,

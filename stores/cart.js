@@ -168,7 +168,12 @@ export const cartStore = defineStore("myCartStore", () => {
       });
     } else {
       console.log("notlogin");
-      // localStorage.setItem('token', response._data.token)
+      await $fetch(API_ROUTE + `/new-order/store-not-reg`, {
+        method: "POST",
+        body: body,
+      }).then((res) => {
+        navigateTo(res.data.redirectUrl, { external: true });
+      });
     }
   };
 
