@@ -2,6 +2,8 @@
 const {} = cartStore();
 const { cart } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
+
+const productSum = ref(0);
 </script>
 
 <template>
@@ -17,21 +19,29 @@ const { token } = storeToRefs(authStore());
       <div class="list" v-if="token">
         <div class="list-item" v-for="item in cart?.products">
           <div class="product-title">{{ item.title }} {{ item.quantity }}</div>
-          <div class="product-price">{{ item.discounted_price }} BYN</div>
+          <div class="product-price">
+            {{ item.discounted_price * item.quantity }} BYN
+          </div>
         </div>
       </div>
 
       <div class="list" v-else>
-        <div class="list-item" v-for="item in cart">
+        <div class="list-item" v-for="item in cart?.products">
           <div class="product-title">{{ item.title }} {{ item.quantity }}</div>
-          <div class="product-price">{{ item.discounted_price }} BYN</div>
+          <div class="product-price">
+            {{ item.discounted_price * item.quantity }} BYN
+          </div>
         </div>
       </div>
 
       <div class="summary">
         <p>Итого:</p>
 
-        <div class="summary-price">
+        <div class="summary-price" v-if="token">
+          {{ cart.total_products_price_with_discount }} BYN
+        </div>
+
+        <div class="summary-price" v-else>
           {{ cart.total_products_price_with_discount }} BYN
         </div>
       </div>

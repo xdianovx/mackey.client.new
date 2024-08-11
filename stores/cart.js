@@ -6,11 +6,26 @@ const cookies = useCookies();
 
 export const cartStore = defineStore("myCartStore", () => {
   const token = useCookie("auth-token");
-  const cart = ref([]);
-  const cartGuest = ref([]);
+
+  const cart = ref({
+    total_products_quantity: 0,
+    total_products_price: 0,
+    total_products_price_with_discount: 0,
+    client_profile_id: 301,
+    products: [],
+  });
   const loading = ref(false);
   const { userData } = storeToRefs(authStore());
   const CART_KEY = "cart";
+
+  const getTotalProductsQuantity = () => {
+    cart.value.total_products_price_with_discount = cart.value.products.reduce(
+      (sum, item) => sum + item.quantity * item.discounted_price,
+      0
+    );
+  };
+
+  getTotalProductsQuantity();
 
   // Добавление в корзину
   const addToCart = async (product, quantity = 1) => {
@@ -34,14 +49,14 @@ export const cartStore = defineStore("myCartStore", () => {
   };
 
   const addToCartLocal = (product, quantity) => {
-    const existingItemIndex = cart.value?.findIndex(
-      (item) => item.id === product.id
-    );
+    const existingItemIndex = cart.value.products?.findIndex((item) => {
+      item.id === product.id;
+    });
 
     if (existingItemIndex !== -1) {
-      cart.value[existingItemIndex].quantity += quantity;
+      cart.value.products[existingItemIndex].quantity += quantity;
     } else {
-      cart.value.push({
+      cart.value.products.push({
         id: product.id,
         quantity: quantity,
         product_files: product.product_files,
@@ -54,11 +69,12 @@ export const cartStore = defineStore("myCartStore", () => {
       });
     }
 
+    getTotalProductsQuantity();
     saveCartCookie();
   };
 
-  const saveCartCookie = async () => {
-    await cookies.set(CART_KEY, JSON.stringify(cart.value), {
+  const saveCartCookie = () => {
+    cookies.set(CART_KEY, JSON.stringify(cart.value), {
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });
@@ -70,7 +86,9 @@ export const cartStore = defineStore("myCartStore", () => {
     if (token.value) {
       await getCartFromServer();
     } else {
-      const cartData = (await cookies.get(CART_KEY)) || [];
+      const cartData = (await cookies.get(CART_KEY)) || {
+        products: [],
+      };
       cart.value = cartData;
     }
   };
@@ -102,17 +120,20 @@ export const cartStore = defineStore("myCartStore", () => {
         showCart();
       });
     } else {
-      cart.value = cart.value.filter((item) => item.id !== productId);
+      cart.value.products = cart.value.products.filter(
+        (item) => item.id !== productId
+      );
 
       saveCartCookie();
+      getTotalProductsQuantity();
     }
   };
 
   // Изменение количества в корзине
 
   const editProductCount = async (id, quantity) => {
-    loading.value = true;
-    if (userData.value.id) {
+    if (token.value) {
+      loading.value = true;
       await $fetch(API_ROUTE + `/cart/update_product?_method=PATCH`, {
         method: "POST",
         body: { product_id: id, quantity: quantity },
@@ -124,7 +145,13 @@ export const cartStore = defineStore("myCartStore", () => {
         loading.value = false;
       });
     } else {
-      console.log("notlogin");
+      const product = cart.value.products?.find((item) => item.id === id);
+      if (product) {
+        product.quantity = quantity;
+        saveCartCookie();
+      }
+
+      getTotalProductsQuantity();
     }
   };
 
@@ -152,7 +179,6 @@ export const cartStore = defineStore("myCartStore", () => {
   return {
     cart,
     showCart,
-    cartGuest,
     addToCart,
     loading,
     removeFormCart,

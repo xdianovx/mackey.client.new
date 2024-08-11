@@ -1,24 +1,26 @@
 <script setup>
 const { showCart } = cartStore();
 const { cart } = storeToRefs(cartStore());
-
 const { token } = authStore();
 await showCart();
 </script>
 
 <template>
   <main class="cart">
-    <section class="cart-top">
+    <WidgetsCartEmpty v-if="cart.products.length === 0" />
+
+    <!-- Cart -->
+    <section class="cart-top" v-else>
       <div class="container">
         <UiTitle tag="h1"
           >Корзина<span class="span">{{
-            token ? cart.total_products_quantity : cart.length || 0
+            token ? cart.total_products_quantity : cart.products?.length || 0
           }}</span></UiTitle
         >
 
-        <div class="cart-wrap" v-if="!token">
+        <div class="cart-wrap" v-if="cart.products?.length > 0 && !token">
           <div class="products">
-            <div v-for="item in cart">
+            <div v-for="item in cart?.products">
               <WidgetsCartProduct :data="item" />
               <div class="div"></div>
             </div>

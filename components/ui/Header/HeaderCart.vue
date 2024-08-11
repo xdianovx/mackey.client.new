@@ -19,7 +19,7 @@ const { token } = storeToRefs(authStore());
     </svg>
 
     <div class="count" v-if="cart?.products?.length || cart?.length">
-      {{ token ? cart.products.length : cart.length }}
+      {{ token ? cart.products.length : cart.products?.length }}
     </div>
   </NuxtLink>
 </template>

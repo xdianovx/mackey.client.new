@@ -21,7 +21,7 @@ await getMenu();
       <div class="header__wrap" :class="{ black: !isHome, active: isNavOpen }">
         <UiHeaderLogo />
 
-        <nav class="header__nav" ">
+        <nav class="header__nav">
           <UiHeaderLink
             v-if="!loading"
             v-for="item in links"
