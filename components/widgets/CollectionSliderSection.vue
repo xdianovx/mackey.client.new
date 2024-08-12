@@ -58,7 +58,7 @@ const next = ref(null);
     <div class="collection-products-slider">
       <div class="container">
         <Swiper
-          class="swiper"
+          class="swiper collection-products-swiper"
           :breakpoints="{
             '320': {
               slidesPerView: 2,
@@ -80,10 +80,18 @@ const next = ref(null);
             nextEl: next,
           }"
         >
-          <SwiperSlide v-for="product in data.products">
+          <SwiperSlide v-for="product in data.products.slice(0, 4)">
             <WidgetsProductCard :key="product.id" :data="product" />
           </SwiperSlide>
         </Swiper>
+
+        <div class="product-wrap-mobile">
+          <WidgetsProductCard
+            :key="product.id"
+            v-for="product in data.products.slice(0, 4)"
+            :data="product"
+          />
+        </div>
       </div>
 
       <div ref="prev" class="slider-arrow-prev">
@@ -151,6 +159,10 @@ const next = ref(null);
 .collection-products-slider {
   margin-top: 48px;
   position: relative;
+}
+
+.product-wrap-mobile {
+  display: none;
 }
 
 .product-slider__link {
@@ -253,9 +265,28 @@ const next = ref(null);
   }
 }
 
+@media screen and (max-width: 1024px) {
+  .collection-products-swiper {
+    display: none;
+  }
+
+  .product-wrap-mobile {
+    display: grid !important;
+    margin-top: 24px;
+    gap: 16px;
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
 @media screen and (max-width: 768px) {
   .image {
     aspect-ratio: 9 / 16;
+  }
+
+  .product-wrap-mobile {
+    display: grid;
+    margin-top: 24px;
+    gap: 16px;
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 </style>
