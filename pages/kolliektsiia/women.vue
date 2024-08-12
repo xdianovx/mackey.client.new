@@ -1,14 +1,13 @@
 <script setup>
-const { getAll } = useMyCollectionsStore();
+const { getWomen } = useMyCollectionsStore();
 const { collections } = storeToRefs(useMyCollectionsStore());
 
-await getAll("men");
+await getWomen();
 </script>
 
 <template>
   <main>
-    <WidgetsFilter />
-    <WidgetsFilterSectionCollections />
+    <WidgetsFilterSectionCollections :enable-filter="false" />
 
     <div class="collection-sliders">
       <WidgetsCollectionSliderSection

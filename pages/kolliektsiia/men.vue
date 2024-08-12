@@ -7,10 +7,8 @@ await getAll("men");
 
 <template>
   <main>
-    <WidgetsFilter />
-    <WidgetsFilterSectionCollections />
+    <WidgetsFilterSectionCollections :enable-filter="false" />
 
-    {{ collections }}
     <div class="collection-sliders">
       <WidgetsCollectionSliderSection
         v-for="item in collections"

@@ -45,7 +45,7 @@ const addCollectionsToFilter = (id) => {
 };
 
 await getTypes();
-await getCollections();
+// await getCollections();
 // await getColors();
 
 params.value.price_min = products.value.meta?.min_price;

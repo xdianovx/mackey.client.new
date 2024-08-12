@@ -1,6 +1,9 @@
 <script setup>
 const data = defineProps({
   title: String,
+  enableFilter: {
+    default: true,
+  },
 });
 
 const { getAll } = useMyCollectionsStore();
@@ -9,7 +12,7 @@ const { open, close } = useMyIsFilterOpenStore();
 const { isOpen } = storeToRefs(useMyIsFilterOpenStore());
 const { collections } = storeToRefs(useMyCollectionsStore());
 
-await getAll();
+// await getAll();
 </script>
 
 <template>
@@ -36,8 +39,8 @@ await getAll();
           </NuxtLink>
         </nav>
 
-        <div class="div mobile"></div>
-        <div class="filters-btns">
+        <div class="div mobile" v-if="enableFilter"></div>
+        <div class="filters-btns" v-if="enableFilter">
           <UiCatalogSortBtn @click="open" />
           <div class="div"></div>
           <UiCatalogFilterBtn @click="open" class="filters-btn-cat" />
@@ -46,7 +49,7 @@ await getAll();
     </div>
   </section>
 
-  <UiMobileCatalogFilterBtn @click="open" />
+  <UiMobileCatalogFilterBtn @click="open" v-if="enableFilter" />
 </template>
 
 <style lang="scss" scoped>

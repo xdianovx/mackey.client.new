@@ -9,15 +9,16 @@ const next = ref(null);
 </script>
 
 <template>
-  <section class="collection-slider-section" v-if="data.products.length > 0">
+  <section class="collection-slider-section">
     <div class="collections-slider" v-if="data?.collection_banners.length > 0">
       <Swiper class="swiper">
         <SwiperSlide v-for="item in data?.collection_banners">
-          <div class="coasntainer">
+          <div class="">
             <div class="image">
               <div class="banner__info">
                 <div class="container">
                   <h2>{{ data.title }}</h2>
+                  <p class="mt-4 text-white/80">{{ data.description }}</p>
                   <NuxtLink
                     class="banner-info-btn"
                     :to="`/kolliektsiia/${data.slug}`"
@@ -26,7 +27,16 @@ const next = ref(null);
                 </div>
               </div>
               <div class="overflow"></div>
-              <img :src="item.image" alt="Фото коллекции" />
+              <img
+                :src="item.image"
+                class="max-[768px]:hidden"
+                alt="Фото коллекции "
+              />
+              <img
+                :src="item.image_mob"
+                class="hidden max-[768px]:block"
+                alt="Фото коллекции "
+              />
             </div>
           </div>
         </SwiperSlide>
@@ -37,6 +47,7 @@ const next = ref(null);
       <div class="container">
         <div class="title-wrap">
           <h3>{{ data.title }}</h3>
+          <p class="mt-4 text-white/80">{{ data.description }}</p>
           <NuxtLink :to="`/kolliektsiia/${data.slug}`">
             Смотреть всю коллекцию
           </NuxtLink>
@@ -131,7 +142,6 @@ const next = ref(null);
     left: 0;
   }
   img {
-    display: block;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -230,7 +240,7 @@ const next = ref(null);
   background-blend-mode: luminosity, normal;
   color: $textWhite;
   display: inline-block;
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .title-wrap {
@@ -240,6 +250,12 @@ const next = ref(null);
   a {
     text-decoration: underline;
     color: $textGray;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .image {
+    aspect-ratio: 9 / 16;
   }
 }
 </style>

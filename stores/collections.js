@@ -9,5 +9,11 @@ export const useMyCollectionsStore = defineStore("myCollectionsStore", () => {
     );
   };
 
-  return { collections, getAll };
+  const getWomen = async () => {
+    await $fetch(`http://45.135.234.37:80/api/v1/collections/women`).then(
+      (res) => (collections.value = res)
+    );
+  };
+
+  return { collections, getAll, getWomen };
 });
