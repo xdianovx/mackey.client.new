@@ -121,6 +121,7 @@ onUnmounted(() => {
   position: absolute;
   width: 100%;
   height: 100vh;
+  height: webkit-fill-available;
   background: $bgBlack;
   top: -100vh;
   z-index: -1;
