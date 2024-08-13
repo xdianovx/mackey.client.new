@@ -75,7 +75,7 @@ const toggleContent = () => {
       </div>
     </div>
 
-    <div class="sub-links">
+    <div class="sub-links" v-if="data.slug === 'women' || data.slug === 'men'">
       <div class="sub-links__inner">
         <NuxtLink :to="`/${data.slug}`">Смотреть все</NuxtLink>
         <NuxtLink
@@ -95,6 +95,15 @@ const toggleContent = () => {
             v-for="item in data.collections"
             >{{ item.title }}</NuxtLink
           >
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-links" v-else>
+      <div class="sub-links__inner">
+        <div class="flex gap-3">
+          <NuxtLink :to="`/${data.slug}/women`">Women</NuxtLink>
+          <NuxtLink :to="`/${data.slug}/men`">Men</NuxtLink>
         </div>
       </div>
     </div>

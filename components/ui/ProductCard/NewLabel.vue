@@ -6,10 +6,6 @@
 
 <style lang="scss" scoped>
 .label {
-  position: absolute;
-  z-index: 2;
-  top: 8px;
-  left: 8px;
   background: $bgWhite;
   font-size: 12px;
   line-height: 150%;

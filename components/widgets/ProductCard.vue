@@ -24,7 +24,15 @@ const toggleFavorite = () => {
       @click="toggleFavorite()"
       :isActive="isFavorite(props.data)"
     />
-    <UiProductCardNewLabel v-if="data.is_new" />
+    <div class="flex gap-2 items-center absolute top-2 left-2 z-10">
+      <UiProductCardNewLabel v-if="data.is_new" />
+      <div
+        class="text-sm text-red-500 px-1 leading-[100%]"
+        v-if="data.sale > 0"
+      >
+        {{ data.sale }}%
+      </div>
+    </div>
     <NuxtLink :to="`/product/${data.slug}`" class="image">
       <ClientOnly>
         <Swiper
@@ -82,7 +90,13 @@ const toggleFavorite = () => {
 
     <div class="info">
       <h3 class="title">{{ data?.title }}</h3>
-      <div class="price">{{ data.price }} BYN</div>
+      <div class="flex gap-2">
+        <div class="price text-gray-500 line-through" v-if="data.sale > 0">
+          {{ data.price }} BYN
+        </div>
+        <div class="price">{{ data.discounted_price }} BYN</div>
+      </div>
+      {{ data.stocks }}
     </div>
   </div>
 </template>

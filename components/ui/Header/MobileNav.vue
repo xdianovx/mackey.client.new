@@ -5,6 +5,9 @@ import gsap from "gsap";
 const isOpenState = useNavOpen();
 const { isNavOpen } = storeToRefs(useNavOpen());
 const { links } = storeToRefs(useMyNavigationLinksStore());
+const { cart } = storeToRefs(cartStore());
+const { token } = storeToRefs(authStore());
+
 let ctx;
 let tl;
 const nav = ref();
@@ -70,7 +73,7 @@ onUnmounted(() => {
               </g>
             </svg>
             <p>Корзина:</p>
-            <p>5</p>
+            <p>{{ token ? cart.products.length : cart.products?.length }}</p>
           </NuxtLink>
           <div class="div"></div>
 
@@ -117,7 +120,8 @@ onUnmounted(() => {
   display: block;
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  min-height: -webkit-fill-available;
   background: $bgBlack;
   top: -100vh;
   z-index: -1;
