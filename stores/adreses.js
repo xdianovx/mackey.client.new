@@ -31,16 +31,5 @@ export const adresesStore = defineStore("myAdresesStore", () => {
     });
   };
 
-  // const getAById = async (id) => {
-  //   await useFetch(API_ROUTE + `/profile/аddresses`, {
-  //     onResponse({ request, response, options }) {
-  //       adreses.value = response._data;
-  //     },
-  //     headers: {
-  //       Authorization: `Bearer ${token.value}`,
-  //     },
-  //   });
-  // };
-
   return { loading, adreses, getAll, create };
 });

@@ -8,7 +8,7 @@ export const useMyNavigationLinksStore = defineStore(
 
     const getMenu = async () => {
       loading.value = true;
-      await $fetch("http://45.135.234.37:80/api/v1/get_menu/all").then(
+      await $fetch("http://45.135.234.37:8000/api/v1/get_menu/all").then(
         (res) => {
           links.value = res;
           loading.value = false;

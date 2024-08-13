@@ -20,7 +20,7 @@ export const authStore = defineStore("authStore", () => {
 
   const registerStepOne = async (values) => {
     isLoading.value = true;
-    await $fetch("http://45.135.234.37:80/api/v1/register_step_one", {
+    await $fetch("http://45.135.234.37:800000/api/v1/register_step_one", {
       method: "POST",
       body: values,
       onResponseError({ request, response, options }) {
@@ -38,7 +38,7 @@ export const authStore = defineStore("authStore", () => {
     isLoading.value = true;
 
     await $fetch(
-      `http://45.135.234.37:80/api/v1/register_step_two/users/${userData.value.id}`,
+      `http://45.135.234.37:8000/api/v1/register_step_two/users/${userData.value.id}`,
       {
         method: "POST",
         body: values,
@@ -56,7 +56,7 @@ export const authStore = defineStore("authStore", () => {
   };
 
   const login = async (values) => {
-    await $fetch(`http://45.135.234.37:80/api/v1/login`, {
+    await $fetch(`http://45.135.234.37:8000/api/v1/login`, {
       method: "POST",
       body: {
         ...values,
@@ -80,7 +80,7 @@ export const authStore = defineStore("authStore", () => {
   const confirmPhone = (id, code) => {
     isLoading.value = true;
 
-    $fetch(`http://45.135.234.37:80/api/v1/phone_confirmation/users/${id}`, {
+    $fetch(`http://45.135.234.37:8000/api/v1/phone_confirmation/users/${id}`, {
       method: "POST",
       body: code,
     })
@@ -100,7 +100,7 @@ export const authStore = defineStore("authStore", () => {
 
   const getMe = () => {
     if (cookie.value) {
-      $fetch(`http://45.135.234.37:80/api/v1/profile/show`, {
+      $fetch(`http://45.135.234.37:8000/api/v1/profile/show`, {
         headers: {
           Authorization: `Bearer ${cookie.value}`,
         },
