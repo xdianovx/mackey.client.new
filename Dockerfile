@@ -2,11 +2,11 @@ FROM node:lts-alpine as build-stage
 
 WORKDIR /app
 
-COPY ./package.json .
+COPY ./client/package.json .
 
 RUN npm install
 
-COPY ./mackey_admin .
+COPY ./client .
 
 RUN npm run build
 
