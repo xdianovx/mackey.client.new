@@ -24,7 +24,7 @@ const toggleFavorite = () => {
       @click="toggleFavorite()"
       :isActive="isFavorite(props.data)"
     />
-    <div class="flex gap-2 items-center absolute top-2 left-2 z-10">
+    <div class="flex gap-2 items-center absolute top-2 left-2 z-[1]">
       <UiProductCardNewLabel v-if="data.is_new" />
       <div
         class="text-sm text-red-500 px-1 leading-[100%]"
