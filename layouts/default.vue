@@ -8,6 +8,7 @@ const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
 );
 const { isOpen: isFilterOpen } = storeToRefs(useMyIsFilterOpenStore());
 const { isOpen: isSearchOpen } = storeToRefs(useIsSearchBar());
+const { isNavOpen } = storeToRefs(useNavOpen());
 
 const isPageLoading = ref(true);
 
@@ -31,7 +32,8 @@ useHead({
       if (
         isProductPadeDrawerOpen.value ||
         isFilterOpen.value ||
-        isSearchOpen.value
+        isSearchOpen.value ||
+        isNavOpen.value
       ) {
         return "active";
       } else {
