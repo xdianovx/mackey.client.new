@@ -20,7 +20,11 @@ if (data.title == "man") {
   currentTitle.value = "men";
 }
 
-if (data.title == "gift") {
+if (data.title == "gifts") {
+  currentTitle.value = "gifts";
+}
+
+if (data.title == "gifts") {
   currentTitle.value = "gifts";
 }
 </script>

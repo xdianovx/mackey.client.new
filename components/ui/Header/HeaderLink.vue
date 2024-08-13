@@ -62,11 +62,23 @@ onUnmounted(() => {
 
 <template>
   <div class="link" ref="header" @mouseleave="hideMenu" @mouseenter="showMenu">
-    <NuxtLink :to="`/${data.slug}`" class="parent-link">
+    <NuxtLink
+      :to="`/${data.slug}`"
+      v-if="data.slug === 'women' || data.slug === 'men'"
+      class="parent-link"
+    >
       {{ data.title }}
     </NuxtLink>
 
-    <div class="sub-links" :class="{ white: !isHome }">
+    <NuxtLink v-else class="parent-link cursor-pointer">
+      {{ data.title }}
+    </NuxtLink>
+
+    <div
+      class="sub-links"
+      :class="{ white: !isHome }"
+      v-if="data.slug === 'women' || data.slug === 'men'"
+    >
       <div class="container">
         <div class="sub-links-wrap">
           <div class="categories">
@@ -100,6 +112,28 @@ onUnmounted(() => {
               </NuxtLink>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-links" :class="{ white: !isHome }" v-else>
+      <div class="container">
+        <div class="sub-links-wrap gap-2">
+          <NuxtLink
+            @click="hideMenu"
+            class="link-anim"
+            :to="`/${data.slug}/women`"
+          >
+            Women
+          </NuxtLink>
+
+          <NuxtLink
+            @click="hideMenu"
+            class="link-anim"
+            :to="`/${data.slug}/men`"
+          >
+            Men
+          </NuxtLink>
         </div>
       </div>
     </div>
