@@ -22,9 +22,7 @@ const links = [
     link: "/korporativnye-zakazy",
     links: [
       { id: 1, title: "+375 (29) 580-13-78", link: "tel:+375 (29) 580-13-78" },
-      { id: 2, title: "+375 (29) 580-13-78", link: "tel:+375 (29) 580-13-78" },
       { id: 3, title: "tmanager@makey.by", link: "mailto:tmanager@makey.by" },
-      { id: 4, title: "dovnar7@mail.ru", link: "mailto:dovnar7@mail.ru" },
     ],
   },
   {
