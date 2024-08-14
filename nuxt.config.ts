@@ -6,7 +6,7 @@ export default defineNuxtConfig({
       baseURL: process.env.API_BASE_URL,
     },
   },
-  // ssr: false,
+  ssr: false,
 
   optimization: {},
   // spaLoadingTemplate:
