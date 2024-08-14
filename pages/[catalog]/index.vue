@@ -1,4 +1,6 @@
 <script setup>
+import { API_ROUTE } from "~/lib/constants";
+
 const route = useRoute();
 const slug = route.params.catalog;
 
@@ -12,7 +14,7 @@ if (slug == "man") pageCategory.value = "man";
 if (slug == "woman") pageCategory.value = "woman";
 
 const getProducts = async () => {
-  await $fetch(`http://45.135.234.37:80/api/v1/categories/${slug}`).then(
+  await $fetch(API_ROUTE + `/api/v1/categories/${slug}`).then(
     (res) => (products.value = res)
   );
 };
