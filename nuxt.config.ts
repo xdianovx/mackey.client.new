@@ -2,6 +2,7 @@
 export default defineNuxtConfig({
   optimization: {},
   css: ["~/assets/styles/main.scss"],
+  ssr: false,
   modules: [
     "@pinia/nuxt",
     "@nuxtjs/i18n",
