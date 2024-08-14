@@ -20,7 +20,7 @@ export const authStore = defineStore("authStore", () => {
 
   const registerStepOne = async (values) => {
     isLoading.value = true;
-    await $fetch(API_ROUTE + "/api/v1/register_step_one", {
+    await $fetch(API_ROUTE + "/register_step_one", {
       method: "POST",
       body: values,
       onResponseError({ request, response, options }) {
@@ -37,17 +37,14 @@ export const authStore = defineStore("authStore", () => {
   const registerStepTwo = async (values) => {
     isLoading.value = true;
 
-    await $fetch(
-      API_ROUTE + ` /api/v1/register_step_two/users/${userData.value.id}`,
-      {
-        method: "POST",
-        body: values,
-        onResponseError({ request, response, options }) {
-          emailError.value = response._data;
-          isLoading.value = false;
-        },
-      }
-    ).then((res) => {
+    await $fetch(API_ROUTE + ` /register_step_two/users/${userData.value.id}`, {
+      method: "POST",
+      body: values,
+      onResponseError({ request, response, options }) {
+        emailError.value = response._data;
+        isLoading.value = false;
+      },
+    }).then((res) => {
       cookie.value = res.tokens.access_token;
       token.value = res.tokens.access_token;
       isLoading.value = false;
@@ -56,7 +53,7 @@ export const authStore = defineStore("authStore", () => {
   };
 
   const login = async (values) => {
-    await $fetch(API_ROUTE + `/api/v1/login`, {
+    await $fetch(API_ROUTE + `/login`, {
       method: "POST",
       body: {
         ...values,
@@ -80,7 +77,7 @@ export const authStore = defineStore("authStore", () => {
   const confirmPhone = (id, code) => {
     isLoading.value = true;
 
-    $fetch(API_ROUTE + `api/v1/phone_confirmation/users/${id}`, {
+    $fetch(API_ROUTE + `/phone_confirmation/users/${id}`, {
       method: "POST",
       body: code,
     })
@@ -100,7 +97,7 @@ export const authStore = defineStore("authStore", () => {
 
   const getMe = () => {
     if (cookie.value) {
-      $fetch(API_ROUTE + `/api/v1/profile/show`, {
+      $fetch(API_ROUTE + `/profile/show`, {
         headers: {
           Authorization: `Bearer ${cookie.value}`,
         },

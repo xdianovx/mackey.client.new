@@ -6,7 +6,7 @@ export const useMyProductsStore = defineStore("myProductsStore", () => {
   const filterParams = ref([]);
 
   const getAll = async (params) => {
-    await $fetch(API_ROUTE + "/api/v1/products", {
+    await $fetch(API_ROUTE + "/products", {
       params: {
         ...params,
         "categories[]": params?.categories,
@@ -18,7 +18,7 @@ export const useMyProductsStore = defineStore("myProductsStore", () => {
 
   const getSort = (opt) => {
     console.log(opt);
-    $fetch(API_ROUTE + "/api/v1/products", {
+    $fetch(API_ROUTE + "/products", {
       params: opt,
     }).then((res) => (products.value = res));
   };
