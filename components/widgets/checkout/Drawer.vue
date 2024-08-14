@@ -21,7 +21,7 @@ const createNewOrder = () => {
 
     <div class="mt-auto">
       <div class="hr"></div>
-      <div class="py-4 px-10">
+      <div class="py-4 px-10 max-[768px]:px-4 max-[768px]:py-6">
         <div class="flex items-center justify-between">
           <p>Итого:</p>
           <div class="ml-auto flex items-center gap-4">
@@ -91,5 +91,29 @@ const createNewOrder = () => {
   flex-direction: column;
   margin-top: 24px;
   gap: 12px;
+}
+
+@media screen and (max-width: 1280px) {
+  .item {
+    top: 52px;
+    max-width: 430px;
+    gap: 8px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .item {
+    position: static;
+    max-width: none;
+    height: auto;
+  }
+
+  .item-top {
+    padding: 0 16px;
+  }
+
+  .products {
+    padding: 0 16px;
+  }
 }
 </style>

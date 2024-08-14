@@ -113,7 +113,7 @@ if (token) {
               </p>
 
               <div class="flex flex-col gap-4 mt-4">
-                <div class="flex gap-4">
+                <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.client_data.first_name"
                     label="Имя"
@@ -124,7 +124,7 @@ if (token) {
                   />
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.client_data.email"
                     label="e-mail (для электронного чека)"
@@ -165,7 +165,7 @@ if (token) {
               <h3 class="font-medium leading-[100%]">Адрес доставки</h3>
 
               <div class="flex flex-col gap-4 mt-4">
-                <div class="flex gap-4">
+                <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.profile_client_address.locality"
                     label="Населенный пункт"
@@ -176,13 +176,13 @@ if (token) {
                   />
                 </div>
 
-                <div class="flex gap-4">
+                <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.profile_client_address.street"
                     label="Улица"
                   />
                 </div>
-                <div class="flex gap-4">
+                <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.profile_client_address.house"
                     label="Дом"
@@ -203,7 +203,9 @@ if (token) {
               </div>
             </div>
 
-            <div class="my-14 h-[1px] bg-black/10 w-full"></div>
+            <div
+              class="my-14 max-[768px]:my-6 h-[1px] bg-black/10 w-full"
+            ></div>
 
             <div class="">
               <h3 class="font-medium leading-[100%]">Комментарий</h3>
@@ -319,8 +321,36 @@ if (token) {
 }
 
 @media screen and (max-width: 1280px) {
+  .methods {
+    grid-template-columns: 1fr;
+  }
   .section {
     margin-top: 52px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .checkout-wrap {
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 58px - 336px);
+  }
+
+  .adreses-section {
+    margin-top: 32px;
+  }
+
+  .cart-btn {
+    border: none;
+    padding: 0;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .top-title {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 }
 </style>

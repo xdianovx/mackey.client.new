@@ -29,7 +29,7 @@ const links = [
     id: 3,
     title: "Сервис и поддержка",
     links: [
-      { id: 1, title: "Контакты", link: "/contacts" },
+      { id: 1, title: "Контакты", link: "/kontakty" },
       { id: 2, title: "О компании", link: "/o-kompanii" },
       { id: 3, title: "Магазины", link: "/stores" },
       { id: 4, title: "Франшиза", link: "/" },

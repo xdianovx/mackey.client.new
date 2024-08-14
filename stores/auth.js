@@ -22,7 +22,10 @@ export const authStore = defineStore("authStore", () => {
     isLoading.value = true;
     await $fetch(API_ROUTE + "/register_step_one", {
       method: "POST",
-      body: values,
+      body: {
+        ...values,
+        phone: values.phone.replace(/[^\d+]/g, ""),
+      },
       onResponseError({ request, response, options }) {
         smsError.value = response._data;
         isLoading.value = false;
@@ -37,7 +40,7 @@ export const authStore = defineStore("authStore", () => {
   const registerStepTwo = async (values) => {
     isLoading.value = true;
 
-    await $fetch(API_ROUTE + ` /register_step_two/users/${userData.value.id}`, {
+    await $fetch(API_ROUTE + `/register_step_two/users/${userData.value.id}`, {
       method: "POST",
       body: values,
       onResponseError({ request, response, options }) {
