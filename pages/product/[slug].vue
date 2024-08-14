@@ -5,6 +5,7 @@ const slug = route.params.slug;
 
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination } from "swiper/modules";
+import { API_ROUTE } from "~/lib/constants";
 
 const { open } = useMyProductPageDrawerStore();
 
@@ -25,11 +26,9 @@ const saveToCart = async (product) => {
 };
 const productRef = ref();
 
-await $fetch(`http://45.135.234.37:80/api/v1/products/${slug}/show`, {}).then(
-  (res) => {
-    product.value = res;
-  }
-);
+await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
+  product.value = res;
+});
 </script>
 
 <template>
