@@ -14,7 +14,7 @@ if (slug == "man") pageCategory.value = "man";
 if (slug == "woman") pageCategory.value = "woman";
 
 const getProducts = async () => {
-  await $fetch(API_ROUTE + `/api/v1/categories/${slug}`).then(
+  await $fetch(API_ROUTE + `/categories/${slug}`).then(
     (res) => (products.value = res)
   );
 };

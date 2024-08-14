@@ -16,7 +16,7 @@ const isLoading = ref(false);
 
 const searchHandler = () => {
   isLoading.value = true;
-  $fetch(API_ROUTE + "/api/v1/products", {
+  $fetch(API_ROUTE + "/products", {
     params: {
       search: searchStr.value,
     },

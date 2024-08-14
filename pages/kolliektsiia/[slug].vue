@@ -7,7 +7,7 @@ const slug = route.params.slug;
 const collection = ref();
 
 const getColletion = async (params) => {
-  $fetch(API_ROUTE + `/api/v1/collections/${slug}/show`, {}).then(
+  $fetch(API_ROUTE + `/collections/${slug}/show`, {}).then(
     (res) => (collection.value = res.data)
   );
 };

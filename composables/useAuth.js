@@ -12,7 +12,7 @@ export const useAuth = defineStore("auth", {
 
   actions: {
     async login(credentials) {
-      await useFetch(API_ROUTE + "/api/v1/login", {
+      await useFetch(API_ROUTE + "/login", {
         method: "POST",
         body: {
           ...credentials,
@@ -42,7 +42,7 @@ export const useAuth = defineStore("auth", {
       const token = cookies.get("auth_token");
 
       if (token) {
-        await useFetch(API_ROUTE + "/api/v1/profile/show", {
+        await useFetch(API_ROUTE + "/profile/show", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
