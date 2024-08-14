@@ -14,21 +14,6 @@ import DeliverSvg from "@/assets/icons/tag/deliver.svg";
 import PercentSvg from "@/assets/icons/tag/percent.svg";
 import PinSvg from "@/assets/icons/tag/pin.svg";
 import PromoSvg from "@/assets/icons/tag/promo.svg";
-
-// const handleSubmit = () => {
-//   $fetch("http://45.135.234.37:80/api/v1/register_step_one", {
-//     method: "POST",
-//     body: registerData.value,
-//   }).then((res) => console.log(res));
-// };
-
-// const checkSteps = () => {
-//   if (registerData.value.first_name.length > 0) {
-//     currentStep.value = 2;
-//   } else if (registerData.value.phone.length > 0) {
-//     currentStep.value = 2;
-//   }
-// };
 </script>
 
 <template>

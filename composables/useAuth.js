@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { useCookies } from "@vueuse/integrations/useCookies";
 import { useFetch } from "nuxt/app"; // Импорт useFetch из Nuxt
+import { API_ROUTE } from "~/lib/constants";
 const cookies = useCookies();
 
 export const useAuth = defineStore("auth", {
@@ -11,7 +12,7 @@ export const useAuth = defineStore("auth", {
 
   actions: {
     async login(credentials) {
-      await useFetch("http://45.135.234.37:80/api/v1/login", {
+      await useFetch(API_ROUTE + "/api/v1/login", {
         method: "POST",
         body: {
           ...credentials,
@@ -41,7 +42,7 @@ export const useAuth = defineStore("auth", {
       const token = cookies.get("auth_token");
 
       if (token) {
-        await useFetch("http://45.135.234.37:80/api/v1/profile/show", {
+        await useFetch(API_ROUTE + "/api/v1/profile/show", {
           headers: {
             Authorization: `Bearer ${token}`,
           },

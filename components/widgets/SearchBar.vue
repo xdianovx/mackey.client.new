@@ -1,4 +1,5 @@
 <script setup>
+import { API_ROUTE } from "~/lib/constants";
 import CloseBtn from "../ui/Filter/CloseBtn.vue";
 
 const { close } = useIsSearchBar();
@@ -15,7 +16,7 @@ const isLoading = ref(false);
 
 const searchHandler = () => {
   isLoading.value = true;
-  $fetch("http://45.135.234.37:80/api/v1/products", {
+  $fetch(API_ROUTE + "/api/v1/products", {
     params: {
       search: searchStr.value,
     },

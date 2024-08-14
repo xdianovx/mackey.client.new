@@ -1,11 +1,13 @@
 <script setup>
+import { API_ROUTE } from "~/lib/constants";
+
 const route = useRoute();
 const slug = route.params.slug;
 
 const collection = ref();
 
 const getColletion = async (params) => {
-  $fetch(`http://45.135.234.37:80/api/v1/collections/${slug}/show`, {}).then(
+  $fetch(API_ROUTE + `/api/v1/collections/${slug}/show`, {}).then(
     (res) => (collection.value = res.data)
   );
 };
