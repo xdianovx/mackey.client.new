@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import { API_ROUTE } from "~/lib/constants";
 
 export const useMyCollectionsStore = defineStore("myCollectionsStore", () => {
   const collections = ref();

@@ -1,6 +1,7 @@
 // stores/favorites.js
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { API_ROUTE } from "~/lib/constants";
 
 // Хранилище для избранных товаров с использованием ref
 export const useFavoritesStore = defineStore("favorites", () => {
