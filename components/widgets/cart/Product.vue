@@ -18,7 +18,9 @@ function incrDebounce() {
 }
 
 function decrDebounce() {
-  quantityRef.value -= 1;
+  if (quantityRef.value > 1) {
+    quantityRef.value -= 1;
+  }
   increment();
 }
 </script>

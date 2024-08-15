@@ -12,17 +12,17 @@ const data = [
     id: 2,
     title: "Le Lin ",
     suptitle: "NEW SEASON",
-    image: "/img/hero/2.mp4",
+    image: "/img/hero/2.webm",
     slug: "/kolliektsiia/le-lin-new-season",
-    image_mob: "/img/hero/2.mp4",
+    image_mob: "/img/hero/2.webm",
   },
   {
     id: 3,
     title: "EVOLUTION",
     suptitle: "",
     slug: "/kolliektsiia/evolution-collection",
-    image: "/img/hero/3.mp4",
-    image_mob: "/img/hero/3.mp4",
+    image: "/img/hero/3.webm",
+    image_mob: "/img/hero/3.webm",
   },
 ];
 
@@ -41,25 +41,25 @@ const options = {
             <div class="overlay"></div>
 
             <video
-              v-if="useGetFileExtention(item.image) == 'mp4'"
+              v-if="useGetFileExtention(item.image) == 'webm'"
               playsinline
               autoplay
               loop
               muted
               class="section__video"
             >
-              <source :src="item.image" type="video/mp4" />
+              <source :src="item.image" type="video/webm" />
             </video>
 
             <video
-              v-if="useGetFileExtention(item.image) == 'mp4'"
+              v-if="useGetFileExtention(item.image) == 'webm'"
               playsinline
               autoplay
               loop
               muted
               class="section__video section__video-mob"
             >
-              <source :src="item.image" type="video/mp4" />
+              <source :src="item.image" type="video/webm" />
             </video>
 
             <img

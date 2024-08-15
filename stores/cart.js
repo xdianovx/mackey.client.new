@@ -60,7 +60,7 @@ export const cartStore = defineStore("myCartStore", () => {
       cart.value.products.push({
         id: product.id,
         quantity: quantity,
-        product_files: product.product_files,
+        // product_files: product.product_files,
         title: product.title,
         slug: product.slug,
         vendor_code: product.vendor_code,
@@ -148,7 +148,9 @@ export const cartStore = defineStore("myCartStore", () => {
     } else {
       const product = cart.value.products?.find((item) => item.id === id);
       if (product) {
-        product.quantity = quantity;
+        if (quantity > 0) {
+          product.quantity = quantity;
+        }
         saveCartCookie();
       }
 
