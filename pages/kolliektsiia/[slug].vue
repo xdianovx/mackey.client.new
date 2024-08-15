@@ -53,7 +53,7 @@ getColletion();
       </div>
     </section>
 
-    <section class="products-section">
+    <section class="products-section pb-20">
       <div class="container">
         <div class="products-wrap">
           <WidgetsProductCard
@@ -65,7 +65,7 @@ getColletion();
       </div>
     </section>
 
-    <WidgetsSeoText />
+    <!-- <WidgetsSeoText /> -->
   </main>
 </template>
 
