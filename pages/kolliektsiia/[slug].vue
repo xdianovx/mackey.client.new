@@ -31,7 +31,16 @@ getColletion();
 
     <section class="coll-banner">
       <div class="image">
-        <img :src="collection?.collection_banners[0]?.image" alt="" />
+        <img
+          class="image-desk"
+          :src="collection?.collection_banners[0]?.image"
+          alt=""
+        />
+        <img
+          class="image-mob"
+          :src="collection?.collection_banners[0]?.image_mob"
+          alt=""
+        />
         <div class="overflow"></div>
       </div>
       <div class="banner">
@@ -111,7 +120,6 @@ getColletion();
   img {
     width: 100%;
     height: 100%;
-    display: block;
     object-fit: cover;
   }
 
@@ -125,6 +133,13 @@ getColletion();
   }
 }
 
+.image-desk {
+  display: block;
+}
+
+.image-mob {
+  display: none;
+}
 @media screen and (max-width: 1200px) {
   .products-wrap {
     display: grid;
@@ -134,6 +149,20 @@ getColletion();
 }
 
 @media screen and (max-width: 768px) {
+  .image {
+    aspect-ratio: 9 / 16;
+  }
+  .image-desk {
+    display: none;
+  }
+
+  .image-mob {
+    display: block;
+  }
+
+  .banner-description {
+    max-width: none;
+  }
   .products-wrap {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

@@ -31,7 +31,7 @@ const links = [
     links: [
       { id: 1, title: "Контакты", link: "/kontakty" },
       { id: 2, title: "О компании", link: "/o-kompanii" },
-      { id: 3, title: "Магазины", link: "/stores" },
+      { id: 3, title: "Магазины", link: "/magaziny" },
       { id: 4, title: "Франшиза", link: "/" },
     ],
   },
@@ -42,7 +42,7 @@ const links = [
       { id: 1, title: "Корпоративные заказы", link: "/korporativnye-zakazy" },
       { id: 2, title: "Оплата и доставка", link: "/dostavka-i-oplata" },
       { id: 3, title: "Гарантия и возврат", link: "/garantia-i-vozvrat" },
-      { id: 4, title: "Помощь и FAQ", link: "/faq" },
+      { id: 4, title: "Помощь и FAQ", link: "/pomosh-i-faq" },
     ],
   },
 ];

@@ -10,7 +10,7 @@ const toggle = () => {
 <template>
   <div class="item">
     <div class="top" @click="toggle">
-      <h4>{{ data.title }}</h4>
+      <h4 class="font-medium">{{ data.title }}</h4>
       <svg
         width="24"
         height="24"
@@ -26,7 +26,7 @@ const toggle = () => {
     </div>
 
     <div class="text" :class="{ active: isOpen }">
-      <div class="text-wrap" v-html="data.text" />
+      <div class="text-wrap pb-4" v-html="data.text" />
     </div>
   </div>
 </template>

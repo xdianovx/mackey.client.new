@@ -1,7 +1,9 @@
 <script setup>
 import Accordition from "~/components/ui/Accordition.vue";
+import Input from "~/components/ui/Forms/Input.vue";
+import Textarea from "~/components/ui/Forms/Textarea.vue";
 
-const payData = [
+const guaranty = [
   {
     id: 1,
     title: "1. Банковской картой онлайн",
@@ -17,30 +19,9 @@ const payData = [
     title: "3. Карты рассрочки",
     text: "Да, цены актуальные, иначе и быть не может. Если вы находитесь на территории Беларуси, то видите цены в белорусских рублях. Находясь на территории России – в российских рублях. За пределами Беларуси и России цены будут не доступны.",
   },
-  {
-    id: 4,
-    title: "4. Apple Pay",
-    text: "Да, цены актуальные, иначе и быть не может. Если вы находитесь на территории Беларуси, то видите цены в белорусских рублях. Находясь на территории России – в российских рублях. За пределами Беларуси и России цены будут не доступны.",
-  },
-  {
-    id: 5,
-    title: "5. Webpay",
-    text: "<p>Безопасный сервер WEBPAY устанавливает шифрованное соединение по защищенному протоколу TLS и конфиденциально принимает от клиента данные его платёжной карты (номер карты, имя держателя, дату окончания действия, и контрольный номер банковской карточке CVC/CVC2).</p> <br/> <p> После совершения оплаты с использованием банковской карты необходимо сохранять полученные карт-чеки (подтверждения об оплате) для сверки с выпиской из карт-счёта (с целью подтверждения совершённых операций в случае возникновения спорных ситуаций)..</p> <br/> В случае, если Вы не получили заказ (не оказана услуга), Вам необходимо обратиться (в службу технической поддержки) по телефону +375 (33) 301-70-17 или e-mail makeyecom@yandex.by . Менеджеры Вас проконсультируют. При оплате банковской платежной картой возврат денежных средств осуществляется на карточку, с которой была произведена оплата",
-  },
-
-  {
-    id: 6,
-    title: "6. Оплата через ЕРИП",
-    text: '<ol><li>1.Пункт "Система"Расчет" (ЕРИП).</li><li>2.Интернет магазины/сервисы.</li><li>3.В списке выбираем букву «М».</li><li>4.<a href="https://4.Makey.by">Makey.by.</a></li><li>5.Для оплаты "Товара" ввести номер заказа.</li><li>6.Проверить корректность информации.</li><li>7.Совершить платеж.</li></ol><br><p>Благодарим Вас за оплату!</p><p>Компания "Макей"!</p>',
-  },
-  {
-    id: 7,
-    title: "7. Пример чека",
-    text: '<img class="check-example" src="/cjeck.png"/>',
-  },
 ];
 
-const deliveryData = [
+const returns = [
   {
     id: 1,
     title: "1. Курьером по Минску",
@@ -64,16 +45,63 @@ const deliveryData = [
     <section class="mt-[100px] mb-20">
       <!-- item -->
       <div class="container">
-        <UiTitle tag="h2">Способы оплаты</UiTitle>
+        <UiTitle tag="h2">Гарантия на изделия</UiTitle>
         <div class="mt-8 max-[1024px]:mt-4">
-          <Accordition v-for="item in payData" :data="item" />
+          <Accordition v-for="item in guaranty" :data="item" />
         </div>
 
         <div class="my-12 w-full h-[1px] bg-gray-200"></div>
 
-        <UiTitle tag="h2">Способы оплаты</UiTitle>
+        <UiTitle tag="h2">Условия возврата</UiTitle>
         <div class="mt-8 max-[1024px]:mt-4">
-          <Accordition v-for="item in deliveryData" :data="item" />
+          <Accordition v-for="item in returns" :data="item" />
+        </div>
+      </div>
+    </section>
+
+    <section class="mt-[100px] max-[1200px]:mt-20 mb-20">
+      <div class="container">
+        <div
+          class="flex gap-16 items-stretch max-[1024px]:flex-col max-[1024px]:gap-8"
+        >
+          <div
+            class="form max-w-[780px] w-full max-[1200px]:max-w-1/2 max-[1024px]:max-w-none"
+          >
+            <UiTitle tag="h2">
+              Нужна помощь? Напишите нам и с вами свяжется наш менеджер
+            </UiTitle>
+
+            <form class="mt-8 max-[1200px]:mt-6">
+              <div class="flex gap-2 max-[1200px]:flex-col">
+                <Input label="Имя" />
+                <Input label="Номер телефона" />
+                <Input label="e-mail" />
+              </div>
+
+              <Textarea label="Опишите свою проблему" class="mt-4"></Textarea>
+              <UiButtonsBlack text="Отправить запрос" class="w-full mt-4" />
+            </form>
+          </div>
+          <div
+            class="w-[1px] bg-gray-200 max-[1024px]:h-[1px] max-[1024px]:w-full"
+          ></div>
+
+          <div class="max-w-[440px] max-[1024px]:max-w-none">
+            <UiTitle tag="h2">
+              Или свяжитесь с нами <br />
+              любым удобным вам способом
+            </UiTitle>
+
+            <div class="flex flex-col mt-6 gap-2">
+              <NuxtLink to="tel:+375 (29) 580-13-78"
+                >+375 (29) 580-13-78</NuxtLink
+              >
+              <NuxtLink to="mailto:tmanager@makey.by"
+                >tmanager@makey.by</NuxtLink
+              >
+              <NuxtLink to="mailto:dovnar7@mail.ru">dovnar7@mail.ru</NuxtLink>
+            </div>
+          </div>
         </div>
       </div>
     </section>

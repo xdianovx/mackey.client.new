@@ -15,7 +15,6 @@ const props = defineProps(["tag"]);
   font-style: normal;
   font-weight: 600;
   line-height: 120%;
-  text-transform: capitalize;
 }
 
 .h2 {
