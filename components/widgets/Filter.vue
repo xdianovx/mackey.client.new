@@ -11,6 +11,9 @@ const { getAll: getTypes } = useMyTypesStore();
 const { getAll: getCollections } = useMyCollectionsStore();
 const { collections } = storeToRefs(useMyCollectionsStore());
 
+const { getAll: getColors } = colorsStore();
+const { colors } = storeToRefs(colorsStore());
+
 const route = useRoute();
 const catalog = route.params.catalog;
 
@@ -19,10 +22,12 @@ const props = defineProps(["catId"]);
 const params = ref({
   "types[]=": [],
   "collections[]=": [],
+  "colors[]=": [],
   "categories[]=": props.catId,
   price_min: products.value.meta?.min_price,
   price_max: products.value.meta?.max_price,
   is_new: null,
+  is_stock: 0,
 });
 
 const addTypesToFilter = (id) => {
@@ -30,6 +35,14 @@ const addTypesToFilter = (id) => {
     params.value["types[]="].splice(params.value["types[]="].indexOf(id), 1);
   } else {
     params.value["types[]="]?.push(id);
+  }
+};
+
+const addColorsToFilter = (id) => {
+  if (params.value["colors[]="]?.includes(id)) {
+    params.value["colors[]="].splice(params.value["colors[]="].indexOf(id), 1);
+  } else {
+    params.value["colors[]="]?.push(id);
   }
 };
 
@@ -43,10 +56,6 @@ const addCollectionsToFilter = (id) => {
     params.value["collections[]="]?.push(id);
   }
 };
-
-await getTypes();
-// await getCollections();
-// await getColors();
 
 params.value.price_min = products.value.meta?.min_price;
 params.value.price_max = products.value.meta?.max_price;
@@ -68,26 +77,51 @@ const clearFilter = () => {
 
   filterHandler();
 };
+
+await getTypes();
+if (catalog == "men") {
+  await getCollections("men");
+} else {
+  await getCollections("women");
+}
+// await getColors();
 </script>
 
 <template>
   <div class="filter" :class="{ active: isOpen }">
     <div class="filter__wrap">
       <div class="filter__top">
-        <h3 class="title">Фильтры</h3>
+        <h3 class="font-bold text-[20px]">Фильтры</h3>
         <UiFilterCloseBtn @click="close" />
       </div>
 
       <div class="inner">
-        <div class="checkbox">
-          <input
-            type="checkbox"
-            id="newcheck"
-            v-model="params.is_new"
-            :true-value="1"
-            :false-value="0"
-          />
-          <label for="newcheck">Новинка</label>
+        <div class="flex gap-8">
+          <!-- New -->
+          <div class="checkbox">
+            <input
+              type="checkbox"
+              id="newcheck"
+              v-model="params.is_new"
+              :true-value="1"
+              :false-value="0"
+            />
+            <label for="newcheck">Новинка</label>
+          </div>
+
+          <!-- На акции -->
+          <div class="flex items-center justify-between">
+            <div class="checkbox">
+              <input
+                type="checkbox"
+                id="123"
+                v-model="params.is_stock"
+                :true-value="1"
+                :false-value="0"
+              />
+              <label for="123">На акции</label>
+            </div>
+          </div>
         </div>
         <UiFilterDropdown title="Цена">
           <div class="price">
@@ -109,8 +143,8 @@ const clearFilter = () => {
               <input
                 type="checkbox"
                 :id="type.id"
-                :checked="params['collections[]='].includes(type.id)"
-                @change="addCollectionsToFilter(type.id)"
+                :checked="params['collections[]='].includes(type.slug)"
+                @change="addCollectionsToFilter(type.slug)"
               />
               <label :for="type.id">{{ type.title }}</label>
             </div>
@@ -118,16 +152,34 @@ const clearFilter = () => {
         </UiFilterDropdown>
 
         <!-- Type -->
-        <UiFilterDropdown title="Тип">
+        <UiFilterDropdown
+          title="Тип"
+          v-if="route.params.slug === 'sumki-women'"
+        >
           <div class="collection-wrap">
             <div class="checkbox" v-for="type in types">
               <input
                 type="checkbox"
-                :id="`type${type.id}`"
-                :checked="params['types[]='].includes(type.id)"
-                @change="addTypesToFilter(type.id)"
+                :id="`type${type.slug}`"
+                :checked="params['types[]='].includes(type.slug)"
+                @change="addTypesToFilter(type.slug)"
               />
-              <label :for="`type${type.id}`">{{ type.title }}</label>
+              <label :for="`type${type.slug}`">{{ type.title }}</label>
+            </div>
+          </div>
+        </UiFilterDropdown>
+
+        <!-- Colors -->
+        <UiFilterDropdown title="Цвета">
+          <div class="collection-wrap">
+            <div class="checkbox" v-for="color in colors">
+              <input
+                type="checkbox"
+                :id="`color${color.slug}`"
+                :checked="params['types[]='].includes(color.slug)"
+                @change="addColorsToFilter(color.slug)"
+              />
+              <label :for="`color${color.slug}`">{{ color.title }}</label>
             </div>
           </div>
         </UiFilterDropdown>
@@ -170,16 +222,6 @@ const clearFilter = () => {
   animation-delay: 0.3s;
   &.active {
     right: 0;
-  }
-}
-
-.price-input {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  label {
-    font-size: 14px;
-    font-weight: 600;
   }
 }
 
@@ -248,6 +290,8 @@ const clearFilter = () => {
   display: flex;
   gap: 16px;
   align-items: center;
+  width: 100%;
+  flex-grow: 1;
 
   input {
     border: 1px solid rgba($bgBlack, 0.2);
@@ -258,6 +302,18 @@ const clearFilter = () => {
 
   .p-slider {
     flex-grow: 1;
+  }
+}
+
+.price-input {
+  display: flex;
+  flex-direction: column;
+
+  gap: 2px;
+  width: 100%;
+  label {
+    font-size: 14px;
+    font-weight: 600;
   }
 }
 

@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@fullpage/nuxt-fullpage",
     "@nuxtjs/tailwindcss",
+    "@weareheavy/nuxt-cookie-consent",
   ],
   plugins: ["~/plugins/vue-the-mask.js"],
   vite: {
@@ -21,6 +22,10 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  cookieConsent: {
+    provider: "cookieinformation",
+    culture: "RU", // Replace with the culture you want to apply
   },
 
   build: {

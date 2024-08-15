@@ -20,6 +20,7 @@
     "@sidebase/nuxt-auth": "^0.8.1",
     "@vee-validate/nuxt": "^4.13.1",
     "@vee-validate/yup": "^4.13.2",
+    "@weareheavy/nuxt-cookie-consent": "^1.0.4",
     "axios": "^1.7.3",
     "gsap": "^3.12.5",
     "normalize.css": "^8.0.1",
