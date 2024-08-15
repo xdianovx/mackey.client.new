@@ -42,7 +42,6 @@ const options = {
 
             <video
               v-if="useGetFileExtention(item.image) == 'mp4'"
-              data-autoplay
               playsinline
               autoplay
               loop
@@ -54,7 +53,6 @@ const options = {
 
             <video
               v-if="useGetFileExtention(item.image) == 'mp4'"
-              data-autoplay
               playsinline
               autoplay
               loop
