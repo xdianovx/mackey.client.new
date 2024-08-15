@@ -116,7 +116,7 @@ getColletion();
 }
 
 .image {
-  aspect-ratio: 16 /9;
+  height: calc(100vh - 160px);
   img {
     width: 100%;
     height: 100%;

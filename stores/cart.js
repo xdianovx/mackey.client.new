@@ -6,7 +6,7 @@ const cookies = useCookies();
 
 export const cartStore = defineStore("myCartStore", () => {
   const token = useCookie("auth-token");
-
+  const thanksData = ref();
   const cart = ref({
     total_products_quantity: 0,
     total_products_price: 0,
@@ -52,7 +52,6 @@ export const cartStore = defineStore("myCartStore", () => {
     const existingItemIndex = await cart.value.products?.findIndex(
       (item) => item.id === product.id
     );
-    console.log(existingItemIndex);
 
     if (existingItemIndex !== -1) {
       cart.value.products[existingItemIndex].quantity += quantity;
@@ -60,7 +59,7 @@ export const cartStore = defineStore("myCartStore", () => {
       cart.value.products.push({
         id: product.id,
         quantity: quantity,
-        // product_files: product.product_files,
+        product_files: product.product_files,
         title: product.title,
         slug: product.slug,
         vendor_code: product.vendor_code,
@@ -181,6 +180,10 @@ export const cartStore = defineStore("myCartStore", () => {
           },
         },
       }).then((res) => {
+        if (res.type == "pri-poluchenii") {
+          thanksData.value = res;
+          cookies.remove(CART_KEY, { path: "/" });
+        }
         navigateTo(res.data.redirectUrl, { external: true });
       });
     }
@@ -195,6 +198,7 @@ export const cartStore = defineStore("myCartStore", () => {
     showCart,
     addToCart,
     loading,
+    thanksData,
     removeFormCart,
     editProductCount,
     createOrder,

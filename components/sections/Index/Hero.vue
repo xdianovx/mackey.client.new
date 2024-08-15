@@ -9,6 +9,14 @@ const data = [
     image_mob: "/img/hero/1m.jpg",
   },
   {
+    id: 4,
+    title: "THE PLAIT COLLECTION",
+    suptitle: "",
+    slug: "/kolliektsiia/the-plait",
+    image: "/img/hero/5.jpg",
+    image_mob: "/img/hero/5m.jpg",
+  },
+  {
     id: 2,
     title: "Le Lin ",
     suptitle: "NEW SEASON",
@@ -23,6 +31,14 @@ const data = [
     slug: "/kolliektsiia/evolution-collection",
     image: "/img/hero/3.webm",
     image_mob: "/img/hero/3.webm",
+  },
+  {
+    id: 4,
+    title: "BOHO",
+    suptitle: "",
+    slug: "/kolliektsiia/boho",
+    image: "/img/hero/4.jpg",
+    image_mob: "/img/hero/4m.jpg",
   },
 ];
 
@@ -83,7 +99,7 @@ const options = {
                 <p class="section__subtitle">{{ item.suptitle }}</p>
 
                 <NuxtLink :to="item.slug" class="section__link"
-                  >Подробнее</NuxtLink
+                  >Перейти в коллекцию</NuxtLink
                 >
                 <!-- <div class="mobile__links">
                   <NuxtLink to="/women" class="mobile__link">Women</NuxtLink>
