@@ -5,6 +5,7 @@ const data = [
     id: 1,
     title: "Makey X Conte",
     image: "/img/hero/1.jpg",
+    slug: "/kolliektsiia/makey-x-conte",
     image_mob: "/img/hero/1m.jpg",
   },
   {
@@ -12,12 +13,14 @@ const data = [
     title: "Le Lin ",
     suptitle: "NEW SEASON",
     image: "/img/hero/2.mp4",
+    slug: "/kolliektsiia/le-lin-new-season",
     image_mob: "/img/hero/2.mp4",
   },
   {
     id: 3,
     title: "EVOLUTION",
     suptitle: "",
+    slug: "/kolliektsiia/evolution-collection",
     image: "/img/hero/3.mp4",
     image_mob: "/img/hero/3.mp4",
   },
@@ -81,11 +84,13 @@ const options = {
                 </h2>
                 <p class="section__subtitle">{{ item.suptitle }}</p>
 
-                <NuxtLink to="/" class="section__link">Подробнее</NuxtLink>
-                <div class="mobile__links">
+                <NuxtLink :to="item.slug" class="section__link"
+                  >Подробнее</NuxtLink
+                >
+                <!-- <div class="mobile__links">
                   <NuxtLink to="/women" class="mobile__link">Women</NuxtLink>
                   <NuxtLink to="/men" class="mobile__link">Men</NuxtLink>
-                </div>
+                </div> -->
               </div>
             </div>
           </div>
@@ -178,10 +183,6 @@ const options = {
 }
 
 @media screen and (max-width: 1200px) {
-  .section__link {
-    display: none;
-  }
-
   .section__title {
     font-size: 64px;
   }
@@ -214,6 +215,10 @@ const options = {
 }
 
 @media screen and (max-width: 768px) {
+  .section__link {
+    display: block;
+    text-align: center;
+  }
   .section__video {
     display: none;
   }
