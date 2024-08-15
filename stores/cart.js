@@ -48,12 +48,11 @@ export const cartStore = defineStore("myCartStore", () => {
     });
   };
 
-  const addToCartLocal = (product, quantity) => {
-    console.log(cart.value.products);
-    const existingItemIndex = cart.value.products?.findIndex((item) => {
-      item.id === product.id;
-      console.log(item.id, product.id);
-    });
+  const addToCartLocal = async (product, quantity) => {
+    const existingItemIndex = await cart.value.products?.findIndex(
+      (item) => item.id === product.id
+    );
+    console.log(existingItemIndex);
 
     if (existingItemIndex !== -1) {
       cart.value.products[existingItemIndex].quantity += quantity;
@@ -172,7 +171,13 @@ export const cartStore = defineStore("myCartStore", () => {
       console.log("notlogin");
       await $fetch(API_ROUTE + `/new-order/store-not-reg`, {
         method: "POST",
-        body: body,
+        body: {
+          ...body,
+          client_data: {
+            ...body.client_data,
+            phone: body.client_data.phone.replace(/[^\d+]/g, ""),
+          },
+        },
       }).then((res) => {
         navigateTo(res.data.redirectUrl, { external: true });
       });

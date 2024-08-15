@@ -131,6 +131,7 @@ if (token) {
                   />
                   <Input
                     v-model="checkoutRef.client_data.phone"
+                    v-mask="'+375 (##) ###-##-##'"
                     label="Номер телефона"
                   />
                 </div>
