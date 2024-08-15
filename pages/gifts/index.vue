@@ -1,10 +1,14 @@
 <script setup>
-import { API_ROUTE } from "~/lib/constants";
-
-const route = useRoute();
-
 const { getAll } = useMyProductsStore();
 const { products } = storeToRefs(useMyProductsStore());
+
+import { seoData } from "~/lib/seo";
+const slug = "gifts";
+const seo = seoData[slug];
+useSeoMeta({
+  title: seo?.title || "Makey.by",
+  description: seo?.description || "Makey.by",
+});
 
 await getAll({
   is_gift: 1,
@@ -25,6 +29,8 @@ await getAll({
         </div>
       </div>
     </section>
+
+    <WidgetsSeoText :title="seo?.text.title" :text="seo?.text.content" />
   </main>
 </template>
 

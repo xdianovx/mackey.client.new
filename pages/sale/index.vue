@@ -1,5 +1,5 @@
 <script setup>
-import { API_ROUTE } from "~/lib/constants";
+import { seoData } from "~/lib/seo";
 
 const route = useRoute();
 
@@ -8,6 +8,14 @@ const { products } = storeToRefs(useMyProductsStore());
 
 await getAll({
   is_sale: 1,
+});
+
+const slug = "sale";
+const seo = seoData[slug];
+
+useSeoMeta({
+  title: seo?.title || "Makey.by",
+  description: seo?.description || "Makey.by",
 });
 </script>
 
@@ -26,6 +34,7 @@ await getAll({
         </div>
       </div>
     </section>
+    <WidgetsSeoText :title="seo?.text.title" :text="seo?.text.content" />
   </main>
 </template>
 

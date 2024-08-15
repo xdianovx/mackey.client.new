@@ -1,8 +1,17 @@
 <script setup>
+import { seoData } from "~/lib/seo";
+
 const { getWomen } = useMyCollectionsStore();
 const { collections } = storeToRefs(useMyCollectionsStore());
 
-getWomen();
+await getWomen();
+
+const slug = "new";
+const seo = seoData[slug];
+useSeoMeta({
+  title: seo?.title || "Makey.by",
+  description: seo?.description || "Makey.by",
+});
 </script>
 <template>
   <main>
@@ -15,6 +24,7 @@ getWomen();
         />
       </div>
     </section>
+    <WidgetsSeoText :title="seo?.text.title" :text="seo?.text.content" />
   </main>
 </template>
 

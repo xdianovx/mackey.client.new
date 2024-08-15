@@ -7,6 +7,7 @@ const cookies = useCookies();
 export const cartStore = defineStore("myCartStore", () => {
   const token = useCookie("auth-token");
   const thanksData = ref();
+  const checkoutErrors = ref();
   const cart = ref({
     total_products_quantity: 0,
     total_products_price: 0,
@@ -179,13 +180,19 @@ export const cartStore = defineStore("myCartStore", () => {
             phone: body.client_data.phone.replace(/[^\d+]/g, ""),
           },
         },
-      }).then((res) => {
-        if (res.type == "pri-poluchenii") {
-          thanksData.value = res;
-          cookies.remove(CART_KEY, { path: "/" });
-        }
-        navigateTo(res.data.redirectUrl, { external: true });
-      });
+      })
+        .then((res) => {
+          if (res.type == "pri-poluchenii") {
+            thanksData.value = res;
+
+            // cookies.remove(CART_KEY, { path: "/" });
+          } else {
+            navigateTo(res.data.redirectUrl, { external: true });
+          }
+        })
+        .catch((err) => {
+          checkoutErrors.value = err;
+        });
     }
   };
 
@@ -202,5 +209,6 @@ export const cartStore = defineStore("myCartStore", () => {
     removeFormCart,
     editProductCount,
     createOrder,
+    checkoutErrors,
   };
 });

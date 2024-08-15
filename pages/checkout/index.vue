@@ -2,9 +2,13 @@
 import Input from "~/components/ui/Forms/Input.vue";
 import Textarea from "~/components/ui/Forms/Textarea.vue";
 import { API_ROUTE } from "~/lib/constants";
+import { useCookies } from "@vueuse/integrations/useCookies";
+import { Form } from "vee-validate";
+import * as Yup from "yup";
 
+const cookies = useCookies();
 const { isGray } = storeToRefs(useIsPageGrayStore());
-const { cart, thanksModalData } = storeToRefs(cartStore());
+const { cart, thanksData, checkoutErrors } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
 const { getAll: getAdresses } = adresesStore();
 const { adreses } = storeToRefs(adresesStore());
@@ -20,7 +24,8 @@ const { data: payMethods } = await useFetch(
 );
 
 const closeModalHandler = () => {
-  thanksModalData.value = "";
+  thanksData.value = "";
+  cookies.remove("cart", { path: "/" });
   navigateTo("/", { external: true });
 };
 
@@ -30,7 +35,7 @@ const checkoutRef = ref({
   comment_payment: "",
   promocode_id: 0,
   office_post_address: "",
-  payment_method_id: 1,
+  payment_method_id: "",
   client_data: {
     first_name: "",
     last_name: "",
@@ -57,7 +62,7 @@ onBeforeMount(() => {
     office_post_address: "",
     comment_payment: "",
     promocode_id: 0,
-    payment_method_id: 1,
+    payment_method_id: 6,
     delivery_method_id: 1,
     profile_client_address_id: adreses?.value[0].id,
     client_data: {
@@ -88,14 +93,15 @@ if (token) {
   <main :class="{ gray: isGray }">
     <!-- Модал -->
     <div
-      v-if="thanksModalData"
+      v-if="thanksData"
       class="w-full h-screen absolute top-0 flex items-center justify-center left-0 z-[20] bg-black/40"
     >
       <div class="bg-white p-4 max-w-[440px] w-full rounded-xl">
-        <div class="flex items-center gap-2">
+        <div class="flex items-start gap-2">
           <svg
             width="24"
             height="24"
+            class="shrink-0"
             viewBox="0 0 24 24"
             fill="#34C759"
             xmlns="http://www.w3.org/2000/svg"
@@ -104,12 +110,8 @@ if (token) {
               d="M10.6 13.8L8.45 11.65C8.26667 11.4667 8.03333 11.375 7.75 11.375C7.46667 11.375 7.23333 11.4667 7.05 11.65C6.86667 11.8333 6.775 12.0667 6.775 12.35C6.775 12.6333 6.86667 12.8667 7.05 13.05L9.9 15.9C10.1 16.1 10.3333 16.2 10.6 16.2C10.8667 16.2 11.1 16.1 11.3 15.9L16.95 10.25C17.1333 10.0667 17.225 9.83333 17.225 9.55C17.225 9.26667 17.1333 9.03333 16.95 8.85C16.7667 8.66667 16.5333 8.575 16.25 8.575C15.9667 8.575 15.7333 8.66667 15.55 8.85L10.6 13.8ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"
             />
           </svg>
-          <h5 class="font-medium">Спасибо за все Алексей !</h5>
+          <h5 class="font-medium">{{ thanksData?.message }}</h5>
         </div>
-
-        <p class="mt-2 text-gray-600">
-          Спасибо за Ваш заказ! {name}, наш менеджер свяжется с Вами!
-        </p>
 
         <UiButtonsBlack
           text="Закрыть"
@@ -125,7 +127,6 @@ if (token) {
           <div class="container">
             <div class="top-title">
               <UiTitle tag="h1">Оформление заказа</UiTitle>
-
               <NuxtLink to="/cart" class="cart-btn">Назад в корзину</NuxtLink>
             </div>
 
@@ -155,10 +156,12 @@ if (token) {
                   <Input
                     v-model="checkoutRef.client_data.first_name"
                     label="Имя"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.client_data.last_name"
                     label="Фамилия"
+                    required
                   />
                 </div>
 
@@ -166,11 +169,13 @@ if (token) {
                   <Input
                     v-model="checkoutRef.client_data.email"
                     label="e-mail (для электронного чека)"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.client_data.phone"
                     v-mask="'+375 (##) ###-##-##'"
                     label="Номер телефона"
+                    required
                   />
                 </div>
               </div>
@@ -189,6 +194,7 @@ if (token) {
                   <div class="circle"></div>
                   <input
                     type="radio"
+                    required
                     name="adress"
                     :value="item.id"
                     v-model="checkoutRef.profile_client_address_id"
@@ -208,10 +214,12 @@ if (token) {
                   <Input
                     v-model="checkoutRef.profile_client_address.locality"
                     label="Населенный пункт"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.index"
                     label="Индекс"
+                    required
                   />
                 </div>
 
@@ -219,24 +227,29 @@ if (token) {
                   <Input
                     v-model="checkoutRef.profile_client_address.street"
                     label="Улица"
+                    required
                   />
                 </div>
                 <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.profile_client_address.house"
                     label="Дом"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.flat"
                     label="Квартира"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.floor"
                     label="Этаж"
+                    required
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.entrance"
                     label="Подъезд"
+                    required
                   />
                 </div>
               </div>
@@ -253,6 +266,8 @@ if (token) {
                 v-model="checkoutRef.comment_order"
               ></Textarea>
             </div>
+
+            {{ checkoutErrors }}
           </div>
         </div>
         <WidgetsCheckoutDrawer :checkoutData="checkoutRef" />

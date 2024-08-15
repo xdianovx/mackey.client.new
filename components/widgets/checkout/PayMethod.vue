@@ -9,7 +9,7 @@ const model = defineModel();
     <!-- {{ data }} -->
     <div class="inner">
       <label class="method" v-for="item in data">
-        <input type="radio" name="1" v-model="model" :value="item.id" checked />
+        <input type="radio" name="pay" v-model="model" :value="item.id" />
         <div class="circle"></div>
         <div class="method-info">
           <h4 class="method-title">
