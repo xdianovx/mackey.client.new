@@ -116,6 +116,32 @@ onUnmounted(() => {
       </div>
     </div>
 
+    <div
+      class="sub-links"
+      :class="{ white: !isHome }"
+      v-else-if="data.slug != 'new'"
+    >
+      <div class="container">
+        <div class="sub-links-wrap gap-2">
+          <NuxtLink
+            @click="hideMenu"
+            class="link-anim"
+            :to="`/${data.slug}/women`"
+          >
+            Women
+          </NuxtLink>
+
+          <NuxtLink
+            @click="hideMenu"
+            class="link-anim"
+            :to="`/${data.slug}/men`"
+          >
+            Men
+          </NuxtLink>
+        </div>
+      </div>
+    </div>
+
     <div class="sub-links" :class="{ white: !isHome }" v-else>
       <div class="container">
         <div class="sub-links-wrap gap-2">

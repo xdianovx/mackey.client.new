@@ -35,7 +35,7 @@ await getAll(params.value);
 
 <template>
   <main>
-    <WidgetsFilterSection :title="catalog" />
+    <WidgetsFilter :catId="params?.categories" />
 
     <section class="products-section">
       <div class="container">

@@ -59,8 +59,20 @@ const toggleContent = () => {
 <template>
   <div class="link" ref="container">
     <div class="top" @click="toggleContent">
-      <div>{{ data.title }}</div>
-      <div class="chevron">
+      <NuxtLink
+        :to="`/${data.slug}`"
+        v-if="data.slug == 'new' || data.slug == 'gifts' || data.slug == 'sale'"
+        @click="closeNav"
+        >{{ data.title }}</NuxtLink
+      >
+      <div v-else>{{ data.title }}</div>
+
+      <div
+        class="chevron"
+        v-if="
+          data.slug != 'new' && data.slug !== 'gifts' && data.slug !== 'sale'
+        "
+      >
         <svg
           width="16"
           height="16"
@@ -99,14 +111,25 @@ const toggleContent = () => {
       </div>
     </div>
 
-    <div class="sub-links" v-else>
-      <div class="sub-links__inner">
-        <div class="flex gap-3">
-          <NuxtLink :to="`/${data.slug}`" v-if="data.slug !== 'new'"
-            >Все</NuxtLink
+    <div
+      class="sub-links"
+      v-else
+      v-if="data.slug != 'new' && data.slug !== 'gifts' && data.slug !== 'sale'"
+    >
+      <div
+        class="sub-links__inner"
+        v-if="
+          data.slug != 'new' && data.slug !== 'gifts' && data.slug !== 'sale'
+        "
+      >
+        <div class="flex gap-3" v-if="data.slug !== 'new'">
+          <NuxtLink :to="`/${data.slug}`">Все</NuxtLink>
+          <NuxtLink v-if="data.slug !== 'new'" :to="`/${data.slug}/women`"
+            >Women</NuxtLink
           >
-          <NuxtLink :to="`/${data.slug}/women`">Women</NuxtLink>
-          <NuxtLink :to="`/${data.slug}/men`">Men</NuxtLink>
+          <NuxtLink v-if="data.slug !== 'new'" :to="`/${data.slug}/men`"
+            >Men</NuxtLink
+          >
         </div>
       </div>
     </div>

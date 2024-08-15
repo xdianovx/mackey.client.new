@@ -14,7 +14,6 @@ await getAll({
 <template>
   <main>
     <WidgetsFilterSection title="Gifts" :filter="false" />
-
     <section class="products-section">
       <div class="container">
         <div class="wrap" v-if="products.data?.length > 0">

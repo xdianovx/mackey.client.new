@@ -49,8 +49,10 @@ export const cartStore = defineStore("myCartStore", () => {
   };
 
   const addToCartLocal = (product, quantity) => {
+    console.log(cart.value.products);
     const existingItemIndex = cart.value.products?.findIndex((item) => {
       item.id === product.id;
+      console.log(item.id, product.id);
     });
 
     if (existingItemIndex !== -1) {
