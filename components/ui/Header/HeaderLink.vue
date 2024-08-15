@@ -70,7 +70,7 @@ onUnmounted(() => {
       {{ data.title }}
     </NuxtLink>
 
-    <NuxtLink v-else class="parent-link cursor-pointer">
+    <NuxtLink :to="`/${data.slug}`" v-else class="parent-link cursor-pointer">
       {{ data.title }}
     </NuxtLink>
 

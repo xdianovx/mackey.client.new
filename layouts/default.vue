@@ -52,6 +52,7 @@ useHead({
 
     <WidgetsSearchBar />
     <slot />
+
     <Footer />
   </div>
 </template>

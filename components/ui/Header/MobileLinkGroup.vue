@@ -102,6 +102,9 @@ const toggleContent = () => {
     <div class="sub-links" v-else>
       <div class="sub-links__inner">
         <div class="flex gap-3">
+          <NuxtLink :to="`/${data.slug}`" v-if="data.slug !== 'new'"
+            >Все</NuxtLink
+          >
           <NuxtLink :to="`/${data.slug}/women`">Women</NuxtLink>
           <NuxtLink :to="`/${data.slug}/men`">Men</NuxtLink>
         </div>
