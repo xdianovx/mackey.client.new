@@ -1,5 +1,6 @@
 <script setup>
 import { API_ROUTE } from "~/lib/constants";
+import { seoData } from "~/lib/seo";
 
 const route = useRoute();
 const slug = route.params.catalog;
@@ -20,6 +21,12 @@ const getProducts = async () => {
 };
 
 await getProducts();
+
+const seo = seoData[slug];
+useSeoMeta({
+  title: seo?.title || "Makey.by",
+  description: seo?.description || "Makey.by",
+});
 </script>
 
 <template>
@@ -36,7 +43,7 @@ await getProducts();
       />
     </section>
 
-    <WidgetsSeoText />
+    <WidgetsSeoText :title="seo?.text.title" :text="seo?.text.content" />
   </main>
 </template>
 

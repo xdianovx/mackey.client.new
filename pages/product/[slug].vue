@@ -32,6 +32,10 @@ await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
 </script>
 
 <template>
+  <Head>
+    <Title> Купить {{ product.title }} от бренда Макей</Title>
+  </Head>
+
   <main>
     <ClientOnly>
       <UiProductPageInfoDrawer :data="product" />

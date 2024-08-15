@@ -1,4 +1,6 @@
 <script setup>
+import { seoData } from "~/lib/seo";
+
 const route = useRoute();
 const catalog = route.params.catalog;
 const categorySlug = route.params.slug;
@@ -15,6 +17,11 @@ const params = ref({
   is_man: null,
   is_woman: null,
   categories: 0,
+});
+const seo = seoData[categorySlug];
+useSeoMeta({
+  title: seo?.title || "Makey.by",
+  description: seo?.description || "Makey.by",
 });
 
 const activeCategory = categories.value.find((x) => x.slug === categorySlug);
@@ -44,8 +51,10 @@ await getAll(params.value);
         </div>
       </div>
     </section>
-
-    <WidgetsSeoText />
+    <WidgetsSeoText
+      :title="seo.text?.title || 'Заголовок'"
+      :text="seo.text?.content || 'Текст'"
+    />
     <WidgetsFilter :catId="params?.categories" />
   </main>
 </template>
