@@ -95,8 +95,6 @@ const clearFilter = () => {
         <UiFilterCloseBtn @click="close" />
       </div>
 
-      {{ params }}
-
       <div class="inner">
         <div class="flex gap-8">
           <!-- New -->
@@ -183,7 +181,6 @@ const clearFilter = () => {
                 @change="addColorsToFilter(color.slug)"
               />
 
-              {{ params["types[]="].includes(color.slug) }}
               <label :for="`color${color.slug}`">{{ color.title }}</label>
             </div>
           </div>
