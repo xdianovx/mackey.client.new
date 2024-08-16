@@ -17,6 +17,8 @@ onBeforeMount(() => {
   getMe();
 });
 
+useSeoMeta({});
+
 onMounted(() => {
   const auth = useAuth();
   auth.checkAuth();
