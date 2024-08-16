@@ -113,7 +113,7 @@ await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
                 text="Добавить в корзину"
                 @click="saveToCart(product)"
               />
-              <UiButtonsApple />
+              <!-- <UiButtonsApple /> -->
             </div>
 
             <div class="div"></div>

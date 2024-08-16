@@ -178,7 +178,7 @@ if (catalog == "men") {
                 :id="`color${color.slug}`"
                 :checked="params['types[]='].includes(color.slug)"
                 @change="addColorsToFilter(color.slug)"
-              />мсоздав
+              />
               <label :for="`color${color.slug}`">{{ color.title }}</label>
             </div>
           </div>

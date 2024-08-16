@@ -36,6 +36,7 @@ await getAll(params.value);
 <template>
   <main>
     <WidgetsFilter :catId="params?.categories" />
+    <WidgetsFilterSection :title="slug" />
 
     <section class="products-section">
       <div class="container">
@@ -63,7 +64,7 @@ await getAll(params.value);
 
 <style lang="scss" scoped>
 .products-section {
-  margin-top: 120px;
+  margin-top: 40px;
   flex-grow: 1;
   height: 100%;
 }
