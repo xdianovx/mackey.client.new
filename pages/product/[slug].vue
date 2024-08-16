@@ -104,7 +104,12 @@ await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
             />
           </div>
 
-          <div class="price">{{ product.price }} BYN</div>
+          <div class="flex gap-4 mt-4">
+            <div>{{ product.discounted_price }} BYN</div>
+            <div class="asd line-through text-gray-400" v-if="product.sale > 0">
+              {{ product.price }} BYN
+            </div>
+          </div>
 
           <div class="color">
             <div class="color-title">Цвета:</div>

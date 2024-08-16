@@ -108,6 +108,11 @@ const schema = Yup.object().shape({
 const createNewOrder = (fromData) => {
   createOrder(checkoutRef.value);
 };
+
+if (cart.value.products.length === 0) {
+} else {
+  navigateTo("/cart", { external: true });
+}
 </script>
 
 <template>
