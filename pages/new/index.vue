@@ -4,7 +4,7 @@ import { seoData } from "~/lib/seo";
 const { getWomen } = useMyCollectionsStore();
 const { collections } = storeToRefs(useMyCollectionsStore());
 
-await getWomen();
+getWomen();
 
 const slug = "new";
 const seo = seoData[slug];

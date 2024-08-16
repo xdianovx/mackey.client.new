@@ -150,7 +150,6 @@ getColletion();
 
 @media screen and (max-width: 768px) {
   .image {
-    aspect-ratio: 9 / 16;
   }
   .image-desk {
     display: none;
