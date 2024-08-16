@@ -109,7 +109,7 @@ const createNewOrder = (fromData) => {
   createOrder(checkoutRef.value);
 };
 
-if (cart.value.products.length === 0) {
+if (cart.value.products.length > 0) {
 } else {
   navigateTo("/cart", { external: true });
 }
@@ -307,7 +307,7 @@ if (cart.value.products.length === 0) {
             </div>
           </div>
         </div>
-        <WidgetsCheckoutDrawer />
+        <WidgetsCheckoutDrawer :checkout-data="checkoutRef" />
       </Form>
     </section>
   </main>

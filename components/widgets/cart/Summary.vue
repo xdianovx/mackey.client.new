@@ -38,11 +38,22 @@ const productSum = ref(0);
         <p>Итого:</p>
 
         <div class="summary-price" v-if="token">
-          {{ cart.total_products_price_with_discount }} BYN
+          <p>{{ cart.total_products_price_with_discount }} BYN</p>
         </div>
 
-        <div class="summary-price" v-else>
-          {{ cart.total_products_price_with_discount }} BYN
+        <div class="summary-price flex items-end leading-[100%] gap-3" v-else>
+          <p
+            class="line-through text-gray-500 font-normal"
+            v-if="
+              cart.total_products_price !==
+              cart.total_products_price_with_discount
+            "
+          >
+            {{ cart.total_products_price }} BYN
+          </p>
+          <p class="text-[18px]">
+            {{ cart.total_products_price_with_discount }} BYN
+          </p>
         </div>
       </div>
     </div>

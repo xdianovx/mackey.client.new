@@ -19,13 +19,23 @@ const props = defineProps(["checkoutData"]);
       <div class="py-4 px-10 max-[768px]:px-4 max-[768px]:py-6">
         <div class="flex items-center justify-between">
           <p>Итого:</p>
-          <div class="ml-auto flex items-center gap-4">
-            <!-- <p>{{ cart.total_products_price }} BYN</p> -->
-            <p class="font-medium">
+          <div class="ml-auto flex items-end gap-3 leading-[100%]">
+            <p
+              class="line-through text-gray-500 mt-[1px]"
+              v-if="
+                cart.total_products_price !==
+                cart.total_products_price_with_discount
+              "
+            >
+              {{ cart.total_products_price }} BYN
+            </p>
+            <p class="font-bold text-[18px]">
               {{ cart.total_products_price_with_discount }} BYN
             </p>
           </div>
         </div>
+
+        <!-- {{ checkoutData.delivery_method_id }} -->
 
         <div class="mt-4">
           <UiButtonsBlack class="w-full" text="Оформить заказ" type="submit" />

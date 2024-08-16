@@ -24,6 +24,11 @@ export const cartStore = defineStore("myCartStore", () => {
       (sum, item) => sum + item.quantity * item.discounted_price,
       0
     );
+
+    cart.value.total_products_price = cart.value.products.reduce(
+      (sum, item) => sum + item.quantity * +item.price,
+      0
+    );
   };
 
   getTotalProductsQuantity();
