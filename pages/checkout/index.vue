@@ -15,13 +15,11 @@ const { adreses } = storeToRefs(adresesStore());
 const { createOrder } = cartStore();
 
 const { data: deliveryMethods } = await useFetch(
-  API_ROUTE + `/order_delivery_methods`,
-  {}
+  API_ROUTE + `/order_delivery_methods`
 );
 
 const { data: payMethods } = await useFetch(
-  API_ROUTE + `/order_payment_methods`,
-  {}
+  API_ROUTE + `/order_payment_methods`
 );
 
 const closeModalHandler = () => {
@@ -29,6 +27,8 @@ const closeModalHandler = () => {
   cookies.remove("cart", { path: "/" });
   navigateTo("/", { external: true });
 };
+
+const deliveryMethodData = ref({});
 
 const checkoutRef = ref({
   total_price: cart.value.total_products_price_with_discount,
@@ -122,6 +122,7 @@ if (cart.value.products.length > 0) {
       v-if="thanksData"
       class="w-full h-screen absolute top-0 flex items-center justify-center left-0 z-[20] bg-black/40"
     >
+      {{ deliveryMethodData }}
       <div class="bg-white p-4 max-w-[440px] w-full rounded-xl">
         <div class="flex items-start gap-2">
           <svg
@@ -167,6 +168,7 @@ if (cart.value.products.length > 0) {
               />
               <WidgetsCheckoutDeliveryMethod
                 :data="deliveryMethods"
+                :method="deliveryMethodData"
                 v-model="checkoutRef.delivery_method_id"
               />
             </div>
