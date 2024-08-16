@@ -12,6 +12,7 @@ const { cart, thanksData, checkoutErrors } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
 const { getAll: getAdresses } = adresesStore();
 const { adreses } = storeToRefs(adresesStore());
+const { createOrder } = cartStore();
 
 const { data: deliveryMethods } = await useFetch(
   API_ROUTE + `/order_delivery_methods`,
@@ -87,6 +88,26 @@ onBeforeMount(() => {
 if (token) {
   await getAdresses();
 }
+
+const schema = Yup.object().shape({
+  first_name: Yup.string().required("Обязательное поле"),
+  last_name: Yup.string().required("Обязательное поле"),
+  email: Yup.string().required("Обязательное поле"),
+  phone: Yup.string().required("Обязательное поле"),
+
+  flat: Yup.string().required("Обязательное поле"),
+  floor: Yup.string().required("Обязательное поле"),
+  house: Yup.string().required("Обязательное поле"),
+  index: Yup.string().required("Обязательное поле"),
+  street: Yup.string().required("Обязательное поле"),
+  entrance: Yup.string().required("Обязательное поле"),
+  locality: Yup.string().required("Обязательное поле"),
+  comment_payment: Yup.string().max(30, "Максимум 30 символов"),
+});
+
+const createNewOrder = (fromData) => {
+  createOrder(checkoutRef.value);
+};
 </script>
 
 <template>
@@ -122,7 +143,11 @@ if (token) {
     </div>
 
     <section class="section">
-      <div class="checkout-wrap">
+      <Form
+        class="checkout-wrap"
+        @submit="createNewOrder"
+        :validation-schema="schema"
+      >
         <div class="left">
           <div class="container">
             <div class="top-title">
@@ -156,12 +181,13 @@ if (token) {
                   <Input
                     v-model="checkoutRef.client_data.first_name"
                     label="Имя"
-                    required
+                    name="first_name"
                   />
+
                   <Input
                     v-model="checkoutRef.client_data.last_name"
                     label="Фамилия"
-                    required
+                    name="last_name"
                   />
                 </div>
 
@@ -169,13 +195,13 @@ if (token) {
                   <Input
                     v-model="checkoutRef.client_data.email"
                     label="e-mail (для электронного чека)"
-                    required
+                    name="email"
                   />
                   <Input
                     v-model="checkoutRef.client_data.phone"
                     v-mask="'+375 (##) ###-##-##'"
                     label="Номер телефона"
-                    required
+                    name="phone"
                   />
                 </div>
               </div>
@@ -214,12 +240,12 @@ if (token) {
                   <Input
                     v-model="checkoutRef.profile_client_address.locality"
                     label="Населенный пункт"
-                    required
+                    name="locality"
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.index"
                     label="Индекс"
-                    required
+                    name="index"
                   />
                 </div>
 
@@ -227,29 +253,29 @@ if (token) {
                   <Input
                     v-model="checkoutRef.profile_client_address.street"
                     label="Улица"
-                    required
+                    name="street"
                   />
                 </div>
                 <div class="flex flex-col gap-4">
                   <Input
                     v-model="checkoutRef.profile_client_address.house"
                     label="Дом"
-                    required
+                    name="house"
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.flat"
                     label="Квартира"
-                    required
+                    name="flat"
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.floor"
                     label="Этаж"
-                    required
+                    name="floor"
                   />
                   <Input
                     v-model="checkoutRef.profile_client_address.entrance"
                     label="Подъезд"
-                    required
+                    name="entrance"
                   />
                 </div>
               </div>
@@ -267,11 +293,17 @@ if (token) {
               ></Textarea>
             </div>
 
-            {{ checkoutErrors }}
+            <div class="mt-6">
+              <Input
+                v-model="checkoutRef.comment_payment"
+                label="Комментарий коплате"
+                name="comment_payment"
+              />
+            </div>
           </div>
         </div>
-        <WidgetsCheckoutDrawer :checkoutData="checkoutRef" />
-      </div>
+        <WidgetsCheckoutDrawer />
+      </Form>
     </section>
   </main>
 </template>

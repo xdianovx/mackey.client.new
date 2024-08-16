@@ -1,11 +1,6 @@
 <script setup>
 const { cart } = storeToRefs(cartStore());
-const { createOrder } = cartStore();
 const props = defineProps(["checkoutData"]);
-
-const createNewOrder = () => {
-  createOrder(props.checkoutData);
-};
 </script>
 
 <template>
@@ -33,11 +28,7 @@ const createNewOrder = () => {
         </div>
 
         <div class="mt-4">
-          <UiButtonsBlack
-            class="w-full"
-            text="Оформить заказ"
-            @click="createNewOrder"
-          />
+          <UiButtonsBlack class="w-full" text="Оформить заказ" type="submit" />
         </div>
       </div>
     </div>

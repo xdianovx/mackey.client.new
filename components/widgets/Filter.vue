@@ -17,6 +17,14 @@ const { colors } = storeToRefs(colorsStore());
 const route = useRoute();
 const catalog = route.params.catalog;
 
+await getTypes();
+if (catalog == "men") {
+  await getCollections("men");
+} else {
+  await getCollections("women");
+}
+await getColors();
+
 const props = defineProps(["catId"]);
 
 const params = ref({
@@ -69,7 +77,7 @@ const filterHandler = async () => {
 };
 
 const clearFilter = () => {
-  params.value.is_new = null;
+  params.value.is_new = 1;
   params.value["types[]="] = [];
   params.value["collections[]="] = [];
   params.value.price_min = 0;
@@ -77,14 +85,6 @@ const clearFilter = () => {
 
   filterHandler();
 };
-
-await getTypes();
-if (catalog == "men") {
-  await getCollections("men");
-} else {
-  await getCollections("women");
-}
-// await getColors();
 </script>
 
 <template>
@@ -94,6 +94,8 @@ if (catalog == "men") {
         <h3 class="font-bold text-[20px]">Фильтры</h3>
         <UiFilterCloseBtn @click="close" />
       </div>
+
+      {{ params }}
 
       <div class="inner">
         <div class="flex gap-8">
@@ -157,13 +159,14 @@ if (catalog == "men") {
           v-if="route.params.slug === 'sumki-women'"
         >
           <div class="collection-wrap">
-            <div class="checkbox" v-for="type in types">
+            <div class="" v-for="type in types">
               <input
                 type="checkbox"
                 :id="`type${type.slug}`"
                 :checked="params['types[]='].includes(type.slug)"
                 @change="addTypesToFilter(type.slug)"
               />
+
               <label :for="`type${type.slug}`">{{ type.title }}</label>
             </div>
           </div>
@@ -172,13 +175,15 @@ if (catalog == "men") {
         <!-- Colors -->
         <UiFilterDropdown title="Цвета">
           <div class="collection-wrap">
-            <div class="checkbox" v-for="color in colors">
+            <div class="checkbox" v-for="color in colors" :key="color.id">
               <input
                 type="checkbox"
                 :id="`color${color.slug}`"
                 :checked="params['types[]='].includes(color.slug)"
                 @change="addColorsToFilter(color.slug)"
               />
+
+              {{ params["types[]="].includes(color.slug) }}
               <label :for="`color${color.slug}`">{{ color.title }}</label>
             </div>
           </div>

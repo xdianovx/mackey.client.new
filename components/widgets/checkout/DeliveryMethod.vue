@@ -16,7 +16,7 @@ const props = defineProps(["data"]);
             <span>{{ item.title }}</span>
             <span class="method-price ml-auto">{{ item.price }} BYN</span>
           </h4>
-          <p class="method-text">{{ item.description }}</p>
+          <div class="method-text" v-html="item.description"></div>
         </div>
       </label>
     </div>

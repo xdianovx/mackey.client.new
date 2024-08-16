@@ -12,20 +12,23 @@ const { categories } = storeToRefs(useMyCategoriesStore());
 const { open } = useMyIsFilterOpenStore();
 const currentTitle = ref(data.title);
 
-if (data.title == "woman") {
-  currentTitle.value = "women";
+if (data.title == "women") {
+  currentTitle.value = "Women";
 }
 
-if (data.title == "man") {
-  currentTitle.value = "men";
-}
-
-if (data.title == "gifts") {
-  currentTitle.value = "gifts";
+if (data.title == "men") {
+  currentTitle.value = "Men";
 }
 
 if (data.title == "gifts") {
-  currentTitle.value = "gifts";
+  currentTitle.value = "Gifts";
+}
+
+if (data.title == "new") {
+  currentTitle.value = "New";
+}
+if (data.title == "sale") {
+  currentTitle.value = "Sale";
 }
 </script>
 

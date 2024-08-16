@@ -5,40 +5,28 @@ const props = defineProps(["data"]);
 <template>
   <ul class="items" v-bind="$attrs">
     <li v-if="data.materials.length > 0">
-      <h5>Материал</h5>
+      <p>Материал</p>
       <p>{{ data.materials[0]?.title }}</p>
     </li>
     <li v-if="data.linings.length > 0">
-      <h5>Подкладка</h5>
+      <p>Подкладка</p>
       <p></p>
     </li>
     <li v-if="data.clasps.length > 0">
-      <h5>Застежка</h5>
+      <p>Застежка</p>
       <p></p>
     </li>
-    <!-- <li>
-      <h5>Отделений</h5>
-      <p></p>
-    </li>
-    <li>
-      <h5>Наплечный ремень</h5>
-      <p></p>
-    </li>
-    <li>
-      <h5>Длинна наплечного ремня</h5>
-      <p></p>
-    </li> -->
 
     <li>
-      <h5>Вес</h5>
+      <p>Вес</p>
       <p>{{ data.weight }} гр</p>
     </li>
     <li v-if="data.type">
-      <h5>Тип</h5>
+      <p>Тип</p>
       <p>{{ data.type?.title }}</p>
     </li>
     <li>
-      <h5>Артикул</h5>
+      <p>Артикул</p>
       <p>{{ data.vendor_code }}</p>
     </li>
   </ul>
@@ -56,8 +44,10 @@ const props = defineProps(["data"]);
     align-items: center;
     justify-content: space-between;
 
-    h5 {
+    p:first-of-type {
       font-size: 14px;
+      font-weight: 500;
+      color: #000;
     }
 
     p {

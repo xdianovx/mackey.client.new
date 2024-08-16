@@ -4,7 +4,7 @@ const props = defineProps(["text", "count"]);
 
 <template>
   <button class="button">
-    <span> {{ text }}</span>
+    <h2>{{ text }}</h2>
     <span class="count"> {{ count }}</span>
 
     <svg
