@@ -16,7 +16,6 @@ const props = defineProps(["data"]);
       <p>Застежка</p>
       <p></p>
     </li>
-
     <li>
       <p>Вес</p>
       <p>{{ data.weight }} гр</p>
