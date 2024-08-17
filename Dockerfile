@@ -37,7 +37,7 @@ COPY . .
 RUN npm run build
 
 # 7. Переходим к созданию финального образа для продакшена
-FROM node:18 as production-stage
+FROM node:lts as production-stage
 
 # 8. Устанавливаем рабочую директорию в финальном образе
 WORKDIR /app
