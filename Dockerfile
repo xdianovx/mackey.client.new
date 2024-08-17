@@ -6,9 +6,9 @@ COPY ./client/package.json .
 
 RUN npm install
 
-COPY ./client .
-
 RUN npm run build
+
+COPY ./client .
 
 EXPOSE 3000
 ENV NODE_TLS_REJECT_UNAUTHORIZED=0
