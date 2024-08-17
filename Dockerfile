@@ -3,12 +3,12 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY ../client/package.json .
-COPY ../client/package-lock.json .
+COPY ./package.json .
+COPY ./package-lock.json .
 
 RUN npm i
 
-COPY ../client .
+COPY . .
 
 RUN npm run build
 
