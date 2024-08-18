@@ -130,7 +130,9 @@ const links = [
             </div>
           </div>
 
-          <!-- <MobileNavLink v-for="item in links" :key="item.id" :data="item" /> -->
+          <!-- <div class="flex flex-col">
+            <div v-for="item in links" :key="item.id">{{ item.title }}</div>
+          </div> -->
         </nav>
       </div>
 

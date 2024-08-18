@@ -7,11 +7,14 @@ await showCart();
 
 <template>
   <main class="cart">
-    <WidgetsCartEmpty v-if="cart.products.length === 0" />
+    <!-- <WidgetsCartEmpty v-if="cart.products.length === 0" /> -->
 
     <!-- Cart -->
-    <section class="cart-top" v-else>
+    <!-- <section class="cart-top" v-else> -->
+
+    <section class="cart-top">
       <div class="container">
+        {{ cart }}
         <UiTitle tag="h1"
           >Корзина<span class="span">{{
             token ? cart.total_products_quantity : cart.products?.length || 0

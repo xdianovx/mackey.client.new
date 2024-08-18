@@ -12,12 +12,11 @@ export const cartStore = defineStore("myCartStore", () => {
     total_products_quantity: 0,
     total_products_price: 0,
     total_products_price_with_discount: 0,
-    client_profile_id: 301,
+    client_profile_id: 0,
     products: [],
   });
   const loading = ref(false);
   const { userData } = storeToRefs(authStore());
-  const CART_KEY = "cart";
 
   const getTotalProductsQuantity = () => {
     cart.value.total_products_price_with_discount = cart.value.products.reduce(
@@ -55,34 +54,13 @@ export const cartStore = defineStore("myCartStore", () => {
   };
 
   const addToCartLocal = async (product, quantity) => {
-    const existingItemIndex = await cart.value.products?.findIndex(
-      (item) => item.id === product.id
-    );
-
-    if (existingItemIndex !== -1) {
-      cart.value.products[existingItemIndex].quantity += quantity;
-    } else {
-      cart.value.products.push({
-        id: product.id,
-        quantity: quantity,
-        product_files: product.product_files,
-        title: product.title,
-        slug: product.slug,
-        vendor_code: product.vendor_code,
-        colors: product.colors,
-        price: product.price,
-        discounted_price: product.discounted_price,
-      });
-    }
-
-    getTotalProductsQuantity();
-    saveCartCookie();
-  };
-
-  const saveCartCookie = () => {
-    cookies.set(CART_KEY, JSON.stringify(cart.value), {
-      path: "/",
-      maxAge: 60 * 60 * 24 * 7,
+    await useFetch(API_ROUTE + `/cart_no_reg/store_product`, {
+      method: "POST",
+      params: { product_id: product.id, quantity: quantity },
+      credentials: "include",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
   };
 
@@ -92,10 +70,12 @@ export const cartStore = defineStore("myCartStore", () => {
     if (token.value) {
       await getCartFromServer();
     } else {
-      const cartData = (await cookies.get(CART_KEY)) || {
-        products: [],
-      };
-      cart.value = cartData;
+      await useFetch(API_ROUTE + `/cart_no_reg/show`, {
+        onResponse({ request, response, options }) {
+          cart.value = response._data;
+          console.log(response._data);
+        },
+      });
     }
   };
 
