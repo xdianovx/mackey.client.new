@@ -3,8 +3,8 @@ FROM node:lts
 
 WORKDIR /app
 
-COPY package.json .
-COPY package-lock.json .
+COPY ./dev_makey/package.json .
+COPY ./dev_makey/package-lock.json .
 
 RUN npm i
 
