@@ -8,7 +8,7 @@ COPY ./dev_client/package-lock.json .
 
 RUN npm i
 
-COPY . .
+COPY ./dev_client .
 
 RUN npm run build
 
