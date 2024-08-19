@@ -130,6 +130,13 @@ const links = [
             </div>
           </div>
 
+          <div class="hidden max-[768px]:flex flex-col gap-2">
+            <p class="font-medium">Интернет-Магазин:</p>
+            <NuxtLink to="tel:+375 (33) 301-70-17"
+              >+375 (33) 301-70-17</NuxtLink
+            >
+          </div>
+
           <!-- <div class="flex flex-col">
             <div v-for="item in links" :key="item.id">{{ item.title }}</div>
           </div> -->
