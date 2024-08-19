@@ -11,8 +11,6 @@ const setDeliveryRef = (item) => {
   <div class="item">
     <h4 class="title">Способ доставки</h4>
 
-    {{ deliveryMethodData }}
-
     <div class="inner">
       <label class="method" v-for="item in data">
         <input
