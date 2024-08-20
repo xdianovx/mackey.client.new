@@ -33,9 +33,9 @@ export default defineNuxtConfig({
     // delay: 0,
     // cdn: false,
     // verification: null, // Verification in Yandex Webmaster
-    options: {
-      webvisor: true,
-    },
+    // options: {
+    //   webvisor: true,
+    // },
   },
   build: {
     transpile: ["gsap"],

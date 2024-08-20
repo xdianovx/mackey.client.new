@@ -48,7 +48,7 @@ useHead({
 </script>
 
 <template>
-  <YandexMetrikaInformer />
+  <!-- <YandexMetrikaInformer /> -->
   <WidgetsLoader v-if="isPageLoading" />
   <NuxtLoadingIndicator color="#000" />
   <div class="wrap-main">
