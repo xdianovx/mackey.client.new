@@ -3,6 +3,11 @@ const { showCart } = cartStore();
 const { cart } = storeToRefs(cartStore());
 const { token } = authStore();
 await showCart();
+await fetchWithCookie();
+
+const event = useRequestEvent();
+const { data: result } = await useAsyncData(() => fetchWithCookie(event));
+onMounted(() => console.log(document.cookie, event));
 </script>
 
 <template>

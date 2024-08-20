@@ -10,7 +10,9 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/image",
     "@fullpage/nuxt-fullpage",
+    "nuxt-yandex-metrika",
     "@nuxtjs/tailwindcss",
+    "nuxt-gtag",
   ],
   plugins: ["~/plugins/vue-the-mask.js"],
   vite: {
@@ -22,7 +24,19 @@ export default defineNuxtConfig({
       },
     },
   },
-
+  gtag: {
+    id: "G-0WLYQFS3S4",
+  },
+  yandexMetrika: {
+    id: "88212734",
+    // debug: process.env.NODE_ENV !== "production",
+    // delay: 0,
+    // cdn: false,
+    // verification: null, // Verification in Yandex Webmaster
+    options: {
+      webvisor: true,
+    },
+  },
   build: {
     transpile: ["gsap"],
   },
