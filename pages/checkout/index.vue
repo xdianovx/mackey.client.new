@@ -115,11 +115,11 @@ const schema = Yup.object().shape({
   email: Yup.string().required("Обязательное поле"),
   phone: Yup.string().required("Обязательное поле"),
   flat: Yup.string().required("Обязательное поле"),
-  floor: Yup.string().required("Обязательное поле"),
+  // floor: Yup.string().required("Обязательное поле"),
   house: Yup.string().required("Обязательное поле"),
   index: Yup.string().required("Обязательное поле"),
   street: Yup.string().required("Обязательное поле"),
-  entrance: Yup.string().required("Обязательное поле"),
+  // entrance: Yup.string().required("Обязательное поле"),
   locality: Yup.string().required("Обязательное поле"),
   comment_payment: Yup.string().max(30, "Максимум 30 символов"),
 });
