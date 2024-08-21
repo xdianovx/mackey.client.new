@@ -93,7 +93,6 @@ const toggleFavorite = () => {
         </div>
         <div class="price">{{ data.discounted_price }} BYN</div>
       </div>
-      {{ data.stocks }}
     </div>
   </div>
 </template>
