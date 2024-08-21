@@ -9,20 +9,19 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
-      script: [
-        {
-          type: "text/javascript",
-          innerHTML:
-            "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5WF2C8R6');",
-        },
-      ],
-
-      noscript: [
-        {
-          innerHTML:
-            "<iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5WF2C8R6' height='0' width='0' style='display:none;visibility:hidden'></iframe>",
-        },
-      ],
+      // script: [
+      //   {
+      //     type: "text/javascript",
+      //     innerHTML:
+      //       "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5WF2C8R6');",
+      //   },
+      // ],
+      // noscript: [
+      //   {
+      //     innerHTML:
+      //       "<iframe src='https://www.googletagmanager.com/ns.html?id=GTM-5WF2C8R6' height='0' width='0' style='display:none;visibility:hidden'></iframe>",
+      //   },
+      // ],
     },
   },
   // ssr: false,
@@ -40,7 +39,6 @@ export default defineNuxtConfig({
       "yandex-metrika-module-nuxt3",
       {
         id: "88212734",
-        webvisor: true,
         eccommerce: true,
       },
     ],
