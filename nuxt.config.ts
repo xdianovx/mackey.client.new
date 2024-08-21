@@ -33,15 +33,17 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/image",
     "@fullpage/nuxt-fullpage",
+    "nuxt-yandex-metrika",
+    "@nuxtjs/tailwindcss",
+    "nuxt-gtag",
     [
       "yandex-metrika-module-nuxt3",
       {
         id: "88212734",
-        ecommerce: true,
+        webvisor: true,
+        eccommerce: true,
       },
     ],
-    "@nuxtjs/tailwindcss",
-    "nuxt-gtag",
   ],
   plugins: ["~/plugins/vue-the-mask.js"],
   vite: {
