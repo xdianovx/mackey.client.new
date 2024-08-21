@@ -30,7 +30,10 @@ await getMenu();
     </div>
     <MobileNav />
     <div class="container">
-      <div class="header__wrap" :class="{ black: !isHome, active: isNavOpen }">
+      <div
+        class="header__wrap max-[768px]:hidden"
+        :class="{ black: !isHome, active: isNavOpen }"
+      >
         <UiHeaderLogo />
 
         <nav class="header__nav">
@@ -52,6 +55,22 @@ await getMenu();
 
         <div class="header__btns-mob">
           <SearchBtn />
+          <Burger />
+        </div>
+      </div>
+
+      <div
+        class="header__wrap --mob"
+        :class="{ black: !isHome, active: isNavOpen }"
+      >
+        <div class="flex items-center gap-5">
+          <HeaderCart />
+          <FavoriteBtn />
+        </div>
+        <UiHeaderLogo />
+        <div class="flex items-center gap-5">
+          <SearchBtn />
+
           <Burger />
         </div>
       </div>
@@ -84,6 +103,9 @@ await getMenu();
   display: flex;
   align-items: center;
 
+  &.--mob {
+    display: none;
+  }
   &.active {
     background: $textBlack;
   }
@@ -128,7 +150,8 @@ await getMenu();
   }
 
   .header__wrap {
-    margin-top: 16px;
+    padding-top: 16px;
+    padding-bottom: 16px;
   }
   .header__btns {
     display: none;
@@ -138,6 +161,27 @@ await getMenu();
     display: flex;
     margin-left: auto;
     gap: 24px;
+  }
+
+  .header__wrap {
+    display: none;
+
+    &.--mob {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+  }
+  .header__btns {
+    display: none;
+  }
+
+  .header__btns-mob {
+    margin-left: 0;
+    width: 100%;
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
   }
 }
 </style>
