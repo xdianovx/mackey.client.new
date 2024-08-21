@@ -7,7 +7,7 @@ export const useMyProductsStore = defineStore("myProductsStore", () => {
   const config = useRuntimeConfig();
 
   const getAll = async (params) => {
-    await $fetch(сonfig.public.API_URL + "/products", {
+    await $fetch(config.public.API_URL + "/products", {
       params: {
         ...params,
         "categories[]": params?.categories,
