@@ -16,6 +16,18 @@ await getMenu();
 
 <template>
   <header class="header" :class="{ black: !isHome }">
+    <div class="bg-black py-4 text-white hidden max-[768px]:block top-0">
+      <div class="container text-sm">
+        <div class="flex gap-4 justify-center">
+          <div>
+            По всем вопросам
+            <NuxtLink to="tel:+375 (33) 301-70-17">
+              +375 (33) 301-70-17</NuxtLink
+            >
+          </div>
+        </div>
+      </div>
+    </div>
     <MobileNav />
     <div class="container">
       <div class="header__wrap" :class="{ black: !isHome, active: isNavOpen }">
@@ -109,12 +121,15 @@ await getMenu();
 
 @media screen and (max-width: 1280px) {
   .header {
-    padding: 14px 0;
+    padding: 0 0 14px 0;
   }
   .header__nav {
     display: none;
   }
 
+  .header__wrap {
+    margin-top: 16px;
+  }
   .header__btns {
     display: none;
   }

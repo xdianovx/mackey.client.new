@@ -115,7 +115,7 @@ onUnmounted(() => {
 <style scoped lang="scss">
 .mobile-nav {
   overflow-x: hidden;
-  padding-top: 88px;
+  padding-top: 120px;
   padding-bottom: 40px;
   display: block;
   position: absolute;
