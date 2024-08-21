@@ -90,10 +90,16 @@ const checkedDelivery = computed(() => {
     (item) => item.id == checkoutRef.value.delivery_method_id
   );
 
-  deliveryMethodCheck.value = item.price;
-  checkoutRef.value.total_price =
-    +deliveryMethodCheck.value + cart.value.total_products_price_with_discount;
-
+  if (item.id === 2 && checkoutRef.value.total_price > 60) {
+    deliveryMethodCheck.value = item.price;
+    checkoutRef.value.total_price =
+      cart.value.total_products_price_with_discount;
+  } else {
+    deliveryMethodCheck.value = item.price;
+    checkoutRef.value.total_price =
+      +deliveryMethodCheck.value +
+      cart.value.total_products_price_with_discount;
+  }
   return item;
 });
 
