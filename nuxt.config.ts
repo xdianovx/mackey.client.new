@@ -33,7 +33,13 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/image",
     "@fullpage/nuxt-fullpage",
-    "nuxt-yandex-metrika",
+    [
+      "yandex-metrika-module-nuxt3",
+      {
+        id: "88212734",
+        ecommerce: true,
+      },
+    ],
     "@nuxtjs/tailwindcss",
     "nuxt-gtag",
   ],
@@ -50,9 +56,7 @@ export default defineNuxtConfig({
   gtag: {
     id: "G-0WLYQFS3S4",
   },
-  yandexMetrika: {
-    id: "88212734",
-  },
+
   build: {
     transpile: ["gsap"],
   },
