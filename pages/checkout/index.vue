@@ -34,6 +34,8 @@ const checkoutRef = ref({
   comment_payment: "",
   promocode_id: 0,
   office_post_address: "",
+  cart_id: cart.value.id,
+
   client_data: {
     first_name: "",
     last_name: "",
@@ -58,6 +60,7 @@ onMounted(() => {
   checkoutRef.value = {
     total_price: cart.value.total_products_price_with_discount,
     comment_order: "",
+    cart_id: cart.value.id,
     comment_payment: "",
     promocode_id: 0,
     office_post_address: "",
