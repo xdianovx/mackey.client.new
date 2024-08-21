@@ -1,12 +1,13 @@
 <script setup>
 const { cart } = storeToRefs(cartStore());
-const props = defineProps(["checkoutData"]);
+const props = defineProps(["checkoutData", "delivery", "payment"]);
 </script>
 
 <template>
   <div class="item">
     <div class="item-top">
       <h3 class="title">Ваш заказ</h3>
+
       <p class="count">Товаров: {{ cart.total_products_quantity }}</p>
     </div>
 
@@ -16,7 +17,17 @@ const props = defineProps(["checkoutData"]);
 
     <div class="mt-auto">
       <div class="hr"></div>
+
       <div class="py-4 px-10 max-[768px]:px-4 max-[768px]:py-6">
+        <div class="flex items-center justify-between mb-4">
+          <p>{{ payment?.title }}</p>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <p>{{ delivery?.title }}</p>
+          <p class="text-gray-400">{{ delivery?.price }} BYN</p>
+        </div>
+
         <div class="flex items-center justify-between">
           <p>Итого:</p>
           <div class="ml-auto flex items-end gap-3 leading-[100%]">
@@ -30,12 +41,11 @@ const props = defineProps(["checkoutData"]);
               {{ cart.total_products_price }} BYN
             </p>
             <p class="font-bold text-[18px]">
-              {{ cart.total_products_price_with_discount }} BYN
+              {{ checkoutData.total_price }}
+              BYN
             </p>
           </div>
         </div>
-
-        <!-- {{ checkoutData.delivery_method_id }} -->
 
         <div class="mt-4">
           <UiButtonsBlack class="w-full" text="Оформить заказ" type="submit" />

@@ -1,6 +1,5 @@
 import { defineStore } from "pinia";
 import { useCookies } from "@vueuse/integrations/useCookies";
-import { API_ROUTE } from "~/lib/constants";
 
 export const authStore = defineStore("authStore", () => {
   const userData = ref({});
@@ -11,6 +10,7 @@ export const authStore = defineStore("authStore", () => {
   const smsError = ref();
   const phoneConfirmationError = ref("");
   const loginError = ref();
+  const config = useRuntimeConfig();
 
   const cookies = useCookies();
   const token = ref("");
@@ -20,7 +20,7 @@ export const authStore = defineStore("authStore", () => {
 
   const registerStepOne = async (values) => {
     isLoading.value = true;
-    await $fetch(API_ROUTE + "/register_step_one", {
+    await $fetch(config.public.API_URL + "/register_step_one", {
       method: "POST",
       body: {
         ...values,
@@ -40,14 +40,17 @@ export const authStore = defineStore("authStore", () => {
   const registerStepTwo = async (values) => {
     isLoading.value = true;
 
-    await $fetch(API_ROUTE + `/register_step_two/users/${userData.value.id}`, {
-      method: "POST",
-      body: values,
-      onResponseError({ request, response, options }) {
-        emailError.value = response._data;
-        isLoading.value = false;
-      },
-    }).then((res) => {
+    await $fetch(
+      config.public.API_URL + `/register_step_two/users/${userData.value.id}`,
+      {
+        method: "POST",
+        body: values,
+        onResponseError({ request, response, options }) {
+          emailError.value = response._data;
+          isLoading.value = false;
+        },
+      }
+    ).then((res) => {
       cookie.value = res.tokens.access_token;
       token.value = res.tokens.access_token;
       isLoading.value = false;
@@ -56,7 +59,7 @@ export const authStore = defineStore("authStore", () => {
   };
 
   const login = async (values) => {
-    await $fetch(API_ROUTE + `/login`, {
+    await $fetch(config.public.API_URL + `/login`, {
       method: "POST",
       body: {
         ...values,
@@ -80,7 +83,7 @@ export const authStore = defineStore("authStore", () => {
   const confirmPhone = (id, code) => {
     isLoading.value = true;
 
-    $fetch(API_ROUTE + `/phone_confirmation/users/${id}`, {
+    $fetch(config.public.API_URL + `/phone_confirmation/users/${id}`, {
       method: "POST",
       body: code,
     })
@@ -100,7 +103,7 @@ export const authStore = defineStore("authStore", () => {
 
   const getMe = () => {
     if (cookie.value) {
-      $fetch(API_ROUTE + `/profile/show`, {
+      $fetch(config.public.API_URL + `/profile/show`, {
         headers: {
           Authorization: `Bearer ${cookie.value}`,
         },

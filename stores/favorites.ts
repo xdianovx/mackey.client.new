@@ -25,6 +25,7 @@ export const useFavoritesStore = defineStore("favorites", () => {
   // Геттеры
   const isFavorite = (item: any) =>
     items.value.some((fav: any) => fav.id === item.id);
+
   const favoritesCount = () => items.value.length;
 
   // Действия

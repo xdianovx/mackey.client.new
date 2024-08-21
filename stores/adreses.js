@@ -5,9 +5,10 @@ export const adresesStore = defineStore("myAdresesStore", () => {
   const loading = ref(false);
   const adreses = ref([]);
   const token = useCookie("auth-token");
+  const config = useRuntimeConfig();
 
   const getAll = async () => {
-    await useFetch(API_ROUTE + `/profile/аddresses/`, {
+    await useFetch(config.public.API_URL + `/profile/аddresses/`, {
       onResponse({ request, response, options }) {
         adreses.value = response._data;
       },
@@ -18,7 +19,7 @@ export const adresesStore = defineStore("myAdresesStore", () => {
   };
 
   const create = async (data) => {
-    await useFetch(API_ROUTE + `/profile/аddresses/store`, {
+    await useFetch(config.public.API_URL + `/profile/аddresses/store`, {
       method: "post",
       body: data,
       onResponse({ request, response, options }) {

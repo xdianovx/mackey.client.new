@@ -1,34 +1,32 @@
 <script setup>
 import Input from "~/components/ui/Forms/Input.vue";
 import Textarea from "~/components/ui/Forms/Textarea.vue";
-import { API_ROUTE } from "~/lib/constants";
-import { useCookies } from "@vueuse/integrations/useCookies";
 import { Form } from "vee-validate";
 import * as Yup from "yup";
 
-const cookies = useCookies();
+const config = useRuntimeConfig();
 const { isGray } = storeToRefs(useIsPageGrayStore());
 const { cart, thanksData, checkoutErrors } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
 const { getAll: getAdresses } = adresesStore();
 const { adreses } = storeToRefs(adresesStore());
 const { createOrder } = cartStore();
+const deliveryMethodsRef = ref({});
+const deliveryMethodCheck = ref(0);
+const paymentMethodsRef = ref({});
 
-const { data: deliveryMethods } = await useFetch(
-  API_ROUTE + `/order_delivery_methods`
-);
+await $fetch(config.public.API_URL + `/order_delivery_methods`).then((res) => {
+  deliveryMethodsRef.value = res;
+});
 
-const { data: payMethods } = await useFetch(
-  API_ROUTE + `/order_payment_methods`
-);
+await $fetch(config.public.API_URL + `/order_payment_methods`).then((res) => {
+  paymentMethodsRef.value = res;
+});
 
 const closeModalHandler = () => {
   thanksData.value = "";
-  cookies.remove("cart", { path: "/" });
   navigateTo("/", { external: true });
 };
-
-const deliveryMethodData = ref({});
 
 const checkoutRef = ref({
   total_price: cart.value.total_products_price_with_discount,
@@ -36,7 +34,6 @@ const checkoutRef = ref({
   comment_payment: "",
   promocode_id: 0,
   office_post_address: "",
-  payment_method_id: "",
   client_data: {
     first_name: "",
     last_name: "",
@@ -53,19 +50,17 @@ const checkoutRef = ref({
     locality: "",
   },
   delivery_method_id: 1,
+  payment_method_id: 1,
   products: cart.value.products,
 });
 
-onBeforeMount(() => {
+onMounted(() => {
   checkoutRef.value = {
     total_price: cart.value.total_products_price_with_discount,
     comment_order: "",
-    office_post_address: "",
     comment_payment: "",
     promocode_id: 0,
-    payment_method_id: 6,
-    delivery_method_id: 1,
-    profile_client_address_id: adreses?.value[0].id,
+    office_post_address: "",
     client_data: {
       first_name: "",
       last_name: "",
@@ -81,12 +76,37 @@ onBeforeMount(() => {
       entrance: "",
       locality: "",
     },
+    delivery_method_id: 1,
+    payment_method_id: 1,
     products: cart.value.products,
   };
 });
 
+const checkedDelivery = computed(() => {
+  let item = deliveryMethodsRef.value.find(
+    (item) => item.id == checkoutRef.value.delivery_method_id
+  );
+
+  deliveryMethodCheck.value = item.price;
+  checkoutRef.value.total_price =
+    +deliveryMethodCheck.value + cart.value.total_products_price_with_discount;
+
+  return item;
+});
+
+const checkedPayment = computed(() => {
+  return paymentMethodsRef.value.find(
+    (item) => item.id == checkoutRef.value.payment_method_id
+  );
+});
+
 if (token) {
   await getAdresses();
+}
+
+if (cart.value.products.length > 0) {
+} else {
+  navigateTo("/cart", { external: true });
 }
 
 const schema = Yup.object().shape({
@@ -94,7 +114,6 @@ const schema = Yup.object().shape({
   last_name: Yup.string().required("Обязательное поле"),
   email: Yup.string().required("Обязательное поле"),
   phone: Yup.string().required("Обязательное поле"),
-
   flat: Yup.string().required("Обязательное поле"),
   floor: Yup.string().required("Обязательное поле"),
   house: Yup.string().required("Обязательное поле"),
@@ -108,11 +127,6 @@ const schema = Yup.object().shape({
 const createNewOrder = (fromData) => {
   createOrder(checkoutRef.value);
 };
-
-if (cart.value.products.length > 0) {
-} else {
-  navigateTo("/cart", { external: true });
-}
 </script>
 
 <template>
@@ -122,7 +136,6 @@ if (cart.value.products.length > 0) {
       v-if="thanksData"
       class="w-full h-screen absolute top-0 flex items-center justify-center left-0 z-[20] bg-black/40"
     >
-      {{ deliveryMethodData }}
       <div class="bg-white p-4 max-w-[440px] w-full rounded-xl">
         <div class="flex items-start gap-2">
           <svg
@@ -158,17 +171,17 @@ if (cart.value.products.length > 0) {
           <div class="container">
             <div class="top-title">
               <UiTitle tag="h1">Оформление заказа</UiTitle>
+
               <NuxtLink to="/cart" class="cart-btn">Назад в корзину</NuxtLink>
             </div>
 
             <div class="methods">
               <WidgetsCheckoutPayMethod
-                :data="payMethods"
+                :data="paymentMethodsRef"
                 v-model="checkoutRef.payment_method_id"
               />
               <WidgetsCheckoutDeliveryMethod
-                :data="deliveryMethods"
-                :method="deliveryMethodData"
+                :data="deliveryMethodsRef"
                 v-model="checkoutRef.delivery_method_id"
               />
             </div>
@@ -215,7 +228,7 @@ if (cart.value.products.length > 0) {
             </div>
 
             <!-- Адреса -->
-            <div class="adreses-section" v-if="token">
+            <div class="adreses-section" v-if="token && adreses.length > 0">
               <h4 class="title">Адрес доставки</h4>
 
               <div class="adress-wrap">
@@ -309,7 +322,11 @@ if (cart.value.products.length > 0) {
             </div>
           </div>
         </div>
-        <WidgetsCheckoutDrawer :checkout-data="checkoutRef" />
+        <WidgetsCheckoutDrawer
+          :checkout-data="checkoutRef"
+          :delivery="checkedDelivery"
+          :payment="checkedPayment"
+        />
       </Form>
     </section>
   </main>

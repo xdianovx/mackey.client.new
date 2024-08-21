@@ -2,15 +2,15 @@
 const product = ref();
 const route = useRoute();
 const slug = route.params.slug;
-
+const config = useRuntimeConfig();
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination } from "swiper/modules";
-import { API_ROUTE } from "~/lib/constants";
 
 const { open } = useMyProductPageDrawerStore();
 
-const { isOpen } = storeToRefs(useMyProductPageDrawerStore());
 const { addItem, isFavorite, removeItem } = useFavoritesStore();
+const { addToCart } = cartStore();
+const { cart } = storeToRefs(cartStore());
 
 const toggleFavorite = () => {
   if (isFavorite(product.value)) {
@@ -20,14 +20,28 @@ const toggleFavorite = () => {
   }
 };
 
-const { addToCart } = cartStore();
 const saveToCart = async (product) => {
-  addToCart(product);
+  await addToCart(product);
 };
-const productRef = ref();
 
-await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
+await $fetch(`/products/${slug}/show`, {
+  baseURL: config.public.API_URL,
+  credentials: "include",
+  headers: {
+    // Authorization: `Bearer ${token.value ? token.value : ""}`,
+    "Content-Type": "application/json",
+  },
+}).then((res) => {
   product.value = res;
+});
+
+onMounted(() => {
+  $fetch(config.public.API_URL + "/cart_no_reg/show", {
+    credentials: "include",
+  }).then((res) => {
+    cart.value = res;
+    console.log(res);
+  });
 });
 </script>
 
@@ -127,15 +141,16 @@ await $fetch(API_ROUTE + `/products/${slug}/show`, {}).then((res) => {
               text="Добавить в корзину"
               @click="saveToCart(product)"
             />
-            <!-- <UiButtonsApple /> -->
+
+            {{ isProductInCart }}
           </div>
 
           <div class="div"></div>
-
+          <!-- <pre>
+            {{ cart.products }}
+          </pre> -->
           <div class="links">
-            <!-- <UiProductPageInfoLink text="Наличие в магазинах" /> -->
             <UiProductPageInfoLink text="Описание и детали" @click="open" />
-            <!-- <UiProductPageInfoLink text="Отзывы" :count="3" /> -->
           </div>
         </div>
       </div>

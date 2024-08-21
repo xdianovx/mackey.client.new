@@ -1,41 +1,28 @@
 <script setup>
-const { showCart } = cartStore();
-const { cart } = storeToRefs(cartStore());
-const { token } = authStore();
-await showCart();
-await fetchWithCookie();
+const { showCart, removeFormCart } = cartStore();
+const { cart, loading } = storeToRefs(cartStore());
 
-const event = useRequestEvent();
-const { data: result } = await useAsyncData(() => fetchWithCookie(event));
-onMounted(() => console.log(document.cookie, event));
+onMounted(() => {
+  showCart();
+});
 </script>
 
 <template>
   <main class="cart">
-    <WidgetsCartEmpty v-if="cart.products.length === 0" />
+    <WidgetsCartEmpty v-if="cart.products?.length === 0" />
 
     <!-- Cart -->
     <section class="cart-top" v-else>
       <div class="container">
         <UiTitle tag="h1"
           >Корзина<span class="span">{{
-            token ? cart.total_products_quantity : cart.products?.length || 0
+            cart.total_products_quantity
           }}</span></UiTitle
         >
 
-        <div class="cart-wrap" v-if="cart.products?.length > 0 && !token">
+        <div class="cart-wrap">
           <div class="products">
             <div v-for="item in cart?.products">
-              <WidgetsCartProduct :data="item" />
-              <div class="div"></div>
-            </div>
-          </div>
-          <WidgetsCartSummary />
-        </div>
-
-        <div class="cart-wrap" v-if="cart?.products && token">
-          <div class="products">
-            <div :key="item?.id" v-for="item in cart?.products">
               <WidgetsCartProduct :data="item" />
               <div class="div"></div>
             </div>

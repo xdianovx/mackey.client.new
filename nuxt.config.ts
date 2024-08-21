@@ -2,6 +2,11 @@
 export default defineNuxtConfig({
   optimization: {},
   css: ["~/assets/styles/main.scss"],
+  runtimeConfig: {
+    public: {
+      API_URL: process.env.NUXT_PUBLIC_API_BASE,
+    },
+  },
   // ssr: false,
   modules: [
     "@pinia/nuxt",
@@ -29,13 +34,6 @@ export default defineNuxtConfig({
   },
   yandexMetrika: {
     id: "88212734",
-    // debug: process.env.NODE_ENV !== "production",
-    // delay: 0,
-    // cdn: false,
-    // verification: null, // Verification in Yandex Webmaster
-    // options: {
-    //   webvisor: true,
-    // },
   },
   build: {
     transpile: ["gsap"],

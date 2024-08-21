@@ -1,10 +1,6 @@
 <script setup>
 const model = defineModel();
 const props = defineProps(["data", "deliveryMethodData"]);
-
-const setDeliveryRef = (item) => {
-  props.deliveryMethodData = item;
-};
 </script>
 
 <template>
@@ -13,14 +9,7 @@ const setDeliveryRef = (item) => {
 
     <div class="inner">
       <label class="method" v-for="item in data">
-        <input
-          type="radio"
-          @change="setDeliveryRef(item)"
-          v-model="model"
-          :value="item.id"
-          name="2"
-          checked
-        />
+        <input type="radio" v-model="model" :value="item.id" name="2" checked />
         <div class="circle"></div>
         <div class="method-info grow">
           <h4 class="method-title w-full">

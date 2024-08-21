@@ -1,15 +1,15 @@
 import { defineStore } from "pinia";
-import { API_ROUTE } from "~/lib/constants";
 
 export const useMyNavigationLinksStore = defineStore(
   "myNavigationLinksStore",
   () => {
+    const config = useRuntimeConfig();
     const links = ref([]);
     const loading = ref(false);
 
     const getMenu = async () => {
       loading.value = true;
-      await $fetch(API_ROUTE + "/get_menu/all").then((res) => {
+      await $fetch(config.public.API_URL + "/get_menu/all").then((res) => {
         links.value = res;
         loading.value = false;
       });
