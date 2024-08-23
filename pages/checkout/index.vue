@@ -228,7 +228,6 @@ const createNewOrder = (fromData) => {
                   />
                   <Input
                     v-model="checkoutRef.client_data.phone"
-                    v-mask="'+375 (##) ###-##-##'"
                     label="Номер телефона"
                     name="phone"
                   />

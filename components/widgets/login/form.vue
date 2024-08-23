@@ -22,7 +22,6 @@ const schema = Yup.object().shape({
     <Form @submit="login" :validation-schema="schema" class="login-form">
       <UiFormsInput
         type="tel"
-        v-mask="'+375 (##) ###-##-##'"
         name="phone"
         label="Телефон"
       />

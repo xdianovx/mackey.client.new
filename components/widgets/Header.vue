@@ -64,14 +64,13 @@ await getMenu();
         :class="{ black: !isHome, active: isNavOpen }"
       >
         <div class="flex items-center gap-5">
-          <HeaderCart />
-          <FavoriteBtn />
+          <Burger />
+          <SearchBtn />
         </div>
         <UiHeaderLogo />
         <div class="flex items-center gap-5">
-          <SearchBtn />
-
-          <Burger />
+          <HeaderCart />
+          <FavoriteBtn />
         </div>
       </div>
     </div>

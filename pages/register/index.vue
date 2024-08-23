@@ -47,7 +47,6 @@ const schemaPasswords = Yup.object().shape({
               <UiFormsInput
                 label="Номер телефона"
                 name="phone"
-                v-mask="'+375 (##) ###-##-##'"
                 placeholder="+375 (__) ___ __ __"
               />
               <UiButtonsBlack

@@ -50,12 +50,7 @@ const submit = async (data) => {
             <div class="flex flex-col gap-2">
               <div class="flex gap-2 max-[1024px]:flex-col max-[1024px]:gap-3">
                 <UiFormsInput type="text" name="name" ref="input" label="Имя" />
-                <UiFormsInput
-                  type="tel"
-                  v-mask="'+375 (##) ###-##-##'"
-                  name="phone"
-                  label="Телефон"
-                />
+                <UiFormsInput type="tel" name="phone" label="Телефон" />
               </div>
               <UiFormsInput type="mail" name="email" label="e-mail" />
             </div>
