@@ -1,9 +1,6 @@
 <script setup>
-const {} = cartStore();
 const { cart } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
-
-const productSum = ref(0);
 </script>
 
 <template>

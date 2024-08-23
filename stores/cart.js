@@ -3,11 +3,11 @@ import { authStore } from "~/stores/auth.js";
 import { useCookies } from "@vueuse/integrations/useCookies";
 
 export const cartStore = defineStore("myCartStore", () => {
-  const { userData } = storeToRefs(authStore());
   const config = useRuntimeConfig();
   const token = useCookie("auth-token");
   const thanksData = ref();
   const checkoutErrors = ref();
+  const checkoutResponce = ref();
   const cart = ref({
     total_products_quantity: 0,
     total_products_price: 0,
@@ -98,8 +98,8 @@ export const cartStore = defineStore("myCartStore", () => {
   // Изменение количества в корзине
 
   const editProductCount = async (id, quantity) => {
+    loading.value = true;
     if (token.value) {
-      loading.value = true;
       await $fetch(
         config.public.API_URL + `/cart/update_product?_method=PATCH`,
         {
@@ -111,8 +111,9 @@ export const cartStore = defineStore("myCartStore", () => {
           },
         }
       ).then(() => {
-        showCart();
-        loading.value = false;
+        showCart().then(() => {
+          loading.value = false;
+        });
       });
     } else {
       await $fetch(
@@ -126,14 +127,16 @@ export const cartStore = defineStore("myCartStore", () => {
           },
         }
       ).then(() => {
-        showCart();
-        loading.value = false;
+        showCart().then(() => {
+          loading.value = false;
+        });
       });
     }
   };
 
   const createOrder = async (body) => {
-    if (userData.value.id) {
+    loading.value = true;
+    if (token.value) {
       await $fetch(config.public.API_URL + `/new-order/store`, {
         method: "POST",
         body: body,
@@ -141,24 +144,22 @@ export const cartStore = defineStore("myCartStore", () => {
           Authorization: `Bearer ${token.value}`,
         },
       }).then((res) => {
+        loading.value = false;
         navigateTo(res.data.redirectUrl, { external: true });
       });
     } else {
-      console.log("notlogin");
       await $fetch(config.public.API_URL + `/new-order/store-not-reg`, {
         method: "POST",
-        body: {
-          ...body,
-          client_data: {
-            ...body.client_data,
-            phone: body.client_data.phone.replace(/[^\d+]/g, ""),
-          },
+        body: body,
+        onResponse({ request, response, options }) {
+          console.log(response._data, "state store no reg");
+          checkoutResponce.value = response._data;
+          loading.value = false;
         },
       })
         .then((res) => {
           if (res.type == "pri-poluchenii") {
             thanksData.value = res;
-
             // cookies.remove(CART_KEY, { path: "/" });
           } else {
             navigateTo(res.data.redirectUrl, { external: true });
@@ -180,5 +181,6 @@ export const cartStore = defineStore("myCartStore", () => {
     editProductCount,
     createOrder,
     checkoutErrors,
+    checkoutResponce,
   };
 });

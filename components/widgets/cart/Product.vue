@@ -1,6 +1,5 @@
 <script setup>
 const { removeFormCart, editProductCount } = cartStore();
-const { loading } = storeToRefs(cartStore());
 const props = defineProps(["data"]);
 import { useDebounceFn } from "@vueuse/core";
 
@@ -26,7 +25,7 @@ function decrDebounce() {
 </script>
 
 <template>
-  <div class="item" :class="{ loading: loading }">
+  <div class="item">
     <div class="image">
       <img :src="data?.product_files[0].file" :alt="data?.title" />
     </div>

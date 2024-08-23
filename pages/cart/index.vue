@@ -9,6 +9,7 @@ onMounted(() => {
 
 <template>
   <main class="cart">
+    <WidgetsPreLoader v-if="loading" :is-loading="loading" />
     <WidgetsCartEmpty v-if="cart.products?.length === 0" />
 
     <!-- Cart -->

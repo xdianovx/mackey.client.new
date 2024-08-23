@@ -1,15 +1,36 @@
 <script setup>
-const model = defineModel();
-const props = defineProps(["data", "deliveryMethodData"]);
+const props = defineProps({
+  data: Array,
+  deliveryMethodData: Number, // Значение выбранного метода доставки
+});
+
+const emit = defineEmits(["update:deliveryMethodData"]);
+const model = ref(props.deliveryMethodData);
+
+// Обновление выбранного значения
+const updateModel = (value) => {
+  model.value = value;
+  emit("update:deliveryMethodData", value); // Передача выбранного значения родителю
+};
 </script>
 
 <template>
   <div class="item">
     <h4 class="title">Способ доставки</h4>
 
+    <div class="flex flex-col">
+      <input type="checkbox" name="" id="" />
+    </div>
+
     <div class="inner">
-      <label class="method" v-for="item in data">
-        <input type="radio" v-model="model" :value="item.id" name="2" checked />
+      <label class="method" v-for="item in data" :key="item.id">
+        <input
+          type="radio"
+          :value="item.id"
+          v-model="model"
+          @change="updateModel(item.id)"
+          name="delivery-method"
+        />
         <div class="circle"></div>
         <div class="method-info grow">
           <h4 class="method-title w-full">

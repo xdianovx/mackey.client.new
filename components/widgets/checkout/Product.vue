@@ -4,7 +4,7 @@ const props = defineProps(["data"]);
 
 <template>
   <div class="product">
-    <div class="image">
+    <div class="image shrink-0">
       <img :src="data.product_files[0].file" :alt="data.title" />
     </div>
 
@@ -13,7 +13,7 @@ const props = defineProps(["data"]);
       <p class="product-color">{{ data.colors[0]?.title }}</p>
     </div>
 
-    <div class="product-price">{{ data.discounted_price }} BYN</div>
+    <div class="product-price shrink-0">{{ data.discounted_price }} BYN</div>
   </div>
 </template>
 

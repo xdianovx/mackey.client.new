@@ -3,6 +3,17 @@
   <h2 v-if="tag === 'h2'" v-bind="$attrs" class="h2"><slot /></h2>
   <h3 v-if="tag === 'h3'" v-bind="$attrs" class="h3"><slot /></h3>
   <h4 v-if="tag === 'h4'" v-bind="$attrs" class="h4"><slot /></h4>
+  <p v-if="tag === 'form'" v-bind="$attrs" class="font-medium leading-[100%]">
+    <slot />
+  </p>
+
+  <p
+    v-if="tag === 'modal'"
+    v-bind="$attrs"
+    class="text-[20px] font-semibold leading-[150%]"
+  >
+    <slot />
+  </p>
 </template>
 
 <script setup>
