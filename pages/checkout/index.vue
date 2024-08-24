@@ -98,10 +98,14 @@ const createNewOrder = (fromData) => {
       openModal();
     } else {
       openErrorModal();
-      // "message": "SMS.BY error: incorrect phone number",
     }
   });
 };
+
+const { gtag } = useGtag();
+gtag("event", "begin_checkout", {
+  value: checkoutRef.value.total_price,
+});
 </script>
 
 <template>

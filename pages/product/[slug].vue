@@ -43,6 +43,23 @@ onMounted(() => {
     console.log(res);
   });
 });
+const { gtag } = useGtag();
+gtag("event", "purchase", {
+  value: 1,
+  currency: "BYN",
+  items: [
+    {
+      id: `${product.value.vendor_code}`,
+      name: `${product.value.title} ${product.value.colors[0]?.title}`,
+      list_name: `${product.value.title} ${product.value.colors[0]?.title}`,
+      brand: "Makey",
+      // category: "Apparel/T-Shirts",
+      variant: `${product.value.colors[0]?.title}`,
+      quantity: 1,
+      price: `${product.value.discounted_price}`,
+    },
+  ],
+});
 </script>
 
 <template>
