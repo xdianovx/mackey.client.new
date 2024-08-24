@@ -18,10 +18,6 @@ const updateModel = (value) => {
   <div class="item">
     <h4 class="title">Способ доставки</h4>
 
-    <div class="flex flex-col">
-      <input type="checkbox" name="" id="" />
-    </div>
-
     <div class="inner">
       <label class="method" v-for="item in data" :key="item.id">
         <input

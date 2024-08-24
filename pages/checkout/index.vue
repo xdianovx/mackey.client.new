@@ -152,7 +152,7 @@ const createNewOrder = (fromData) => {
             <div class="top-title">
               <Title tag="h1">Оформление заказа</Title>
 
-              <NuxtLink to="/cart" class="cart-btn">Назад в корзину</NuxtLink>
+              <NuxtLink to="/cart" class="cart-btn">Назад</NuxtLink>
             </div>
 
             <div class="methods">
@@ -160,13 +160,12 @@ const createNewOrder = (fromData) => {
                 :data="paymentMethodsRef"
                 v-model="checkoutRef.payment_method_id"
               />
+
               <WidgetsCheckoutDeliveryMethod
                 :data="deliveryMethodsRef"
                 v-model:deliveryMethodData="checkoutRef.delivery_method_id"
               />
             </div>
-
-            {{ checkoutErrors }}
 
             <!-- Контакты -->
             <div class="contacts-section mt-14" v-if="!token">
@@ -274,9 +273,10 @@ const createNewOrder = (fromData) => {
             />
           </div>
         </div>
+
         <WidgetsCheckoutDrawer
           :checkout-data="checkoutRef"
-          :delivery="checkedDelivery"
+          :delivery="getDeliveryById"
           :payment="checkedPayment"
         />
       </Form>
@@ -392,6 +392,17 @@ const createNewOrder = (fromData) => {
 }
 
 @media screen and (max-width: 768px) {
+  .left {
+    margin-top: 100px;
+    width: 100%;
+    padding-bottom: 60px;
+  }
+
+  .methods {
+    margin-top: 24px;
+    gap: 32px;
+  }
+
   .checkout-wrap {
     display: flex;
     flex-direction: column;
@@ -410,9 +421,9 @@ const createNewOrder = (fromData) => {
 
 @media screen and (max-width: 550px) {
   .top-title {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 8px;
+    // flex-direction: column;
+    align-items: center;
+    gap: 16px;
   }
 }
 </style>

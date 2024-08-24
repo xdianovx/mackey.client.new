@@ -18,6 +18,7 @@ const props = defineProps(["checkoutData", "delivery", "payment"]);
     <div class="mt-auto">
       <div class="hr"></div>
 
+      {{ delivery }}
       <div class="py-4 px-10 max-[768px]:px-4 max-[768px]:py-6">
         <div class="flex items-center justify-between mb-4">
           <p>{{ payment?.title }}</p>
