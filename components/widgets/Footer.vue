@@ -131,11 +131,6 @@ const links = [
           </div>
 
           <div class="hidden max-[768px]:flex flex-col gap-2">
-            <!-- <p class="font-medium">Интернет-Магазин:</p>
-            <NuxtLink to="tel:+375 (33) 301-70-17"
-              >+375 (33) 301-70-17</NuxtLink
-            > -->
-
             <div class="flex flex-col gap-10">
               <WidgetsFooterMobileNavLink
                 :data="item"

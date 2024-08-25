@@ -1,6 +1,7 @@
 <script setup>
 const props = defineProps(["data"]);
-
+const { isHome } = storeToRefs(useIsHomePageStore());
+console.log(isHome);
 const isOpen = ref(false);
 </script>
 
@@ -21,7 +22,7 @@ const isOpen = ref(false);
           height="16"
           class="rotate-90 transition-transform duration-200 ease-in-out"
           viewBox="0 0 16 16"
-          :class="{ '-rotate-90': isOpen }"
+          :class="{ '-rotate-90': isOpen, 'fill-white': isHome }"
           fill="black"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -45,6 +46,9 @@ const isOpen = ref(false);
           <div class="flex gap-3 flex-col">
             <NuxtLink
               v-for="link in data.links"
+              :class="{
+                'text-white/80': isHome,
+              }"
               :key="link.id"
               :to="link.link"
               >{{ link.title }}</NuxtLink
