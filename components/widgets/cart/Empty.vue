@@ -9,7 +9,7 @@ const links = [
 
 <template>
   <section class="h-full">
-    <div class="pt-[160px] flex flex-col items-center max-[1024px]:pt-[100px]">
+    <div class="pt-[160px] flex flex-col items-center">
       <h2 class="text-center text-[24px] font-semibold leading-[120%]">
         В вашей корзине пока <br />
         ничего нет

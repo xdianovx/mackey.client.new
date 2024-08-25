@@ -11,11 +11,11 @@ export default defineNuxtConfig({
     head: {
       meta: [{ name: "yandex-verification", content: "024593913d1bd3d6" }],
       script: [
-        {
-          type: "text/javascript",
-          innerHTML:
-            "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5WF2C8R6');",
-        },
+        // {
+        //   type: "text/javascript",
+        //   innerHTML:
+        //     "(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-5WF2C8R6');",
+        // },
       ],
       // noscript: [
       //   {
@@ -28,7 +28,6 @@ export default defineNuxtConfig({
   // ssr: false,
   modules: [
     "@pinia/nuxt",
-    "@nuxtjs/i18n",
     "@vee-validate/nuxt",
     "@vueuse/nuxt",
     "@nuxt/image",
@@ -43,6 +42,7 @@ export default defineNuxtConfig({
         eccommerce: true,
       },
     ],
+    "@nuxtjs/sitemap",
   ],
   plugins: ["~/plugins/vue-the-mask.js"],
   vite: {
@@ -56,6 +56,11 @@ export default defineNuxtConfig({
   },
   gtag: {
     id: "G-0WLYQFS3S4",
+  },
+
+  site: {
+    url: "https://makey.by",
+    name: "Makey",
   },
 
   build: {

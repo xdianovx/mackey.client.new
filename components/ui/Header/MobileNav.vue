@@ -2,11 +2,8 @@
 import { onMounted, onUnmounted } from "vue";
 import gsap from "gsap";
 
-const isOpenState = useNavOpen();
 const { isNavOpen } = storeToRefs(useNavOpen());
 const { links } = storeToRefs(useMyNavigationLinksStore());
-const { cart } = storeToRefs(cartStore());
-const { token } = storeToRefs(authStore());
 
 let ctx;
 let tl;
