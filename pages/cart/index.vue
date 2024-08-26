@@ -81,4 +81,10 @@ onMounted(() => {
     grid-template-columns: 1fr;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .cart-top {
+    margin-top: 120px;
+  }
+}
 </style>
