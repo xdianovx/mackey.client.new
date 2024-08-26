@@ -9,7 +9,7 @@ const props = defineProps(["data"]);
   <aside class="aside" :class="{ active: isOpen }" v-bind="$attrs">
     <div class="aside-inner">
       <div class="top">
-        <h3 class="title">Описание и детали</h3>
+        <h3 class="title font-medium">Описание и детали</h3>
 
         <UiFilterCloseBtn @click="close" />
       </div>
@@ -68,7 +68,7 @@ const props = defineProps(["data"]);
 }
 
 .aside-inner {
-  padding: 64px 80px;
+  padding: 98px 80px 64px;
 }
 
 .top {
@@ -89,14 +89,18 @@ const props = defineProps(["data"]);
 .list {
   margin-top: 24px;
 }
-
+@media screen and (max-width: 1280px) {
+  .aside-inner {
+    padding: 80px 16px 48px;
+  }
+}
 @media screen and (max-width: 768px) {
   .aside {
     max-width: none;
   }
 
   .aside-inner {
-    padding: 48px 16px;
+    padding: 128px 16px 48px;
   }
 }
 </style>

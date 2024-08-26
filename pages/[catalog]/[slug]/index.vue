@@ -19,6 +19,7 @@ const params = ref({
   categories: 0,
 });
 const seo = seoData[categorySlug];
+
 useSeoMeta({
   title: seo?.title || "Makey.by",
   description: seo?.description || "Makey.by",
@@ -36,7 +37,7 @@ await getAll(params.value);
 <template>
   <main>
     <WidgetsFilter :catId="params?.categories" />
-    <WidgetsFilterSection :title="slug" />
+    <WidgetsFilterSection :title="catalog" />
 
     <section class="products-section">
       <div class="container">

@@ -1,7 +1,6 @@
 <script setup>
 const props = defineProps(["data"]);
 const { isHome } = storeToRefs(useIsHomePageStore());
-console.log(isHome);
 const isOpen = ref(false);
 </script>
 
@@ -9,11 +8,11 @@ const isOpen = ref(false);
   <div>
     <div>
       <button
-        :id="`accordion-title-${id}`"
+        :id="`accordion-title-${data.id}`"
         class="flex items-center justify-between w-full text-left font-semibold py-2"
         @click.prevent="isOpen = !isOpen"
         :aria-expanded="isOpen"
-        :aria-controls="`accordion-text-${id}`"
+        :aria-controls="`accordion-text-${data.id}`"
       >
         <div class="font-medium">{{ data.title }}</div>
 
@@ -33,9 +32,9 @@ const isOpen = ref(false);
       </button>
     </div>
     <div
-      :id="`accordion-text-${id}`"
+      :id="`accordion-text-${data.id}`"
       role="region"
-      :aria-labelledby="`accordion-title-${id}`"
+      :aria-labelledby="`accordion-title-${data.id}`"
       class="grid text-sm text-slate-600 overflow-hidden transition-all duration-300 ease-in-out"
       :class="
         isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'

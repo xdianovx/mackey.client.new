@@ -97,10 +97,6 @@ export const authStore = defineStore("authStore", () => {
       });
   };
 
-  const isAuthenticated = () => {
-    token.value = cookies.get("auth-token");
-  };
-
   const getMe = () => {
     if (cookie.value) {
       $fetch(config.public.API_URL + `/profile/show`, {
@@ -116,8 +112,7 @@ export const authStore = defineStore("authStore", () => {
   };
 
   const logout = () => {
-    cookie.value = "";
-    token.value = "";
+    cookies.remove("auth-token", { path: "/" });
     userData.value = {};
     navigateTo("/");
   };

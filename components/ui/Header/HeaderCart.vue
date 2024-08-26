@@ -2,6 +2,7 @@
 const { isHome } = storeToRefs(useIsHomePageStore());
 const { cart } = storeToRefs(cartStore());
 const { token } = storeToRefs(authStore());
+const { isNavOpen } = storeToRefs(useNavOpen());
 </script>
 
 <template>
@@ -10,6 +11,7 @@ const { token } = storeToRefs(authStore());
       width="24"
       height="24"
       viewBox="0 0 24 24"
+      :class="{ active: isNavOpen }"
       :fill="isHome ? 'white' : 'black'"
       xmlns="http://www.w3.org/2000/svg"
     >
@@ -30,6 +32,10 @@ const { token } = storeToRefs(authStore());
   svg {
     display: block;
   }
+}
+
+.active {
+  fill: white;
 }
 
 .count {

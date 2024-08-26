@@ -143,6 +143,12 @@ body {
   }
 }
 
+@media (max-width: 600px) {
+  [data-sonner-toaster][data-y-position="top"] {
+    top: 120px !important;
+  }
+}
+
 .cc-window {
   @apply fixed bottom-0 left-0 right-0 p-4 bg-gray-900 text-white text-sm;
   @apply flex justify-between items-center;

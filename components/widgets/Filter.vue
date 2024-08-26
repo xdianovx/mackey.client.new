@@ -17,23 +17,22 @@ const { colors } = storeToRefs(colorsStore());
 const route = useRoute();
 const catalog = route.params.catalog;
 
+const props = defineProps(["catId"]);
+
 await getTypes();
 if (catalog == "men") {
   await getCollections("men");
 } else {
   await getCollections("women");
 }
-await getColors();
-
-const props = defineProps(["catId"]);
 
 const params = ref({
   "types[]=": [],
   "collections[]=": [],
   "colors[]=": [],
   "categories[]=": props.catId,
-  price_min: products.value.meta?.min_price,
-  price_max: products.value.meta?.max_price,
+  price_min: products.value.meta?.min_price || 0,
+  price_max: products.value.meta?.max_price || 0,
   is_new: null,
   is_stock: 0,
 });
@@ -63,6 +62,8 @@ const addCollectionsToFilter = (id) => {
   } else {
     params.value["collections[]="]?.push(id);
   }
+
+  console.log(id, params.value["collections[]="]);
 };
 
 params.value.price_min = products.value.meta?.min_price;
@@ -77,14 +78,20 @@ const filterHandler = async () => {
 };
 
 const clearFilter = () => {
-  params.value.is_new = 1;
+  params.value.is_new = "";
   params.value["types[]="] = [];
   params.value["collections[]="] = [];
+  params.value["colors[]="] = [];
   params.value.price_min = 0;
   params.value.price_max = products.value.meta.max_price;
 
   filterHandler();
 };
+
+await getColors();
+getSort(params.value);
+
+const tref = ref("asd");
 </script>
 
 <template>
@@ -98,15 +105,16 @@ const clearFilter = () => {
       <div class="inner">
         <div class="flex gap-8">
           <!-- New -->
+
           <div class="checkbox">
             <input
               type="checkbox"
-              id="newcheck"
+              id="issnew"
               v-model="params.is_new"
               :true-value="1"
               :false-value="0"
             />
-            <label for="newcheck">Новинка</label>
+            <label for="11">Новинка</label>
           </div>
 
           <!-- На акции -->
@@ -142,11 +150,11 @@ const clearFilter = () => {
             <div class="checkbox" v-for="type in collections">
               <input
                 type="checkbox"
-                :id="type.id"
-                :checked="params['collections[]='].includes(type.slug)"
-                @change="addCollectionsToFilter(type.slug)"
+                :id="'type_' + type.id"
+                :checked="params['collections[]='].includes(type.id)"
+                @change="addCollectionsToFilter(type.id)"
               />
-              <label :for="type.id">{{ type.title }}</label>
+              <label :for="'type_' + type.id">{{ type.title }}</label>
             </div>
           </div>
         </UiFilterDropdown>
@@ -174,11 +182,13 @@ const clearFilter = () => {
         <UiFilterDropdown title="Цвета">
           <div class="collection-wrap">
             <div class="checkbox" v-for="color in colors" :key="color.id">
+              <input type="checkbox" :id="`color${color.slug}`" />
               <input
                 type="checkbox"
                 :id="`color${color.slug}`"
                 :checked="params['types[]='].includes(color.slug)"
                 @change="addColorsToFilter(color.slug)"
+                :value="color.id"
               />
 
               <label :for="`color${color.slug}`">{{ color.title }}</label>

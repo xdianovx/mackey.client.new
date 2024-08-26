@@ -1,7 +1,6 @@
 <script setup>
 const { isHome } = storeToRefs(useIsHomePageStore());
 const { isNavOpen } = storeToRefs(useNavOpen());
-const { isOpen: isSearchBarOpen } = storeToRefs(useIsSearchBar());
 const { open, toggle } = useIsSearchBar();
 </script>
 

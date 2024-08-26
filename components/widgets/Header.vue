@@ -142,7 +142,7 @@ await getMenu();
 
 @media screen and (max-width: 1280px) {
   .header {
-    padding: 0 0 14px 0;
+    padding: 0 0 0 0;
   }
   .header__nav {
     display: none;

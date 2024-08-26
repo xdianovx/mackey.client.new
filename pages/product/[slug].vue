@@ -3,15 +3,18 @@ const product = ref();
 const route = useRoute();
 const slug = route.params.slug;
 const config = useRuntimeConfig();
+const { token } = storeToRefs(authStore());
+
 import { Swiper, SwiperSlide } from "swiper/vue";
 import { Pagination } from "swiper/modules";
+import SuccessInCart from "~/components/widgets/toast/successInCart.vue";
 
 const { open } = useMyProductPageDrawerStore();
 
 const { addItem, isFavorite, removeItem } = useFavoritesStore();
-const { addToCart } = cartStore();
-const { cart } = storeToRefs(cartStore());
-
+const { addToCart, showCart } = cartStore();
+const { cart, loading } = storeToRefs(cartStore());
+const { $toast } = useNuxtApp();
 const toggleFavorite = () => {
   if (isFavorite(product.value)) {
     removeItem(product.value);
@@ -20,29 +23,43 @@ const toggleFavorite = () => {
   }
 };
 
+const isProductInCart = computed(() => {
+  if (cart.value?.products) {
+    return cart.value.products.some((item) => item.id == product.value.id);
+  }
+  return false;
+});
+
 const saveToCart = async (product) => {
-  await addToCart(product);
+  if (!isProductInCart.value) {
+    await addToCart(product).finally(() => {
+      $toast(markRaw(SuccessInCart));
+    });
+  }
 };
 
 await $fetch(`/products/${slug}/show`, {
   baseURL: config.public.API_URL,
   credentials: "include",
   headers: {
-    // Authorization: `Bearer ${token.value ? token.value : ""}`,
     "Content-Type": "application/json",
   },
 }).then((res) => {
   product.value = res;
 });
 
-onMounted(() => {
-  $fetch(config.public.API_URL + "/cart_no_reg/show", {
-    credentials: "include",
-  }).then((res) => {
-    cart.value = res;
-    console.log(res);
-  });
+onMounted(async () => {
+  if (!token.value) {
+    $fetch(config.public.API_URL + "/cart_no_reg/show", {
+      credentials: "include",
+    }).then((res) => {
+      cart.value = res;
+    });
+  } else {
+    await showCart();
+  }
 });
+
 const { gtag } = useGtag();
 gtag("event", "purchase", {
   value: 1,
@@ -142,7 +159,7 @@ gtag("event", "purchase", {
             </div>
           </div>
 
-          <div class="color">
+          <div class="color" v-if="product?.products_from_group">
             <div class="color-title">Цвета:</div>
             <div class="colors-wrap">
               <UiProductPageColorItem
@@ -155,17 +172,16 @@ gtag("event", "purchase", {
 
           <div class="buttons">
             <UiButtonsBlack
+              v-if="!isProductInCart"
               text="Добавить в корзину"
               @click="saveToCart(product)"
             />
 
-            {{ isProductInCart }}
+            <UiButtonsBlack v-else text="Перейти в корзину" link="/cart" />
           </div>
 
           <div class="div"></div>
-          <!-- <pre>
-            {{ cart.products }}
-          </pre> -->
+
           <div class="links">
             <UiProductPageInfoLink text="Описание и детали" @click="open" />
           </div>
@@ -310,6 +326,7 @@ gtag("event", "purchase", {
   }
 
   .product-page {
+    margin-top: 110px;
     flex-direction: column;
     padding-right: 0;
   }

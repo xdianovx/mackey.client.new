@@ -1,6 +1,7 @@
 <script setup>
 const { isHome } = storeToRefs(useIsHomePageStore());
 const { items } = storeToRefs(useFavoritesStore());
+const { isNavOpen } = storeToRefs(useNavOpen());
 </script>
 
 <template>
@@ -8,6 +9,7 @@ const { items } = storeToRefs(useFavoritesStore());
     <svg
       width="24"
       height="24"
+      :class="isNavOpen ? 'active' : ''"
       viewBox="0 0 24 24"
       :fill="isHome ? 'white' : 'black'"
       xmlns="http://www.w3.org/2000/svg"
@@ -30,5 +32,9 @@ const { items } = storeToRefs(useFavoritesStore());
   svg {
     display: block;
   }
+}
+
+.active {
+  fill: white;
 }
 </style>

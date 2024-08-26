@@ -2,6 +2,7 @@
 import Footer from "~/components/widgets/Footer.vue";
 import Header from "../components/widgets/Header";
 import { useAuth } from "~/composables/useAuth";
+import { Toaster } from "vue-sonner";
 const { getMe } = authStore();
 const { isOpen: isProductPadeDrawerOpen } = storeToRefs(
   useMyProductPageDrawerStore()
@@ -50,10 +51,19 @@ useHead({
 <template>
   <!-- <YandexMetrikaInformer /> -->
   <WidgetsLoader v-if="isPageLoading" />
+  <Toaster
+    position="top-center"
+    offset="120px"
+    :toastOptions="{
+      unstyled: true,
+      classes: {
+        toast: 'bg-white top-10 p-1 shadow-xl rounded-xl',
+      },
+    }"
+  />
   <NuxtLoadingIndicator color="#000" />
   <div class="wrap-main">
     <Header />
-
     <WidgetsSearchBar />
     <slot />
 

@@ -149,8 +149,10 @@ getColletion();
 }
 
 @media screen and (max-width: 768px) {
-  .image {
+  .section {
+    margin-top: 120px;
   }
+
   .image-desk {
     display: none;
   }

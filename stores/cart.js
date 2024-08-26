@@ -1,6 +1,4 @@
 import { defineStore } from "pinia";
-import { authStore } from "~/stores/auth.js";
-import { useCookies } from "@vueuse/integrations/useCookies";
 
 export const cartStore = defineStore("myCartStore", () => {
   const config = useRuntimeConfig();
