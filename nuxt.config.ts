@@ -64,26 +64,7 @@ export default defineNuxtConfig({
   },
 
   sitemap: {
-    urls: async () => {
-      const res = await $fetch("https://api.makey.by/api/v1/products");
-      const products = res.data;
-      return products.map((product) => ({
-        url: `/product/${product.slug}`,
-        lastmod: product.updated_at,
-      }));
-    },
-    sources: [
-      //     async fetch() {
-      //       const res = await $fetch("https://api.makey.by/api/v1/products");
-      //       const products = res.data;
-      //       return products.map((product) => ({
-      //         url: `/product/${product.slug}`,
-      //         lastmod: product.updated_at,
-      //       }));
-      //     },
-    ],
-
-    // sources: ["https://api.makey.by/api/v1/products/data"],
+    sources: ["/api/sitemap"],
   },
   build: {
     transpile: ["gsap", "vue-sonner"],
