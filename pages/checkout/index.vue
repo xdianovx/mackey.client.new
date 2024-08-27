@@ -116,8 +116,7 @@ gtag("event", "begin_checkout", {
       type="success"
     >
       <p class="mt-4">
-        После модерации ваш отзыв будет виден на странице товара для других
-        пользователей
+        Спасибо за заказа! Наш администратор свяжется с Вами в ближайшее время!
       </p>
       <UiButtonsBlack text="Закрыть" class="w-full mt-8" @click="closeModal" />
     </Modal>

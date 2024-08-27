@@ -44,6 +44,13 @@ const toggleFavorite = () => {
         >
           <SwiperSlide v-for="image in data?.product_files">
             <NuxtImg
+              v-if="image.is_cover"
+              :src="image.file"
+              :alt="`фотография ${data.title}`"
+              class="swiper-slide-img"
+            />
+
+            <NuxtImg
               :src="image.file"
               :alt="`фотография ${data.title}`"
               v-if="useGetFileExtention(image?.file) == 'webp'"

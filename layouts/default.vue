@@ -30,7 +30,9 @@ onMounted(() => {
 });
 
 useHead({
+  htmlAttrs: { lang: "ru" },
   link: [{ rel: "icon", type: "image/png", href: "/favicon.png" }],
+
   bodyAttrs: {
     class: () => {
       if (
@@ -50,6 +52,15 @@ useHead({
 
 <template>
   <!-- <YandexMetrikaInformer /> -->
+  <noscript
+    ><iframe
+      src="https://www.googletagmanager.com/ns.html?id=GTM-5WF2C8R6"
+      height="0"
+      width="0"
+      style="display: none; visibility: hidden"
+    ></iframe
+  ></noscript>
+
   <WidgetsLoader v-if="isPageLoading" />
   <Toaster
     position="top-center"
