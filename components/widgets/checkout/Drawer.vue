@@ -1,6 +1,6 @@
 <script setup>
 const { cart } = storeToRefs(cartStore());
-const props = defineProps(["checkoutData", "delivery", "payment"]);
+const props = defineProps(["checkoutData", "delivery", "payment", "valid"]);
 </script>
 
 <template>
@@ -47,7 +47,7 @@ const props = defineProps(["checkoutData", "delivery", "payment"]);
           </div>
         </div>
 
-        <div class="mt-4">
+        <div class="mt-4" :class="{ 'pointer-events-none opacity-50': !valid }">
           <UiButtonsBlack class="w-full" text="Оформить заказ" type="submit" />
         </div>
       </div>
