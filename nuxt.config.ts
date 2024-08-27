@@ -27,6 +27,20 @@ export default defineNuxtConfig({
           })(window,document,'script','dataLayer','GTM-5WF2C8R6');`,
           type: "text/javascript",
         },
+
+        {
+          innerHTML: `
+            <script async src="https://www.googletagmanager.com/gtag/js?id=AW-11414669347"></script>
+            <script>
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'AW-11414669347');
+            </script>
+          `,
+          type: "text/javascript",
+        },
       ],
       noscript: [
         {

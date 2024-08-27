@@ -113,6 +113,7 @@ export const authStore = defineStore("authStore", () => {
 
   const logout = () => {
     cookies.remove("auth-token", { path: "/" });
+    token.value = null;
     userData.value = {};
     navigateTo("/");
   };

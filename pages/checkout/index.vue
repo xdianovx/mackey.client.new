@@ -35,6 +35,10 @@ await $fetch(config.public.API_URL + `/order_payment_methods`).then((res) => {
   paymentMethodsRef.value = res;
 });
 
+if (token.value) {
+  await getAdresses();
+}
+
 const checkoutRef = ref({
   total_price: cart.value.total_products_price_with_discount,
   comment_order: "",
@@ -50,6 +54,7 @@ const checkoutRef = ref({
     phone: "",
     email: "",
   },
+  profile_client_address_id: adreses?.value ? adreses?.value[0]?.id : "",
   profile_client_address: {
     flat: "",
     floor: "",
@@ -64,9 +69,6 @@ const checkoutRef = ref({
   products: cart.value.products,
 });
 
-if (token.value) {
-  await getAdresses();
-}
 const isModalSuccessOpen = ref(false); // Управляем состоянием модального окна
 const isModalErrorOpen = ref(false); // Управляем состоянием модального окна
 
@@ -92,7 +94,26 @@ if (cart.value.total_products_price_with_discount > 60) {
   });
 }
 
+const getObjectFromRefById = (ref, id) => {
+  return ref.value.find((item) => item.id == id);
+};
+
+const computedDeliveryMethod = computed(() => {
+  return getObjectFromRefById(
+    deliveryMethodsRef,
+    checkoutRef.value.delivery_method_id
+  );
+});
+
+const computedPaymentMethod = computed(() => {
+  return getObjectFromRefById(
+    paymentMethodsRef,
+    checkoutRef.value.payment_method_id
+  );
+});
+
 const createNewOrder = (fromData) => {
+  console.log(fromData, "asd");
   createOrder(checkoutRef.value).then(() => {
     if (checkoutResponce.value.status === "success") {
       openModal();
@@ -102,10 +123,16 @@ const createNewOrder = (fromData) => {
   });
 };
 
-const { gtag } = useGtag();
-gtag("event", "begin_checkout", {
-  value: checkoutRef.value.total_price,
-});
+// const { gtag } = useGtag();
+// gtag("event", "begin_checkout", {
+//   value: checkoutRef.value.total_price,
+// });
+
+const validationMethod = ref();
+
+if (!token) {
+  checkoutRef.delivery_method_id == 1 ? checkoutSchemePickup : checkoutScheme;
+}
 </script>
 
 <template>
@@ -144,11 +171,7 @@ gtag("event", "begin_checkout", {
       <Form
         class="checkout-wrap"
         @submit="createNewOrder"
-        :validation-schema="
-          checkoutRef.delivery_method_id == 1
-            ? checkoutSchemePickup
-            : checkoutScheme
-        "
+        :validation-schema="validationMethod"
       >
         <div class="left">
           <div class="container">
@@ -205,6 +228,10 @@ gtag("event", "begin_checkout", {
                   {{ item.house }}, кв. {{ item.flat }}
                 </label>
               </div>
+            </div>
+
+            <div class="adreses-section" v-else>
+              Добавьте адреса в личном кабинете
             </div>
 
             <div
@@ -279,8 +306,8 @@ gtag("event", "begin_checkout", {
 
         <WidgetsCheckoutDrawer
           :checkout-data="checkoutRef"
-          :delivery="getDeliveryById"
-          :payment="checkedPayment"
+          :delivery="computedDeliveryMethod"
+          :payment="computedPaymentMethod"
         />
       </Form>
     </section>
