@@ -308,7 +308,7 @@ if (!token) {
           :checkout-data="checkoutRef"
           :delivery="computedDeliveryMethod"
           :payment="computedPaymentMethod"
-          :valid="checkoutRef.profile_client_address_id"
+          :valid="checkoutRef.profile_client_address_id || token"
         />
       </Form>
     </section>
