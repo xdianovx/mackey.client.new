@@ -179,7 +179,7 @@ export const cartStore = defineStore("myCartStore", () => {
           checkoutResponce.value = response._data;
           loading.value = false;
 
-          if (pay_type == 1) {
+          if (pay_type == 1 && response._data.status != "failed") {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
             checkoutErrors.value = response._data.error;
