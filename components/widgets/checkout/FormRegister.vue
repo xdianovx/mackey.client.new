@@ -131,10 +131,6 @@ const createNewOrder = (fromData) => {
     } else {
       openErrorModal();
     }
-
-    if (checkoutErrors.value) {
-      openErrorModal();
-    }
   });
 };
 
