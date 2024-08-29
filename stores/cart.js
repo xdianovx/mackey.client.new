@@ -149,25 +149,18 @@ export const cartStore = defineStore("myCartStore", () => {
           checkoutResponce.value = response._data;
           loading.value = false;
 
-          if (pay_type == 1) {
-            console.log(response._data, pay_type);
-
-            if (response._data.status === "Success") {
-              navigateTo(response._data.redirectUrl, { external: true });
-            } else {
-              checkoutResponce.value = response._data;
-              checkoutErrors.value = response._data.error;
-            }
+          if (pay_type == 1 && response._data.status != "failed") {
+            navigateTo(response._data.data.redirectUrl, { external: true });
+            checkoutResponce.value = response._data;
+            checkoutErrors.value = response._data.error;
           } else {
-            navigateTo("/profile", { external: true });
+            navigateTo("/", { external: true });
           }
         },
 
         onResponseError({ request, response, options }) {
           checkoutErrors.value = response._data;
           loading.value = false;
-          checkoutResponce.value = response._data;
-          checkoutErrors.value = response._data.error;
         },
       });
     } else {
@@ -175,7 +168,6 @@ export const cartStore = defineStore("myCartStore", () => {
         method: "POST",
         body: body,
         onResponse({ request, response, options }) {
-          console.log(response._data, "state store no reg");
           checkoutResponce.value = response._data;
           loading.value = false;
 
@@ -184,30 +176,15 @@ export const cartStore = defineStore("myCartStore", () => {
             checkoutResponce.value = response._data;
             checkoutErrors.value = response._data.error;
           } else {
-            navigateTo("/profile", { external: true });
+            navigateTo("/", { external: true });
           }
         },
 
         onResponseError({ request, response, options }) {
           checkoutErrors.value = response._data;
           loading.value = false;
-          console.log(response._data, "state store no reg");
         },
-      })
-        .then((res) => {
-          if (res.type == "pri-poluchenii") {
-            thanksData.value = res;
-          } else {
-            if (pay_type == 1) {
-              navigateTo(response._data.redirectUrl, { external: true });
-            } else {
-              navigateTo("/", { external: true });
-            }
-          }
-        })
-        .catch((err) => {
-          checkoutErrors.value = err;
-        });
+      });
     }
   };
 
