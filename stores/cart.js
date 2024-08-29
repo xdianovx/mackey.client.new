@@ -178,6 +178,19 @@ export const cartStore = defineStore("myCartStore", () => {
           console.log(response._data, "state store no reg");
           checkoutResponce.value = response._data;
           loading.value = false;
+
+          if (pay_type == 1) {
+            console.log(response._data.data, pay_type, "state store no reg");
+
+            if (response._data.status === "Success") {
+              navigateTo(response._data.redirectUrl, { external: true });
+            } else {
+              checkoutResponce.value = response._data;
+              checkoutErrors.value = response._data.error;
+            }
+          } else {
+            navigateTo("/profile", { external: true });
+          }
         },
 
         onResponseError({ request, response, options }) {
