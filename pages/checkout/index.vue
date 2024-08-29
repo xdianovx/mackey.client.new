@@ -20,7 +20,6 @@ const { getAll: getAdresses } = adresesStore();
 const { adreses } = storeToRefs(adresesStore());
 const { createOrder } = cartStore();
 const deliveryMethodsRef = ref({});
-const deliveryMethodCheck = ref(0);
 const paymentMethodsRef = ref({});
 
 if (cart.value.products.length <= 0) {
@@ -69,23 +68,23 @@ const checkoutRef = ref({
   products: cart.value.products,
 });
 
-const isModalSuccessOpen = ref(false); // Управляем состоянием модального окна
-const isModalErrorOpen = ref(false); // Управляем состоянием модального окна
+const isModalSuccessOpen = ref(false);
+const isModalErrorOpen = ref(false);
 
 const openModal = () => {
-  isModalSuccessOpen.value = true; // Открываем модальное окно
+  isModalSuccessOpen.value = true;
 };
 
 const closeModal = () => {
-  isModalSuccessOpen.value = false; // Закрываем модальное окно
+  isModalSuccessOpen.value = false;
 };
 
 const openErrorModal = () => {
-  isModalErrorOpen.value = true; // Открываем модальное окно
+  isModalErrorOpen.value = true;
 };
 
 const closeErrorModal = () => {
-  isModalErrorOpen.value = false; // Закрываем модальное окно
+  isModalErrorOpen.value = false;
 };
 
 if (cart.value.total_products_price_with_discount > 60) {
@@ -113,8 +112,11 @@ const computedPaymentMethod = computed(() => {
 });
 
 const createNewOrder = (fromData) => {
-  console.log(fromData, "asd");
-  createOrder(checkoutRef.value).then(() => {
+  createOrder(
+    checkoutRef.value,
+    checkoutRef.value.payment_method_id,
+    checkoutRef.value.delivery_method_id
+  ).then(() => {
     if (checkoutResponce.value.status === "success") {
       openModal();
     } else {
@@ -156,7 +158,7 @@ if (!token) {
       <p class="mt-4">К сожалению, мы не смогли зарегестрировать ваш заказ</p>
 
       <p class="mt-2 bg-neutral-100 rounded-md p-2">
-        {{ checkoutErrors.message }}
+        {{ checkoutErrors }}
       </p>
 
       <UiButtonsBlack

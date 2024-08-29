@@ -35,7 +35,9 @@ export const cartStore = defineStore("myCartStore", () => {
           method: "POST",
           credentials: "include",
         }
-      );
+      ).then(() => {
+        showCart();
+      });
     }
   };
 
@@ -132,7 +134,9 @@ export const cartStore = defineStore("myCartStore", () => {
     }
   };
 
-  const createOrder = async (body) => {
+  const createOrder = async (body, pay_type, delivery_type) => {
+    console.log(pay_type, delivery_type);
+
     loading.value = true;
     if (token.value) {
       await $fetch(config.public.API_URL + `/new-order/store`, {
@@ -141,9 +145,17 @@ export const cartStore = defineStore("myCartStore", () => {
         headers: {
           Authorization: `Bearer ${token.value}`,
         },
-      }).then((res) => {
-        loading.value = false;
-        navigateTo(res.data.redirectUrl, { external: true });
+        onResponse({ request, response, options }) {
+          console.log(response._data, "state store no reg");
+          checkoutResponce.value = response._data;
+          loading.value = false;
+
+          if (pay_type == 1) {
+            navigateTo(response._data.redirectUrl, { external: true });
+          } else {
+            navigateTo("/profile", { external: true });
+          }
+        },
       });
     } else {
       await $fetch(config.public.API_URL + `/new-order/store-not-reg`, {
@@ -158,9 +170,12 @@ export const cartStore = defineStore("myCartStore", () => {
         .then((res) => {
           if (res.type == "pri-poluchenii") {
             thanksData.value = res;
-            // cookies.remove(CART_KEY, { path: "/" });
           } else {
-            navigateTo(res.data.redirectUrl, { external: true });
+            if (pay_type == 1) {
+              navigateTo(response._data.redirectUrl, { external: true });
+            } else {
+              navigateTo("/", { external: true });
+            }
           }
         })
         .catch((err) => {
