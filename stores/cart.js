@@ -152,9 +152,9 @@ export const cartStore = defineStore("myCartStore", () => {
           if (pay_type == 1 && response._data.status != "error") {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
-            checkoutErrors.value = response._data.error;
+            checkoutErrors.value = response._data;
           } else {
-            checkoutErrors.value = response._data.error;
+            checkoutErrors.value = response._data;
             // navigateTo("/", { external: true });
           }
         },
@@ -174,9 +174,9 @@ export const cartStore = defineStore("myCartStore", () => {
           if (pay_type == 1 && response._data.status != "error") {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
-            checkoutErrors.value = response._data.error;
+            checkoutErrors.value = response._data;
           } else {
-            checkoutErrors.value = response._data.error;
+            checkoutErrors.value = response._data;
 
             // navigateTo("/", { external: true });
           }
