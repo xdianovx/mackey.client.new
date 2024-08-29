@@ -125,7 +125,7 @@ const createNewOrder = (fromData) => {
   ).then(() => {
     if (
       checkoutResponce.value.status == "success" &&
-      checkoutRef.value.payment_method_id == 1
+      checkoutRef.value.payment_method_id != 1
     ) {
       openModal();
     } else {
