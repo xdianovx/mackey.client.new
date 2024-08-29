@@ -117,8 +117,8 @@ watch(
   { deep: true }
 );
 
-const createNewOrder = (fromData) => {
-  createOrder(
+const createNewOrder = async (fromData) => {
+  await createOrder(
     checkoutRef.value,
     checkoutRef.value.payment_method_id,
     checkoutRef.value.delivery_method_id
