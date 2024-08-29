@@ -177,6 +177,9 @@ export const cartStore = defineStore("myCartStore", () => {
             checkoutErrors.value = response._data;
           } else {
             checkoutErrors.value = response._data;
+            loading.value = false;
+
+            console.log(checkoutErrors.value);
 
             // navigateTo("/", { external: true });
           }
@@ -185,6 +188,7 @@ export const cartStore = defineStore("myCartStore", () => {
         onResponseError({ request, response, options }) {
           checkoutErrors.value = response._data;
           loading.value = false;
+          console.log(checkoutErrors.value, "checkoutErrors.value");
         },
       });
     }
