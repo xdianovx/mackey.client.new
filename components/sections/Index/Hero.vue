@@ -5,7 +5,7 @@ const data = [
     id: 5,
     title: "",
     suptitle: "",
-    slug: "/kolliektsiia/boho",
+    slug: "/sale",
     image: "/img/hero/6.jpg",
     image_mob: "/img/hero/6m.jpg",
     btn_text: "Перейти к скидкам",
