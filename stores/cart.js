@@ -151,10 +151,24 @@ export const cartStore = defineStore("myCartStore", () => {
           loading.value = false;
 
           if (pay_type == 1) {
-            navigateTo(response._data.redirectUrl, { external: true });
+            console.log(response._data);
+
+            if (response._data.status === "Success") {
+              navigateTo(response._data.redirectUrl, { external: true });
+            } else {
+              checkoutResponce.value = response._data;
+              checkoutErrors.value = response._data.error;
+            }
           } else {
             navigateTo("/profile", { external: true });
           }
+        },
+
+        onResponseError({ request, response, options }) {
+          checkoutErrors.value = response._data;
+          loading.value = false;
+          checkoutResponce.value = response._data;
+          checkoutErrors.value = response._data.error;
         },
       });
     } else {
@@ -165,6 +179,12 @@ export const cartStore = defineStore("myCartStore", () => {
           console.log(response._data, "state store no reg");
           checkoutResponce.value = response._data;
           loading.value = false;
+        },
+
+        onResponseError({ request, response, options }) {
+          checkoutErrors.value = response._data;
+          loading.value = false;
+          console.log(response._data, "state store no reg");
         },
       })
         .then((res) => {

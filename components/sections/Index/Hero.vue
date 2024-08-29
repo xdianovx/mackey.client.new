@@ -2,11 +2,21 @@
 useGetFileExtention;
 const data = [
   {
+    id: 5,
+    title: "",
+    suptitle: "",
+    slug: "/kolliektsiia/boho",
+    image: "/img/hero/6.jpg",
+    image_mob: "/img/hero/6m.jpg",
+    btn_text: "Перейти к скидкам",
+  },
+  {
     id: 1,
     title: "Makey X Conte",
     image: "/img/hero/1.jpg",
     slug: "/kolliektsiia/makey-x-conte",
     image_mob: "/img/hero/1m.jpg",
+    btn_text: "Перейти в коллецию",
   },
   {
     id: 4,
@@ -15,6 +25,7 @@ const data = [
     slug: "/kolliektsiia/the-plait",
     image: "/img/hero/5.jpg",
     image_mob: "/img/hero/5m.jpg",
+    btn_text: "Перейти в коллецию",
   },
   {
     id: 2,
@@ -23,6 +34,7 @@ const data = [
     image: "/img/hero/2.webm",
     slug: "/kolliektsiia/le-lin-new-season",
     image_mob: "/img/hero/2.webm",
+    btn_text: "Перейти в коллецию",
   },
   {
     id: 3,
@@ -30,6 +42,7 @@ const data = [
     suptitle: "",
     slug: "/kolliektsiia/evolution-collection",
     image: "/img/hero/3.webm",
+    btn_text: "Перейти в коллецию",
     image_mob: "/img/hero/3.webm",
   },
   {
@@ -39,6 +52,7 @@ const data = [
     slug: "/kolliektsiia/boho",
     image: "/img/hero/4.jpg",
     image_mob: "/img/hero/4m.jpg",
+    btn_text: "Перейти в коллецию",
   },
 ];
 
@@ -98,9 +112,9 @@ const options = {
                 </h2>
                 <p class="section__subtitle">{{ item.suptitle }}</p>
 
-                <NuxtLink :to="item.slug" class="section__link"
-                  >Перейти в коллекцию</NuxtLink
-                >
+                <NuxtLink :to="item.slug" class="section__link">{{
+                  item.btn_text
+                }}</NuxtLink>
                 <!-- <div class="mobile__links">
                   <NuxtLink to="/women" class="mobile__link">Women</NuxtLink>
                   <NuxtLink to="/men" class="mobile__link">Men</NuxtLink>

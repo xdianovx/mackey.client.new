@@ -6,7 +6,7 @@ const props = defineProps(["checkoutData", "delivery", "payment", "valid"]);
 <template>
   <div class="item">
     <div class="item-top">
-      <h3 class="title">Ваш заказ</h3>
+      <h3 class="title font-bold">Ваш заказ</h3>
 
       <p class="count">Товаров: {{ cart.total_products_quantity }}</p>
     </div>
@@ -47,7 +47,12 @@ const props = defineProps(["checkoutData", "delivery", "payment", "valid"]);
           </div>
         </div>
 
-        <div class="mt-4" :class="{ 'pointer-events-none opacity-50': !valid }">
+        <div
+          class="mt-4"
+          :class="{
+            'opacity-50 pointer-events-none cursor-not-allowed': !valid,
+          }"
+        >
           <UiButtonsBlack class="w-full" text="Оформить заказ" type="submit" />
         </div>
       </div>
