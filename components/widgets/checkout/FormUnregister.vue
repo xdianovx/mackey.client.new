@@ -129,6 +129,10 @@ const createNewOrder = (fromData) => {
     ) {
       openModal();
     }
+
+    if (checkoutResponce.value.status == "error") {
+      openErrorModal();
+    }
   });
 };
 </script>
@@ -152,9 +156,9 @@ const createNewOrder = (fromData) => {
   >
     <p class="mt-4">К сожалению, мы не смогли зарегестрировать ваш заказ</p>
 
-    <!-- <p class="mt-2 bg-neutral-100 rounded-md p-2">
+    <p class="mt-2 bg-neutral-100 rounded-md p-2">
       {{ checkoutErrors.message }}
-    </p> -->
+    </p>
 
     <UiButtonsBlack
       text="Закрыть"
