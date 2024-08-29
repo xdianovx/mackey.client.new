@@ -149,17 +149,17 @@ export const cartStore = defineStore("myCartStore", () => {
           checkoutResponce.value = response._data;
           loading.value = false;
 
-          if (pay_type == 1 && response._data.status != "failed") {
+          if (pay_type == 1 && response._data.status != "error") {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
             checkoutErrors.value = response._data.error;
           } else {
+            checkoutErrors.value = response._data.error;
             navigateTo("/", { external: true });
           }
         },
 
         onResponseError({ request, response, options }) {
-          checkoutErrors.value = response._data;
           loading.value = false;
         },
       });
@@ -171,7 +171,7 @@ export const cartStore = defineStore("myCartStore", () => {
           checkoutResponce.value = response._data;
           loading.value = false;
 
-          if (pay_type == 1 && response._data.status != "failed") {
+          if (pay_type == 1 && response._data.status != "error") {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
             checkoutErrors.value = response._data.error;
