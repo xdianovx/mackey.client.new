@@ -132,6 +132,7 @@ const createNewOrder = (fromData) => {
 
     if (checkoutResponce.value.status == "error") {
       openErrorModal();
+      console.log(checkoutResponce.value.status);
     }
   });
 };
