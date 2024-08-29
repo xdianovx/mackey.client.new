@@ -146,12 +146,11 @@ export const cartStore = defineStore("myCartStore", () => {
           Authorization: `Bearer ${token.value}`,
         },
         onResponse({ request, response, options }) {
-          console.log(response._data, "state store no reg");
           checkoutResponce.value = response._data;
           loading.value = false;
 
           if (pay_type == 1) {
-            console.log(response._data);
+            console.log(response._data, pay_type);
 
             if (response._data.status === "Success") {
               navigateTo(response._data.redirectUrl, { external: true });
