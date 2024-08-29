@@ -130,7 +130,7 @@ const createNewOrder = (fromData) => {
       openModal();
     }
 
-    if (checkoutResponce.value.status == "error") {
+    if (checkoutErrors.value.status == "error") {
       openErrorModal();
       console.log(checkoutResponce.value.status);
     }
