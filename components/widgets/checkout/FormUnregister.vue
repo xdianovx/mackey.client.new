@@ -117,8 +117,8 @@ watch(
   { deep: true }
 );
 
-const createNewOrder = async (fromData) => {
-  await createOrder(
+const createNewOrder = (fromData) => {
+  createOrder(
     checkoutRef.value,
     checkoutRef.value.payment_method_id,
     checkoutRef.value.delivery_method_id
@@ -130,7 +130,7 @@ const createNewOrder = async (fromData) => {
       openModal();
     }
 
-    if (checkoutErrors.value.status == "error") {
+    if (checkoutResponce.value.status == "error") {
       openErrorModal();
       console.log(checkoutResponce.value.status);
     }

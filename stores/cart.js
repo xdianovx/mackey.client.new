@@ -175,21 +175,17 @@ export const cartStore = defineStore("myCartStore", () => {
             navigateTo(response._data.data.redirectUrl, { external: true });
             checkoutResponce.value = response._data;
             checkoutErrors.value = response._data;
+          } else {
+            checkoutErrors.value = response._data;
+            loading.value = false;
+
+            // navigateTo("/", { external: true });
           }
-          // else {
-          //   checkoutErrors.value = response._data;
-          //   loading.value = false;
-
-          //   console.log(checkoutErrors.value);
-
-          //   // navigateTo("/", { external: true });
-          // }
         },
 
         onResponseError({ request, response, options }) {
           checkoutErrors.value = response._data;
           loading.value = false;
-          console.log(checkoutErrors.value, "onResError");
         },
       });
     }
