@@ -6,7 +6,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       id: "GTM-5WF2C8R6",
       defer: false,
       compatibility: false,
-      enabled: true,
+      //   enabled: true,
       debug: true,
       loadScript: true,
       vueRouter: useRouter(),
