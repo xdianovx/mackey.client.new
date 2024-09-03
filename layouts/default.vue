@@ -13,8 +13,8 @@ const { isNavOpen } = storeToRefs(useNavOpen());
 
 const isPageLoading = ref(true);
 
-const $gtm = useGTM();
-$gtm.enable();
+// const $gtm = useGTM();
+// $gtm.enable();
 
 onBeforeMount(() => {
   isPageLoading.value = true;
