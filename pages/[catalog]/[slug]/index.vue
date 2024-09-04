@@ -55,8 +55,8 @@ await getAll(params.value);
     </section>
 
     <WidgetsSeoText
-      :title="seo.text?.title || 'Заголовок'"
-      :text="seo.text?.content || 'Текст'"
+      :title="seo?.text?.title || 'Заголовок'"
+      :text="seo?.text?.content || 'Текст'"
     />
 
     <WidgetsFilter :catId="params?.categories" />
