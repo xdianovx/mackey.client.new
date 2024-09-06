@@ -17,7 +17,7 @@ const params = ref({
   is_man: null,
   is_woman: null,
   categories: 0,
-  limit: 10,
+  limit: 20,
 });
 const seo = seoData[categorySlug];
 
@@ -32,15 +32,15 @@ if (catalog === "men") params.value.is_man = 1;
 if (catalog === "women") params.value.is_woman = 1;
 if (activeCategory) params.value.categories = activeCategory.slug;
 
-await getAll(params.value);
-
-const page = ref(1);
-
 const loadMore = async () => {
-  params.value.limit += 10;
+  params.value.limit += 20;
   await getAll(params.value);
   console.log(params.value);
 };
+
+await getAll(params.value);
+
+console.log(params.value);
 </script>
 
 <template>
@@ -63,7 +63,7 @@ const loadMore = async () => {
               class="flex flex-col items-center justify-center gap-3 max-[550px]:w-full"
             >
               <div class="flex text-black/50 gap-1 leading-[100%]">
-                <p>{{ products.data.length }}</p>
+                <p>{{ products.data?.length }}</p>
                 <p>из</p>
                 <p>{{ products.meta?.all_products_count }}</p>
               </div>
