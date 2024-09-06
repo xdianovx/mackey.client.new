@@ -18,7 +18,6 @@ export const useMyProductsStore = defineStore("myProductsStore", () => {
   };
 
   const getSort = (opt) => {
-    console.log(opt);
     $fetch(API_ROUTE + "/products", {
       params: opt,
     }).then((res) => (products.value = res));

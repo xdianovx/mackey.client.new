@@ -3,7 +3,9 @@ const props = defineProps(["text", "link"]);
 </script>
 
 <template>
-  <NuxtLink class="button" v-if="link" :to="link">{{ text }}</NuxtLink>
+  <NuxtLink class="button" v-if="link" :to="link" v-bind="$attrs">{{
+    text
+  }}</NuxtLink>
   <button class="button" v-else v-bind="$attrs">
     {{ text }}
   </button>
