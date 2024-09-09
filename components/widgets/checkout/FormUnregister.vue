@@ -36,7 +36,7 @@ const checkoutRef = ref({
   promocode_id: 0,
   office_post_address: "",
   cart_id: cart.value.id,
-
+  pickup_city: "",
   client_data: {
     first_name: "",
     last_name: "",
@@ -254,6 +254,14 @@ const createNewOrder = (fromData) => {
         </div>
 
         <div class="my-14 max-[768px]:my-6 h-[1px] bg-black/10 w-full"></div>
+
+        <Input
+          v-if="checkoutRef.delivery_method_id == 1"
+          label="Город"
+          name="pickup_city"
+          v-model="checkoutRef.pickup_city"
+          class="mb-6"
+        />
 
         <Title tag="form">Комментарий</Title>
         <Textarea class="mt-2" v-model="checkoutRef.comment_order"> </Textarea>

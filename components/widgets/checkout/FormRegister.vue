@@ -39,7 +39,7 @@ const checkoutRef = ref({
   promocode_id: 0,
   office_post_address: "",
   cart_id: cart.value.id,
-
+  pickup_city: "",
   client_data: {
     first_name: "",
     last_name: "",
@@ -197,18 +197,6 @@ await getAdresses();
           />
         </div>
 
-        <!-- Контакты -->
-        <!-- <div class="contacts-section mt-14">
-          <Title tag="form">Контактные данные</Title>
-
-          <p class="text-black/50 mt-2">
-            Оформив заказ, вы получите доступ к личному кабинету по номеру
-            телефона для управления заказом и использования персональных скидок
-          </p>
-
-          <FormPickup :data="checkoutRef" />
-        </div> -->
-
         <div class="adreses-section" v-if="checkoutRef.delivery_method_id != 1">
           <Title tag="form">Адрес доставки</Title>
 
@@ -230,57 +218,20 @@ await getAdresses();
               class="mt-4"
             />
           </div>
-
-          <!-- <div class="flex flex-col gap-4 mt-10" v-if="adreses.length <= 0"> -->
-          <!-- <div class="flex flex-col gap-4 mt-10" v-else>
-            <div class="flex flex-col gap-4">
-              <Input
-                v-model="checkoutRef.profile_client_address.locality"
-                label="Область и населенный пункт"
-                name="locality"
-              />
-              <Input
-                v-model="checkoutRef.profile_client_address.index"
-                label="Индекс"
-                name="index"
-              />
-            </div>
-
-            <div class="flex flex-col gap-4">
-              <Input
-                v-model="checkoutRef.profile_client_address.street"
-                label="Улица"
-                name="street"
-              />
-            </div>
-            <div class="flex flex-col gap-4">
-              <Input
-                v-model="checkoutRef.profile_client_address.house"
-                label="Дом"
-                name="house"
-              />
-              <Input
-                v-model="checkoutRef.profile_client_address.flat"
-                label="Квартира"
-                name="flat"
-              />
-              <Input
-                v-model="checkoutRef.profile_client_address.floor"
-                label="Этаж"
-                name="floor"
-              />
-              <Input
-                v-model="checkoutRef.profile_client_address.entrance"
-                label="Подъезд"
-                name="entrance"
-              />
-            </div>
-          </div> -->
         </div>
 
         <div class="my-14 max-[768px]:my-6 h-[1px] bg-black/10 w-full"></div>
 
+        <Input
+          v-if="checkoutRef.delivery_method_id == 1"
+          label="Город"
+          name="pickup_city"
+          v-model="checkoutRef.pickup_city"
+          class="mb-6"
+        />
+
         <Title tag="form">Комментарий</Title>
+
         <Textarea class="mt-2" v-model="checkoutRef.comment_order"> </Textarea>
 
         <Input

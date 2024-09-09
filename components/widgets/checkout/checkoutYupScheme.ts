@@ -20,8 +20,11 @@ export const checkoutSchemePickup = Yup.object().shape({
   email: Yup.string().required("Обязательное поле"),
   phone: Yup.string().required("Обязательное поле"),
   comment_payment: Yup.string().max(30, "Максимум 30 символов"),
+  pickup_city: Yup.string().required("Обязательное поле"),
 });
 
 export const checkoutSchemeReg = Yup.object().shape({});
 
-export const checkoutSchemePickupReg = Yup.object().shape({});
+export const checkoutSchemePickupReg = Yup.object().shape({
+  pickup_city: Yup.string().required("Обязательное поле"),
+});
