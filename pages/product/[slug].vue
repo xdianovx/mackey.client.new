@@ -77,6 +77,10 @@ onMounted(async () => {
 //     },
 //   ],
 // });
+
+const currentColor = product.value.products_from_group.find(
+  (item) => item.id == product.value.id
+);
 </script>
 
 <template>
@@ -160,7 +164,12 @@ onMounted(async () => {
           </div>
 
           <div class="color" v-if="product?.products_from_group">
-            <div class="color-title">Цвета:</div>
+            <div class="color-title">
+              Цвет:
+              <p class="font-normal" v-for="item in currentColor.color">
+                {{ item.title }}
+              </p>
+            </div>
             <div class="colors-wrap">
               <UiProductPageColorItem
                 v-for="item in product?.products_from_group"
@@ -284,6 +293,8 @@ onMounted(async () => {
 }
 
 .color-title {
+  display: flex;
+  gap: 4px;
   font-weight: 700;
   font-size: 14px;
 }
